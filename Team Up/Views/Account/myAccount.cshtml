@@ -1,0 +1,75 @@
+﻿@model Team_Up.Models.AccountModel
+
+@{
+    ViewBag.Title = "MyAccount";
+}
+
+  
+<div>
+    
+    <hr />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6" style=" text-align: center;">
+                <img src="~/Uploads/@Html.DisplayFor(model => model.Avatar)" class="avatarClass" /><br />
+            </div>
+      
+            <div class="col-sm-6">
+                <h1>Account:   @Html.DisplayFor(model => model.UserName)</h1>
+                <table class="table table-striped">
+
+                    <tbody>
+                        <tr>
+
+                            <td class="tdMyaAvatar"> @Html.DisplayNameFor(model => model.Name)</td>
+                            <td> @Html.DisplayFor(model => model.Name)</td>
+
+                        </tr>
+                        <tr>
+
+                            <td class="tdMyaAvatar">@Html.DisplayNameFor(model => model.Surname)</td>
+                            <td> @Html.DisplayFor(model => model.Surname)</td>
+
+                        </tr>
+                        <tr>
+
+                            <td class="tdMyaAvatar"> @Html.DisplayNameFor(model => model.DateOfBirth)</td>
+                            <td>  @Html.DisplayFor(model => model.DateOfBirth)</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td class="tdMyaAvatar"> @Html.DisplayNameFor(model => model.Email)</td>
+                            <td>   @Html.DisplayNameFor(model => model.Email)</td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td class="tdMyaAvatar">@Html.DisplayNameFor(model => model.TypeAccount)</td>
+                            <td> @Html.DisplayFor(model => model.TypeAccount)</td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+  
+
+
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
