@@ -8,28 +8,16 @@ using System.Threading.Tasks;
 
 namespace Team_Up.Entities
 {
-    public class Competence
+    public class Category
     {
+
         [Key, Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CompetenceID { get; set; }
-
-        public string typology { get; set; }
-
+        public int CategoryID { get; set; }
+        public string Typology { get; set; }
         public string Color { get; set; }
-        public virtual ICollection<Account> Accounts { get; set; }
-
 
         public virtual ICollection<Project> Projects { get; set; }
-
-
-
-        public Competence()
-        {
-            this.Accounts = new HashSet<Account>();
-            this.Projects = new HashSet<Project>();
-        }
-
 
     }
 }

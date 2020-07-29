@@ -1,0 +1,229 @@
+﻿
+@model IEnumerable<Team_Up.Models.ProjectModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@Html.Hidden("myVar", 0);
+
+
+
+
+
+<h1>Progetto </h1>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th class="mediaNone">
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th class="mediaNone">
+                @Html.DisplayNameFor(model => model.DtInsert)
+            </th>
+            <th class="mediaNone">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th class="mediaNone">
+                @Html.DisplayNameFor(model => model.CreatorAccount)
+            </th>
+            <th style=" text-align: center;" class="mediaNone">
+                Competences
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model.OrderByDescending(x => x.DtInsert))
+        {
+
+            <tr>
+                <td>
+                    <div class="mediaNone">
+                        <b> @Html.DisplayFor(modelItem => item.Title)</b>
+
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ProjectID, year = 2 }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+
+
+                    </div>
+
+                    <div class="dettailResp">
+                        <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })<br />
+
+
+
+                        <b> @Html.DisplayFor(modelItem => item.Date): </b> @Html.DisplayNameFor(model => model.Date)<br />
+                        <b> @Html.DisplayFor(modelItem => item.DtInsert): </b> @Html.DisplayNameFor(model => model.DtInsert)<br />
+                        <b>CreatorAccount: </b> @Html.DisplayNameFor(model => model.CreatorAccount)<br />
+
+                        <b>Description</b>
+                        @{
+                            if (item.Description.Length > 350)
+                            {
+                                item.Description = item.Description.Substring(0, 345) + "..";
+                            }
+                        }
+
+                        <p style="max-width: 74%;  padding: 12px; overflow-wrap: break-word; word-wrap: break-word; hyphens: auto; white-space: break-spaces; overflow: auto;">@item.Description</p>
+
+                        <h3>Competences:</h3>
+                        <div id="CompetencesMobile" class="mediaNone">
+
+
+
+                            @{
+
+
+                                foreach (var itemCompetences in item.Competences)
+                                {
+
+
+                                    <a style="margin: 2px;" class="btn btn-@itemCompetences.Color"> @itemCompetences.typology.ToUpper()</a>
+                                }
+
+
+
+                            }
+
+                        </div>
+
+                        <h3>Categories:</h3>
+                        <div id="CompetencesMobile" class="mediaNone">
+
+
+                            @{
+                                foreach (var itemCategory in item.Categories)
+                                {
+
+                                    <a style="margin: 2px;" class="btn btn-@itemCategory.Color"> @itemCategory.Typology.ToUpper()</a>
+                                }
+
+
+
+                            }
+
+                        </div>
+
+
+
+
+                    </div>
+                </td>
+                <td class="mediaNone">
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td class="mediaNone">
+                    @Html.DisplayFor(modelItem => item.DtInsert)
+                </td>
+                <td class="mediaNone">
+
+                    @{
+                        if (item.Description.Length > 350)
+                        {
+                            item.Description = item.Description.Substring(0, 345) + "..";
+                        }
+                    }
+
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="mediaNone">
+                    @Html.DisplayFor(modelItem => item.CreatorAccount)
+                </td>
+                <td class="mediaNone">
+                    <h4 style="text-align: right;" class="mediaNone">Competences:</h4>
+                    <div id="Competences" class="mediaNone">
+
+
+
+                        @{
+
+
+                            foreach (var itemCompetences in item.Competences)
+                            {
+
+
+                                <a href="~/Project/Index/0?Competence=@itemCompetences.CompetenceID" style="margin: 2px;" class="btn btn-@itemCompetences.Color"> @itemCompetences.typology.ToUpper()</a>
+                            }
+
+
+
+                        }
+
+                    </div>
+                    <br />
+                    <h4 style="text-align: right;" class="mediaNone">Categories:</h4>
+                    <div id="Competences" class="mediaNone">
+
+                        @{
+                            var luca5 = Url.Action("Index", "Project"); ;
+
+
+
+                        }
+
+
+                        @{
+
+
+                            foreach (var itemCategory in item.Categories)
+                            {
+
+
+
+                                <a href="~/Project/Index/0?Category=@itemCategory.CategoryID" style="margin: 2px;" class="btn btn-@itemCategory.Color"> @itemCategory.Typology.ToUpper()</a>
+                            }
+
+
+
+                        }
+
+                    </div>
+
+
+
+            </tr>
+        }
+
+    </table>
+
+    @{
+        var pageIndex = (int)ViewBag.PageIndex;
+        var totalPages = (int)ViewBag.TotalPages;
+        var totalItems = (int)ViewBag.TotalItems;
+    }
+
+<div style="text-align:center;">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">        
+            <ul class="pagination">
+                @if (1 != pageIndex)
+                {
+                    <li class="page-item"><a class="page-link" href="?pageIndex=@(pageIndex-1)">Previous</a></li>
+                }
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(i==pageIndex?"active":"")"><a class="page-link" href="?pageIndex=@i">@i</a></li>
+                }
+
+                @if (totalPages != pageIndex)
+                {
+                    <li class="page-item"><a class="page-link" href="?pageIndex=@(pageIndex+1)">Next</a></li>
+                }
+
+            </ul>
+    </nav>
+</div>
+
+</div>

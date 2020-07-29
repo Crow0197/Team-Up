@@ -1,0 +1,52 @@
+﻿@model Team_Up.Models.ProjectModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<br />
+
+<div class="divDetail">
+
+
+    <div class="row">
+        <div class="col-sm-7">
+            <p style="font-size: 40px;"> @Html.DisplayFor(model => model.Title)</p>
+            <b class="bDetail">@Html.DisplayNameFor(model => model.Date):</b>  @Html.DisplayFor(model => model.Date)
+            <b class="bDetail">@Html.DisplayNameFor(model => model.CreatorAccount):</b>  @Html.DisplayFor(model => model.CreatorAccount)<b>&nbsp|&nbsp</b>
+            <br /><b class="bDetail">Data Creazione:</b>  @Html.DisplayFor(model => model.DtInsert)<b>&nbsp|&nbsp</b>
+            <b>Data Fine:</b>  @Html.DisplayFor(model => model.Date)
+            <br /><b class="bDetail">@Html.DisplayNameFor(model => model.Date):</b>  @Html.DisplayFor(model => model.Date)
+            <br /><b class="bDetail">Extra INFO:</b>  -----------
+            <br /><b class="bDetail">Extra INFO:</b>  -----------
+            <br /><b class="bDetail">Extra INFO:</b>  -----------
+        </div>
+        <div class="col-sm-5">
+        </div>
+        <img src="~/Uploads/ESEMPIO.png" style="    height: 250px;" />
+
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            @Html.DisplayFor(model => model.Description)
+        </div>
+    </div>
+</div>
+
+<div>
+
+
+</div>
+
+@{
+    Html.RenderPartial("_Task",Model.Description);
+}
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

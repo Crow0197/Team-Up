@@ -11,13 +11,14 @@
 {
     @Html.AntiForgeryToken()
 
+    ViewBag.success=true;
 
     if (ViewBag.success == false)
     {
 
         <h3> Errore Login, password o usaname errati</h3>
     }
-   
+
 
 
         <div class="form-horizontal">

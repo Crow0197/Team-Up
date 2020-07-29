@@ -11,7 +11,6 @@ namespace Team_Up.DAL.EF
     public class TeamUpContext : DbContext
     {
                
-
         public TeamUpContext() : base("TeamUpContext")
         {
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<TeamUpContext>());
@@ -24,10 +23,13 @@ namespace Team_Up.DAL.EF
 
         public DbSet<ProjectRole> ProjectRoles { get; set; }
 
-
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Signed_Up> Inscriptions { get; set; }
 
-       // public DbSet<RoleOnTheProject> RolesOnTheProjects { get; set; }
+        public DbSet<TaskP> Tasks { get; set; }
+
+
+        // public DbSet<RoleOnTheProject> RolesOnTheProjects { get; set; }
 
         public DbSet<Topic> Topics { get; set; }
 

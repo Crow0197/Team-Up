@@ -28,8 +28,8 @@ namespace Team_Up.Entities
    
 
         public virtual ICollection<Competence> Competences { get; set; }
-
         public virtual ICollection<Topic> Topics { get; set; }
+
 
         public virtual ICollection<Signed_Up> SignedUp { get; set; }
 
