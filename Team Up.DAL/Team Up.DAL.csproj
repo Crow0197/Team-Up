@@ -46,6 +46,8 @@
     <Compile Include="IRepositoryCompentence.cs" />
     <Compile Include="IRepositoryProject.cs" />
     <Compile Include="IRepositoryAccount.cs" />
+    <Compile Include="IRepositoryReply.cs" />
+    <Compile Include="IRepositoryTasks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

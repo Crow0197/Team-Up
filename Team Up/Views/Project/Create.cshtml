@@ -9,7 +9,7 @@
 @{
                 ViewBag.NotLogin = false;
                 if (ViewBag.NotLogin == true)
-                { <h1>FAIL IL LOGIN STRONZO</h1>}
+                { <h1>Prego fare il login</h1>}
 
                 else
                 {
@@ -58,7 +58,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2"> Compentece </label>
                                 <div class="col-md-10">
-                                    <select id="Compentece" name="Compentece" multiple style="width: 100%;">
+                                    <select id="Compentece" required name="Compentece" multiple style="width: 100%;">
 
                                         @foreach (var item in ViewBag.ListCompetence)
                                         {
@@ -75,7 +75,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2"> Compentece </label>
                                 <div class="col-md-10">
-                                    <select id="Category" name="Category" multiple style="width: 100%;">
+                                    <select required id="Category" name="Category" multiple style="width: 100%;">
 
                                         @foreach (var item in ViewBag.ListCategory)
                                         {

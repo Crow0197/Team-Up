@@ -55,10 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RepositoryReply.cs" />
     <Compile Include="Repository\RepositoryCategory.cs" />
     <Compile Include="Repository\RepositoryCompentence.cs" />
     <Compile Include="Repository\RepositoryProject.cs" />
     <Compile Include="Repository\RepositoryAccount.cs" />
+    <Compile Include="Repository\RepositoryTasks.cs" />
     <Compile Include="TeamUpContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

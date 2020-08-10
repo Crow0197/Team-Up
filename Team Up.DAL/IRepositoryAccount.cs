@@ -12,10 +12,14 @@ namespace Team_Up.DAL
         Account GetOne(int idSearch);
 
         Account GetOne(string Username);
-        void Update(Account account);
+
+        Account GetOneEmail(string email);
+        
+        bool Update(Account account);
+
         Boolean Delete(Account account);
         List<Account> GetAll();
-        bool Create(Account account);
+        bool Create(Account account, int[] competence);
         void Save();
 
     }

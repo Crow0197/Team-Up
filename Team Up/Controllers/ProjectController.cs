@@ -16,11 +16,14 @@ namespace Team_Up.Controllers
         ProjectManagement pm;
         CompentenceManagement cm;
         CategoryManagement categoryM;
+        TaskManagement tk;
+
 
         public ProjectController(){
             this.pm = new ProjectManagement();
             this.cm = new CompentenceManagement();
             this.categoryM = new CategoryManagement();
+            this.tk = new TaskManagement();
         }
 
 
@@ -111,7 +114,8 @@ namespace Team_Up.Controllers
 
 
             ProjectModel project = new ProjectModel();
-            
+
+            ViewBag.Task = tk.GetFromProject(id);
            // project = pm.;
             return View(pm.getOne(id));
         }

@@ -13,9 +13,22 @@ namespace Team_Up.DAL.EF.Repository
 
 
 
-        public bool Create(Account account)
+        public bool Create(Account account, int[] competencey)
         {
             TeamUpContext db = new TeamUpContext();
+
+
+            List<Competence> listCompetences = new List<Competence>();
+
+            if (competencey != null)
+                foreach (var item in competencey)
+                {
+                    listCompetences.Add(db.Competences.FirstOrDefault(c => c.CompetenceID == item));
+                }
+
+            account.Competences = listCompetences;
+                       
+
 
             if (GetOne(account.UserName) == null)
             {
@@ -35,7 +48,7 @@ namespace Team_Up.DAL.EF.Repository
         {
             TeamUpContext db = new TeamUpContext();
             Account account = new Account();
-            account = db.Accounts.SingleOrDefault(a => a.AccountID == id);
+            account = db.Accounts.FirstOrDefault(a => a.AccountID == id);
             return account;
         }
 
@@ -43,9 +56,20 @@ namespace Team_Up.DAL.EF.Repository
         {
             TeamUpContext db = new TeamUpContext();
             Account account = new Account();
-            account = db.Accounts.SingleOrDefault(a => a.UserName == username);
+            account = db.Accounts.FirstOrDefault(a => a.UserName == username);
             return account;
         }
+
+
+        public Account GetOneEmail(string email)
+        {
+            TeamUpContext db = new TeamUpContext();
+            Account account = new Account();
+            account = db.Accounts.FirstOrDefault(a => a.Email == email);
+            return account;
+        }
+
+
 
         public bool Delete(Account account)
         {
@@ -67,24 +91,27 @@ namespace Team_Up.DAL.EF.Repository
             db.SaveChanges();
         }
 
-        public void Update(Account account)
+        public bool Update(Account account)
         {
-            TeamUpContext db = new TeamUpContext();
-            var dbAccount = db.Accounts.First(a => a.UserName == account.UserName);
-            Type sourcetype = account.GetType();
-            Type destinationtype = dbAccount.GetType();
-            var sourceProperties = sourcetype.GetProperties();
-            var destionationProperties = destinationtype.GetProperties();
-            var commonproperties = from sp in sourceProperties
-                                   join dp in destionationProperties on new { sp.Name, sp.PropertyType } equals
-                                       new { dp.Name, dp.PropertyType }
-                                   select new { sp, dp };
-            foreach (var match in commonproperties)
+            try
             {
-                match.dp.SetValue(dbAccount, match.sp.GetValue(account, null), null);
+                TeamUpContext db = new TeamUpContext();
+                var dbAccount = db.Accounts.First(a => a.UserName == account.UserName);
+                dbAccount.Avatar = account.Avatar;
+               
+
+
+
+                db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
 
-            db.SaveChanges();
+            
 
         }
 

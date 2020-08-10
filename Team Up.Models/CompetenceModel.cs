@@ -13,6 +13,6 @@ namespace Team_Up.Models
 
         public string Color { get; set; }
 
-       
+        public bool Selected = false;
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using Team_Up.DAL;
@@ -22,7 +24,7 @@ namespace Team_Up.BLL
             accountRepository = new RepositoryAccount();
         }
 
-        public bool Registration(AccountModel newAccont)
+        public bool Registration(AccountModel newAccont, int[] Compentece)
         {
             Account entityAccounts = new Account();
             Mapping mapping = new Mapping();
@@ -31,7 +33,10 @@ namespace Team_Up.BLL
             //provaps = encryption.base64Decode2(provaps);
             mapping.MapObjects(newAccont,entityAccounts);
             entityAccounts.Password = encryption.base64Encode(entityAccounts.Password); 
-           return  accountRepository.Create(entityAccounts);
+
+
+
+           return  accountRepository.Create(entityAccounts, Compentece);
         }
 
 
@@ -108,6 +113,53 @@ namespace Team_Up.BLL
             }
             return account;
         }
+
+        public bool PasswordRecovery(string url, string email)
+        {
+
+
+            var UserName = accountRepository.GetOneEmail(email).UserName;
+
+
+            url = "http://www.cross-team.it/Account/ChangePassword/?user=" + UserName;
+           
+            MailMessage message = new MailMessage();
+            message.To.Add(email);
+            message.Subject = "Test Gmail da C#";
+            message.IsBodyHtml = true;
+            message.Body = "<a href=\""+url+"\">Link</a>";
+            message.From = new MailAddress("nonreplaycrossteam@gmail.com", "Password Recovery CROSS-TEAM");
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.EnableSsl = true;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential("nonreplaycrossteam@gmail.com", "Seven123");
+
+
+          
+
+            smtp.Send(message);
+
+
+
+            return true;
+        }
+
+
+        public bool ChangePassword(string user, string ps)
+        {
+            var account = accountRepository.GetOne(user);
+
+
+            if (account != null)
+            {
+                Encryption encryption = new Encryption();
+                account.Password = encryption.base64Encode(ps);
+                return accountRepository.Update(account);
+            };
+
+            return false;
+        }
+
 
 
     }

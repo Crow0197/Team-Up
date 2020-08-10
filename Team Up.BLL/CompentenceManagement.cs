@@ -43,6 +43,31 @@ namespace Team_Up
         }
 
 
+        public List<CompetenceModel> getAllForAccount(string account)
+        {
+
+            Mapping mapping = new Mapping();
+            List<CompetenceModel> competenceModels = new List<CompetenceModel>();
+            var compenteDB = compenteRepository.getAllForAccount(account);
+
+            if (compenteDB.Count != 0)
+            {
+                foreach (var item in compenteDB)
+                {
+                    CompetenceModel competence = new CompetenceModel();
+                    mapping.MapObjects(item, competence);
+                    competenceModels.Add(competence);
+                }
+
+
+            }
+
+
+
+            return competenceModels;
+        }
+
+
 
     }
 }

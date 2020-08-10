@@ -43,14 +43,14 @@
 
         @foreach (var item in Model.OrderByDescending(x => x.DtInsert))
         {
-
+                       
             <tr>
                 <td>
                     <div class="mediaNone">
                         <b> @Html.DisplayFor(modelItem => item.Title)</b>
 
                         @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ProjectID, year = 2 }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ProjectID}) |
                         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
 
 
@@ -59,7 +59,7 @@
                     <div class="dettailResp">
                         <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
                         @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) |
                         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })<br />
 
 
@@ -76,7 +76,7 @@
                             }
                         }
 
-                        <p style="max-width: 74%;  padding: 12px; overflow-wrap: break-word; word-wrap: break-word; hyphens: auto; white-space: break-spaces; overflow: auto;">@item.Description</p>
+                        <p style="max-width: 98%;  padding: 12px; overflow-wrap: break-word; word-wrap: break-word; hyphens: auto; white-space: break-spaces; overflow: auto;">@item.Description</p>
 
                         <h3>Competences:</h3>
                         <div id="CompetencesMobile" class="mediaNone">

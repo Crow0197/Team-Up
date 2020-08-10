@@ -41,9 +41,87 @@
 
 </div>
 
-@{
-    Html.RenderPartial("_Task",Model.Description);
-}
+<br />
+
+<a href="~/Task/Create?projectId=@Model.ProjectID" style="margin: 2px; float:right;" class="btn btn-info"> New Task</a>
+
+<br />
+
+
+<table class="table table-hover">
+
+    <thead style="background:black; color:white;">
+        <tr>
+
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Stato
+            </th>
+            <th>
+                DateInsert
+            </th>
+            <th>
+                DateClose
+            </th>
+
+
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in ViewBag.Task)
+    {
+        <tr>
+            <td style=" vertical-align: middle;">
+                @item.Name
+            </td>
+            <td style=" vertical-align: middle;">
+
+                @item.Description
+            </td>
+            <td style=" vertical-align: middle;">
+
+
+                @if (@item.isClosed)
+                {
+                    <i class="material-icons" style="color: #037d45;font-size: 30px;">done_outline </i>
+                }
+                else
+                {
+
+                    <i class="material-icons" style="color: #c01f1f; font-size: 35px;">
+                        trending_up
+                    </i>
+                }
+
+            </td>
+            <td style=" vertical-align: middle;">
+
+                @item.DateInsert
+            </td>
+            <td style=" vertical-align: middle;">                
+                @item.DateClose
+            </td>
+
+
+
+            <td style=" vertical-align: middle;">
+
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                <a href="~/Task/Details/@item.TaskID">Details</a> |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
 
 
 <p>

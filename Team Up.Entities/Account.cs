@@ -26,22 +26,11 @@ namespace Team_Up.Entities
         public string Password { get; set; }       
         public string TypeAccount { get; set; }
    
-
-        public virtual ICollection<Competence> Competences { get; set; }
-        public virtual ICollection<Topic> Topics { get; set; }
-
-
+        public virtual ICollection<Competence> Competences { get; set; }       
         public virtual ICollection<Signed_Up> SignedUp { get; set; }
-
-        public string Avatar { get; set; }
-
-
-        public Account()
-        {
-            this.Competences = new HashSet<Competence>();
-
-            this.Topics = new HashSet<Topic>();
-        }
+        public virtual ICollection<TaskP> Tasks { get; set; }
+        public virtual ICollection<Reply> Replies { get; set; }
+        public string Avatar { get; set; }       
 
 
     }

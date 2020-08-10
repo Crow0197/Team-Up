@@ -19,5 +19,9 @@ namespace Team_Up.Entities
         public DateTime DateInsert { get; set; }
         [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? DateClose { get; set; }
+        public int ProjectID { get; set; }
+        public string UserName { get; set; }
+        public string Description { get; set; }
+        public virtual ICollection<Reply> Replies { get; set; }
     }
 }

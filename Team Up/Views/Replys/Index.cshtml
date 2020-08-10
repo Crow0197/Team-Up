@@ -1,4 +1,4 @@
-﻿@model List<Team_Up.Models.TaskModel>
+﻿@model IEnumerable<Team_Up.Models.ReplyModel>
 
 @{
     Layout = null;
@@ -21,25 +21,13 @@
                 @Html.DisplayNameFor(model => model.TaskID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.isClosed)
+                @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DateInsert)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateClose)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Project)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccountCreator)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Message)
             </th>
             <th></th>
         </tr>
@@ -50,25 +38,13 @@
                 @Html.DisplayFor(modelItem => item.TaskID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isClosed)
+                @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateInsert)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateClose)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Project)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccountCreator)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Message)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

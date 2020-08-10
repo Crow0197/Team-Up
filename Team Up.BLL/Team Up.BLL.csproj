@@ -60,6 +60,8 @@
     <Compile Include="AccountManagement.cs" />
     <Compile Include="MapObjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReplyManagement.cs" />
+    <Compile Include="TaskManagement.cs" />
     <Compile Include="Upload.cs" />
   </ItemGroup>
   <ItemGroup>

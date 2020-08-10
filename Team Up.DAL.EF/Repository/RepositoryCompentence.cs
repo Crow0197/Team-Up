@@ -28,6 +28,15 @@ namespace Team_Up.DAL.EF
             return dbCompentence.Competences.ToList();
             
         }
+        
+
+        public List<Competence> getAllForAccount(string username)
+        {
+            var competence = dbCompentence.Competences.SqlQuery("  SELECT DISTINCT cm.*  FROM [CompetenceAccounts] ac  INNER JOIN[Competences] cm on ac.[Competence_CompetenceID] = cm.CompetenceID  where ac.[Account_UserName] = '"+ username + "'").ToList();
+             return competence;
+
+        }
+
 
         public Competence GetOne(int idSearch)
         {

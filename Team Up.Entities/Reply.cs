@@ -9,16 +9,15 @@ using System.Threading.Tasks;
 
 namespace Team_Up.Entities
 {
-   public class Reply
+    public class Reply
     {
         [Key, Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ReplyID { get; set; }
-
-        public Topic TopicID { get; set; }
-
-        public Account AccountCreator { get; set; }
-
+        public int ReplyID { get; set; }        
+        public int TaskID { get; set; }        
+        public string UserName { get; set; }      
+        public DateTime DateInsert { get; set; }
+        public string Message { get; set;  }
 
     }
 }

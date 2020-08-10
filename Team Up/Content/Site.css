@@ -86,7 +86,7 @@ textarea {
 
 
     #CompetencesMobile {
-        width: 350px;
+        
         display: flex;
         flex-flow: row-reverse wrap;
     }
@@ -132,4 +132,44 @@ textarea {
     margin-bottom: -1px;
     background-color: #fff;
     border: 1px solid rgba(0,0,0,.125);
+}
+
+
+.appTextArea {
+    padding: 1%;
+    border: 1px solid #00000029;
+    border-radius: 5px;
+}
+
+
+.editoButton {
+    background: none;
+    border: none;
+}
+
+#editor {
+    border: 1px solid #e3dbdb;
+    padding: 4px;
+}
+
+
+.message {
+    font-size: 13px;
+    font-family: monospace;
+    padding-top: 10px;
+}
+
+
+
+.profile {
+    text-align: center;
+}
+
+.profileAvatar {
+    border: 1px solid #00000054;
+    /* padding: 2px; */
+    width: 120px;
+    height: 120px;
+    border-radius: 28%;
+    margin-bottom: 12px;
 }

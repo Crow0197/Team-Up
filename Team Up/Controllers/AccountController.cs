@@ -15,12 +15,17 @@ namespace Team_Up.Controllers
     public class AccountController : Controller
     {
         AccountManagement am;
+        CompentenceManagement cm;
+       
+
 
         Cookie cookiemanagement = new Cookie();
 
         public AccountController()
         {
             this.am = new AccountManagement();
+            this.cm = new CompentenceManagement();
+          
         }
 
         // GET: Account
@@ -57,21 +62,32 @@ namespace Team_Up.Controllers
         // GET: Account/Create
         public ActionResult Create()
         {
+            IList<CompetenceModel> listCompetence = new List<CompetenceModel>();
+            listCompetence = cm.getAll();
+          
+
+            ViewBag.ListCompetence = listCompetence;
+          
+
 
             return View();
         }
 
         // POST: Account/Create
         [HttpPost]
-        public ActionResult Create(AccountModel newAccount)
+        public ActionResult Create(AccountModel newAccount, int[] Compentecey)
         {
+
+            ViewBag.NotLogin = true;
+           
+
             ViewBag.success = true;
 
             try
             {
                 // TODO: Add insert logic here
 
-                var success = am.Registration(newAccount);
+                var success = am.Registration(newAccount, Compentecey);
 
                 if (success)
                 {
@@ -94,18 +110,59 @@ namespace Team_Up.Controllers
         }
 
         // GET: Account/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            var usernLogin = cookiemanagement.GetCoockieAustetication();
+            var utente = am.GetAccountForUsername(usernLogin);
+
+            IList<CompetenceModel> allCompetence = new List<CompetenceModel>();
+            allCompetence = cm.getAll();
+
+            IList<CompetenceModel> userCompetence = new List<CompetenceModel>();
+            userCompetence = cm.getAllForAccount(usernLogin);
+                    
+
+            foreach (var item in allCompetence)
+            {
+                if (userCompetence.Any(x => x.CompetenceID == item.CompetenceID)) {
+                    item.Selected = true;
+                }
+
+            }
+
+            ViewBag.ListCompetence = allCompetence;
+
+
+            if (usernLogin != "")
+            {
+
+                ViewBag.NotLogin = false;
+            }
+
+            else
+            {
+                ViewBag.NotLogin = true;
+            }
+
+
+            return View(utente);
+
+       
         }
 
         // POST: Account/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(AccountModel collection, int[] Compentecey)
         {
             try
             {
-                // TODO: Add update logic here
+
+                var utente = am.GetAccountForUsername(collection.UserName);
+
+                
+
+
+                
 
                 return RedirectToAction("UploadAvatar");
             }
@@ -236,6 +293,40 @@ namespace Team_Up.Controllers
         {
             cookiemanagement.DeletCoockieAustetication();
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult PasswordRecovery() {          
+            
+            return View();
+        }
+
+
+        // POST: Account/Create
+        [HttpPost]
+        public ActionResult PasswordRecovery(string email){
+            am.PasswordRecovery(Url.Action("ChangePassword", "Account"), email);
+            return View();
+        }
+
+        
+        public ActionResult ChangePassword(string user)
+        {
+            ViewBag.User = user;
+            return View();
+        }
+
+
+    
+        [HttpPost]
+        public ActionResult ChangePassword(FormCollection collection)
+        {
+            ViewBag.Error = true;
+
+            if (am.ChangePassword(collection["User"], collection["password"]) == true) { return RedirectToAction("Login"); }
+
+            return View();
+
+                
         }
 
 

@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    <div class="appTextArea">
+        <div style="float: right;">
+            <button class="editoButton" id="make-bold" style=""><b style="font-size: 20px; ">B</b></button>
+            <button class="editoButton" id="make-italic" style=""><b style="font-size: 20px;">I</b></button>
+            <button class="editoButton" id="make-center" style="display:none;"> <i class="material-icons" style="font-size: 15px;">format_align_center</i></button>
+        </div>
+
+        <div id="editor" contenteditable="true"></div>
+
+
+
+    </div>
+
+  
+
+    <script>
+             
+
+        document.getElementById('make-bold').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            var selection = window.getSelection();
+            var range = selection.getRangeAt(0).cloneRange();
+            var tag = document.createElement('strong');
+
+            range.surroundContents(tag);
+            selection.addRange(range);
+        });
+
+
+        document.getElementById('make-italic').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            var selection = window.getSelection();
+            var range = selection.getRangeAt(0).cloneRange();
+            var tag = document.createElement('i');
+
+            range.surroundContents(tag);
+            selection.addRange(range);
+        });
+
+        document.getElementById('make-center').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            var selection = window.getSelection();
+            var range = selection.getRangeAt(0).cloneRange();
+            var tag = document.createElement('center');
+
+            range.surroundContents(tag);
+            selection.addRange(range);
+        });
+
+
+        
+
+       
+    </script>
+</body>
+</html>

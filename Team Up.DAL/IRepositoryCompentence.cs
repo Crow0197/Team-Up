@@ -13,7 +13,7 @@ namespace Team_Up.DAL
         void Update(Competence competence);
         Boolean Delete(Competence competence);
         List<Competence> GetAll();
-
+        List<Competence> getAllForAccount(string account);
         bool Create(Competence competence);
         void Save();
 
