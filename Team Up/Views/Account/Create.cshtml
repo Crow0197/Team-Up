@@ -83,11 +83,12 @@
             </div>
         </div>
 
-
+        
         <div class="form-group">
             <label class="control-label col-md-2"> Compentece </label>
             <div class="col-md-10">
-                <select id="Compentecey" name="Compentecey" multiple style="width: 100%;">
+
+                <select id="Compentecey" name="Compentecey" multiple required style="width: 100%;">
 
                     @foreach (var item in ViewBag.ListCompetence)
                     {
@@ -96,7 +97,9 @@
                     }
 
 
-                </select>
+                </select><br />
+                <b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
+
             </div>
         </div>
 
