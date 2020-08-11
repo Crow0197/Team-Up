@@ -12,6 +12,8 @@ namespace Team_Up.Models
 {
     public class AccountModel
     {
+
+        public int AccountID { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]

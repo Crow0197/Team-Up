@@ -71,11 +71,24 @@ namespace Team_Up.DAL.EF.Repository
 
 
 
-        public bool Delete(Account account)
+        public bool Delete(int id)
         {
-            TeamUpContext db = new TeamUpContext();
-            db.Accounts.Remove(account);
-            return true;
+
+            try
+            {
+                TeamUpContext db = new TeamUpContext();
+                var accountDelete = db.Accounts.First(x => x.AccountID == id);
+                db.Accounts.Remove(accountDelete);
+                db.Database.ExecuteSqlCommand("Delete from [CompetenceAccounts] where [UserName] = '" + accountDelete.UserName + "'");
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            
         }
         public List<Account> GetAll()
         {
@@ -97,16 +110,48 @@ namespace Team_Up.DAL.EF.Repository
             {
                 TeamUpContext db = new TeamUpContext();
                 var dbAccount = db.Accounts.First(a => a.UserName == account.UserName);
+
+
+                if(account.Avatar != null)                
                 dbAccount.Avatar = account.Avatar;
-               
+
+                if (account.DateOfBirth != null)
+                    dbAccount.DateOfBirth = account.DateOfBirth;
+
+                if (account.UserName != null)
+                    dbAccount.UserName = account.UserName;
+
+                if (account.Name != null)
+                    dbAccount.Name = account.Name;
+
+                if (account.Surname != null)
+                    dbAccount.Surname = account.Surname;
+
+                if (account.Email != null)
+                    dbAccount.Email = account.Email;
 
 
+                if (account.Competences != null) {                    
+                    db.Database.ExecuteSqlCommand("Delete from [CompetenceAccounts] where [UserName] = '" + account.UserName + "'" );
+
+
+                    List<Competence> listCompetences = new List<Competence>();
+                    
+                        foreach (var item in account.Competences)
+                        {
+                            listCompetences.Add(db.Competences.FirstOrDefault(c => c.CompetenceID == item.CompetenceID));
+                        }
+                        
+                    dbAccount.Competences = listCompetences;
+
+                }
+                    
 
                 db.SaveChanges();
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }

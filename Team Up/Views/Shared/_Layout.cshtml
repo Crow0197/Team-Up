@@ -37,6 +37,11 @@
                         {
                             <li>@Html.ActionLink(@cookie.Value, "myAccount", "Account")</li>
                             <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+
+                           if (cookie.Value == "Admin")
+                           {
+                                <li>@Html.ActionLink("Pannello di Controllo", "AdminControl", "AdminControl")</li>
+                            }
                         }
 
                         else

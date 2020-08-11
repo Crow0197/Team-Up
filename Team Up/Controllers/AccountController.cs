@@ -78,13 +78,9 @@ namespace Team_Up.Controllers
         public ActionResult Create(AccountModel newAccount, int[] Compentecey)
         {
 
-            ViewBag.NotLogin = true;
-           
-
-            ViewBag.success = true;
-
-            try
-            {
+            ViewBag.NotLogin = true;       
+            ViewBag.success = true;        
+            
                 // TODO: Add insert logic here
 
                 var success = am.Registration(newAccount, Compentecey);
@@ -98,15 +94,12 @@ namespace Team_Up.Controllers
                 else
                 {
                     ViewBag.success = false;
-                    return View();
-                }
-
-
-            }
-            catch (ArgumentException e)
-            {
-                return View();
-            }
+                    IList<CompetenceModel> listCompetence = new List<CompetenceModel>();
+                    listCompetence = cm.getAll();
+                    ViewBag.ListCompetence = listCompetence;
+                    return View(newAccount);
+                }           
+            
         }
 
         // GET: Account/Edit/5
@@ -155,21 +148,18 @@ namespace Team_Up.Controllers
         public ActionResult Edit(AccountModel collection, int[] Compentecey)
         {
             try
-            {
-
-                var utente = am.GetAccountForUsername(collection.UserName);
-
+            {                         
+                am.EditAccount(collection, Compentecey);
                 
-
-
-                
-
-                return RedirectToAction("UploadAvatar");
             }
             catch
             {
-                return View();
+               
             }
+
+            return RedirectToAction("Edit","Account", new { username= collection.UserName });
+
+
         }
 
         // GET: Account/Delete/5

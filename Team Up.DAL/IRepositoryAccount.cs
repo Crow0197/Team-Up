@@ -17,7 +17,7 @@ namespace Team_Up.DAL
         
         bool Update(Account account);
 
-        Boolean Delete(Account account);
+        Boolean Delete(int id);
         List<Account> GetAll();
         bool Create(Account account, int[] competence);
         void Save();

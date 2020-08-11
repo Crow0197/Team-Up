@@ -32,7 +32,7 @@ namespace Team_Up.DAL.EF
 
         public List<Competence> getAllForAccount(string username)
         {
-            var competence = dbCompentence.Competences.SqlQuery("  SELECT DISTINCT cm.*  FROM [CompetenceAccounts] ac  INNER JOIN[Competences] cm on ac.[Competence_CompetenceID] = cm.CompetenceID  where ac.[Account_UserName] = '"+ username + "'").ToList();
+            var competence = dbCompentence.Competences.SqlQuery("  SELECT DISTINCT cm.*  FROM [CompetenceAccounts] ac  INNER JOIN[Competences] cm on ac.[CompetenceID] = cm.CompetenceID  where ac.[UserName] = '" + username + "'").ToList();
              return competence;
 
         }
@@ -40,7 +40,7 @@ namespace Team_Up.DAL.EF
 
         public Competence GetOne(int idSearch)
         {
-            throw new NotImplementedException();
+            return dbCompentence.Competences.FirstOrDefault(x=> x.CompetenceID == idSearch);
         }
 
         public void Save()

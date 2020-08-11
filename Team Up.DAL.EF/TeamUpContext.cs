@@ -26,7 +26,35 @@ namespace Team_Up.DAL.EF
 
         // public DbSet<RoleOnTheProject> RolesOnTheProjects { get; set; }
 
-        
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<Account>()
+                        .HasMany<Competence>(s => s.Competences)
+                        .WithMany(c => c.Accounts)
+                        .Map(cs =>
+                        {
+                            cs.MapLeftKey("UserName");
+                            cs.MapRightKey("CompetenceID");
+                            cs.ToTable("CompetenceAccounts");
+                        });
+
+
+
+            //modelBuilder.Entity<Account>()
+            //            .HasMany<Project>(s => s.RegisteredProjects)
+            //            .WithMany(c => c.SignedUp)
+            //            .Map(cs =>
+            //            {
+            //                cs.MapLeftKey("ProjectID");
+            //                cs.MapRightKey("AccountID");
+            //                cs.ToTable("Signed_Up");
+            //            });
+
+
+        }
+
 
 
 

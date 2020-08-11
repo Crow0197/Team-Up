@@ -1,0 +1,26 @@
+﻿@model Team_Up.Models.AccountModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Vuoi eliminare <b>@Model.UserName</b>?</h3>
+<div>
+
+
+
+    @using (Html.BeginForm())
+    {
+
+        @Html.AntiForgeryToken()
+
+        <input value="@Model.AccountID" name="id" style="display:none;" />
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Elimina" class="btn btn-danger" /> |
+            @Html.ActionLink("Torna Indietro", "Index", "AdminControl", new { @class = " btn btn-info" })
+        </div>
+    }
+</div>

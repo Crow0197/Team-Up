@@ -161,6 +161,63 @@ namespace Team_Up.BLL
         }
 
 
+        public List<AccountModel> getAll() {
+
+            List<AccountModel> accountModels = new List<AccountModel>();
+            var listDB = accountRepository.GetAll();
+            Mapping mapping = new Mapping();       
+            
+
+
+            if (listDB != null)
+            {
+                foreach (var item in listDB)
+                {
+                    AccountModel itemE = new AccountModel();
+                    mapping.MapObjects(item, itemE);
+                    accountModels.Add(itemE);
+                }
+               
+            }
+
+            return accountModels;
+
+
+
+        }
+
+        public bool EditAccount(AccountModel accountM, int[] Compentecey) {
+
+            CompentenceManagement cm = new CompentenceManagement();
+            Mapping mapping = new Mapping();
+            Account accountE = new Account();     
+            mapping.MapObjects(accountM, accountE);
+            IList<Competence> CompetenceyAccount = new List<Competence>();          
+
+
+            foreach (var item in Compentecey)
+            {
+                var itemC = cm.getOne(item);               
+                CompetenceyAccount.Add(itemC);                
+            }
+
+            accountE.Competences = CompetenceyAccount;
+            accountRepository.Update(accountE);
+
+
+
+
+            return true;
+        }
+
+
+        public bool Delete(int id)
+        {           
+            accountRepository.Delete(id);
+            return true;
+        }
+
+
 
     }
 }

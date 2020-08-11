@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Team_Up.Models.AccountModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+
+<h2>Control Panel</h2>
+
+
+<div id="exTab1" class="container">
+    <ul class="nav nav-pills">
+        <li class="active">
+            <a href="#1a" data-toggle="tab">Account</a>
+        </li>
+        <li>
+            <a href="#2a" data-toggle="tab">Compentence</a>
+        </li>
+        <li>
+            <a href="#3a" data-toggle="tab">Categories</a>
+        </li>
+     
+    </ul><br />
+
+    <div class="tab-content clearfix">
+        <div class="tab-pane active" id="1a">           
+            <table class="table">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Surname
+                    </th>
+                    <th>
+                        DateOfBirth
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Tipo Account
+                    </th>
+                    <th>
+                        UserName
+                    </th>
+
+                    <th></th>
+                </tr>
+
+                @foreach (var item in ViewBag.Accounts)
+                {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.Surname
+                        </td>
+                        <td>
+                            @item.DateOfBirth
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td>
+                            @item.TypeAccount
+                        </td>
+                        <td>
+                            @item.UserName
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { username = item.UserName }) |                      
+                            @Html.ActionLink("Delete", "Delete", new { username = item.UserName })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+        <div class="tab-pane" id="2a">
+            <h3>We use the class nav-pills instead of nav-tabs which automatically creates a background color for the tab</h3>
+        </div>
+        <div class="tab-pane" id="3a">
+            <h3>We applied clearfix to the tab-content to rid of the gap between the tab and the content</h3>
+        </div>
+      
+    </div>
+</div>
+
+
+

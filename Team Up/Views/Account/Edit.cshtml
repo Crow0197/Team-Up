@@ -1,7 +1,7 @@
 ﻿@model Team_Up.Models.AccountModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Modifica Il tuo profilo";
 }
 
 <h2>Edit</h2>
@@ -11,64 +11,92 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>AccountModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                     
-               
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    <h4>AccountModel</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+    <div class="form-group" style="display:none;">
+        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
         </div>
+    </div>
 
 
-        <div class="form-group">
-            <label class="control-label col-md-2"> Compentece </label>
-            <div class="col-md-10">
-                <select id="Compentecey" name="Compentecey" multiple style="width: 100%;">
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-                    @foreach (var item in ViewBag.ListCompetence)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2"> Compentece </label>
+        <div class="col-md-10">
+            <select id="Compentecey" name="Compentecey" multiple style="width: 100%;">
+
+                @foreach (var item in ViewBag.ListCompetence)
+                {
+
+                    if (item.Selected)
+                    {
+                        <option value="@item.CompetenceID" selected>@item.typology</option>
+
+                    }
+                    else
                     {
 
-                        if (item.Selected)
-                        {
-                            <option value="@item.CompetenceID" selected>@item.typology</option>
-
-                        }
-                        else
-                        {
-
-                            <option value="@item.CompetenceID">@item.typology</option>
-                        }
-
-
-
-
+                        <option value="@item.CompetenceID">@item.typology</option>
                     }
 
 
-                </select>
-                <br /><b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
-            </div>
-        </div>
 
 
+                }
 
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Avanti" class="btn btn-default" />
-            </div>
+            </select>
+            <br /><b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
         </div>
     </div>
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Avanti" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+      @Html.ActionLink("Cambia Avatar", "UploadAvatar")
 </div>
 
 @section Scripts {

@@ -5,6 +5,7 @@ using System.Web;
 using Team_Up.BLL;
 using Team_Up.DAL;
 using Team_Up.DAL.EF;
+using Team_Up.Entities;
 using Team_Up.Models;
 
 namespace Team_Up
@@ -67,6 +68,10 @@ namespace Team_Up
             return competenceModels;
         }
 
+
+        public Competence getOne(int id) {       
+            return compenteRepository.GetOne(id);
+        }
 
 
     }

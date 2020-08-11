@@ -11,12 +11,12 @@
 {
     @Html.AntiForgeryToken()
 
-    ViewBag.success = true;
+  
+
 
     if (ViewBag.success == false)
     {
-
-        <h3> Errore Login, password o usaname errati</h3>
+        <h3> Errore Username o Email già presente</h3>
     }
 
 
