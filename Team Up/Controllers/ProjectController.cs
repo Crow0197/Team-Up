@@ -29,25 +29,117 @@ namespace Team_Up.Controllers
 
         // GET: Project
         [HttpGet]
-        public ActionResult Index(int? id, int? Competence,int? Category, int pageIndex = 1, string progetto = "")
+        public ActionResult Index(int[] Compentecey, int[] CategoryFilter, DateTime? dataCreate, int? id, int? Competence,int? Category, int pageIndex = 1, string progetto = "", string parolachiave="", string autore = "")
         {
+           
+            List<ProjectModel> getList = new List<ProjectModel>();
 
-            if (progetto != ViewBag.Progetto ) {
+            getList = pm.getAll();
+                                   
+           
+            if (progetto != ViewBag.Progetto)
+            {
                 ViewBag.Progetto = progetto;
 
             }
-            else if (ViewBag.Progetto == null)
-            {
-                ViewBag.Progetto = "";
+
+            if (progetto != "") {
+                getList = getList.Where(x=> x.Title.Contains(progetto)).ToList();
+
             }
-                
+
+
+           
+
+
+            if (parolachiave != ViewBag.Descrizione)
+            {
+                ViewBag.Descrizione = parolachiave;
+            }
+            if (parolachiave != "")
+            {
+                getList = getList.Where(x => x.Description.Contains(parolachiave)).ToList();
+
+            }
+
+
+
+            if (autore != ViewBag.Autore)
+            {
+                ViewBag.Autore = autore;
+            }
+            if (autore != "")
+            {
+                getList = getList.Where(x => x.CreatorAccount.Contains(autore)).ToList();
+
+            }
+
+
+
+            if (dataCreate != ViewBag.DataCreate)
+            {
+                ViewBag.DataCreate = dataCreate;
+            }
+            if (dataCreate != null)
+            {                
+                getList = getList.Where(x => x.Date == dataCreate).ToList();
+
+            }
 
 
 
 
-           List<ProjectModel> getList = new List<ProjectModel>();
 
-            getList = pm.getAll();
+            ViewBag.ListCompetence = cm.getAll();
+
+            if (Compentecey != null   ) { 
+            foreach (var item in ViewBag.ListCompetence)
+            {
+                if (Compentecey.Any(x => x == item.CompetenceID))
+                {
+                    item.Selected = true;
+                }
+
+            }
+
+
+                foreach (var item in Compentecey)
+                {
+                    getList = getList.Where(x => x.Competences.Any(y => y.CompetenceID == item)).ToList();
+                }
+              
+            }
+
+
+
+            ViewBag.ListCategory = categoryM.getAll();
+
+            if (CategoryFilter != null)
+            {
+                foreach (var item in ViewBag.ListCategory)
+                {
+                    if (CategoryFilter.Any(x => x == item.CategoryID))
+                    {
+                        item.Selected = true;
+                    }
+
+                }
+
+
+                foreach (var item in CategoryFilter)
+                {
+                    getList = getList.Where(x => x.Categories.Any(y => y.CategoryID == item)).ToList();
+                }
+
+            }
+
+
+
+
+
+
+
+
 
             if (id != 0 && id !=null) {
                 getList = getList.Where(x=> x.ProjectID == id).ToList();
@@ -107,7 +199,7 @@ namespace Team_Up.Controllers
 
 
 
-            int pageSize = 3;
+            int pageSize = 6;
             ViewBag.PageIndex = pageIndex;
             var totalItems = getList.Count();
             var totalPages = (totalItems / pageSize) + 1;

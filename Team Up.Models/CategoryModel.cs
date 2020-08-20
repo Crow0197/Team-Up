@@ -13,7 +13,7 @@ namespace Team_Up.Models
         public int CategoryID { get; set; }
         public string Color { get; set; }
 
-
+        public bool Selected = false;
 
 
     }

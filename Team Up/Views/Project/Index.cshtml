@@ -12,51 +12,111 @@
 <div class="container" style=" margin-top: 5%;">
 
 
- <form method="get">
+    <form method="get">
 
         @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <div class="row">
-            <div class="col-sm-3">
-                <label>Progetto:</label>
-                <input type="text" class="form-control" placeholder="Nome Progetto" name="progetto" style="width:100%;" value="@ViewBag.Progetto">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Progetto:</label>
+                    <input type="text" class="form-control" placeholder="Nome Progetto" name="progetto" style="width:100%;" value="@ViewBag.Progetto">
+                </div>
+                <div class="col-sm-3">
+                    <label>Parola Chiave:</label>
+                    <input type="text" class="form-control" name="parolachiave" placeholder="Parola Chiave" value="@ViewBag.Descrizione">
+                </div>
+                <div class="col-sm-3">
+                    <label>Autore:</label>
+                    <input type="text" class="form-control" name="autore" placeholder="Autore" value="@ViewBag.Autore">
+                </div>
+                <div class="col-sm-3">
+                    <label>Data Creazione:</label>
+
+                    @{
+
+                        if (@ViewBag.DataCreate != null)
+                        {
+                            <input type="date" class="form-control" name="dataCreate" value="@ViewBag.DataCreate.ToString("yyyy-MM-dd")">
+
+                        }
+                        else
+                        {
+                            <input type="date" class="form-control" name="dataCreate" value="">
+
+                        }
+
+                    }
+
+                </div>
             </div>
-            <div class="col-sm-3">
-                <label>Parola Chiave:</label>
-                <input type="text" class="form-control" name="parolachiave" placeholder="Last name">
+
+            <div class="row">
+                <br />
+                <div class="col-sm-6">
+                    <label>Competenze:</label><br />
+                    <select id="Compentecey" name="Compentecey" multiple style="width: 100%;     max-width: 100%;">
+
+                        @foreach (var item in ViewBag.ListCompetence)
+                        {
+                            if (item.Selected)
+                            {
+                                <option value="@item.CompetenceID" selected>@item.typology</option>
+
+                            }
+                            else
+                            {
+
+                                <option value="@item.CompetenceID">@item.typology</option>
+                            }
+
+                        }
+
+
+
+
+                    </select><br />
+                    <b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
+
+                </div>
+                <div class="col-sm-6">
+                    <label>Categorie:</label><br />
+                    <select id="Category" name="CategoryFilter" multiple style="width: 100%;    max-width: 100%;">
+
+                        @foreach (var item in ViewBag.ListCategory)
+                        {
+                            if (item.Selected)
+                            {
+                                <option value="@item.CategoryID" selected>@item.Typology</option>
+
+                            }
+                            else
+                            {
+
+                                <option value="@item.CategoryID">@item.Typology</option>
+                            }
+
+                        }
+
+
+
+
+                    </select><br />
+                    <b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
+
+                </div>
+
             </div>
-            <div class="col-sm-3">
-                <label>Autore:</label>
-                <input type="text" class="form-control" name="autore" placeholder="Last name">
-            </div>
-            <div class="col-sm-3">
-                <label>Data Creazione:</label>
-                <input type="date" class="form-control" name="data" placeholder="Last name">
+            <br />
+            <div class="form-group" style="float:right;">
+                <div class="">
+                    <input type="submit" value="Cerca" class="btn btn-default" id="invio" />
+                    @Html.ActionLink("Reset", "Index", "Project", new { @class = "btn btn-default" })
+                </div>
             </div>
         </div>
 
-        <div class="row">
-           <br />
-            <div class="col-sm-6">
-                <label>Competenze:</label>
-                <input type="text" class="form-control" placeholder="Last name">
-            </div>
-            <div class="col-sm-6">
-                <label>Categorie:</label>
-                <input type="date" class="form-control" placeholder="Last name">
-            </div>
-          
-        </div>
-        <br />
-        <div class="form-group" style="float:right;">
-            <div class="">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-   
-    </form>
+
 </div>
 
 
@@ -272,16 +332,32 @@
                 <ul class="pagination">
                     @if (1 != pageIndex)
                     {
-                        <li class="page-item"><a class="page-link" href="?pageIndex=@(pageIndex-1)">Previous</a></li>
+
+                        <button name="pageIndex" value="@(pageIndex-1)" class="pageN pdsads" onclick="fi()" type="checkbox" style=" background: none;border: 0px solid;color: black;font-size: 16px;font-family: monospace;"><</button>
                     }
                     @for (int i = 1; i <= totalPages; i++)
                     {
-                        <li class="page-item @(i==pageIndex?"active":"")"><a class="page-link" href="?pageIndex=@i">@i</a></li>
+                        //<li class="page-item @(i==pageIndex?"active":"")"><a class="page-link" href="?pageIndex=@i">@i</a></li>
+
+                        if (i == pageIndex)
+                        {
+                            <button name="pageIndex" value="@i" class="pageN pdsads" onclick="fi()" type="checkbox" style="   background: none;border: 0px solid;color: blue;font-size: 16px;font-family: monospace;">@i</button>
+
+                        }
+                        else
+                        {
+
+                            <button name="pageIndex" value="@i" class="pageN pdsads" onclick="fi()" type="checkbox" style=" background: none;border: 0px solid;color: black;font-size: 16px;font-family: monospace;">@i</button>
+
+                        }
+
                     }
 
                     @if (totalPages != pageIndex)
                     {
-                        <li class="page-item"><a class="page-link" href="?pageIndex=@(pageIndex+1)">Next</a></li>
+                        <li class="page-item">
+                            <button name="pageIndex" value="@(pageIndex+1)" class="pageN" style=" background: none;border: 0px solid;color: black;font-size: 16px;font-family: monospace;" onclick="fi()" type="checkbox">></button>
+                        </li>
                     }
 
                 </ul>
@@ -289,3 +365,19 @@
     </div>
 
 </div>
+
+
+<script>
+
+    function fi() {
+        document.getElementById("invio").click();
+       
+    }
+
+
+
+
+
+</script>
+
+    </form>

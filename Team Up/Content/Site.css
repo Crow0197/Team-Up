@@ -186,3 +186,11 @@ textarea {
     font-family: inherit;
     font-variant: small-caps;
 }
+
+.pdsads {
+    background: none;
+    border: 0px solid;
+    color: blue;
+    font-size: 16px;
+    font-family: monospace;
+}
