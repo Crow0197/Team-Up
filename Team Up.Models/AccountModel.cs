@@ -18,9 +18,12 @@ namespace Team_Up.Models
         public string Surname { get; set; }
         [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
 
+
+      
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
         [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"\S+@\S+\.\S+", ErrorMessage = "Please enter a valid email address.")]
         [Required]
         public string Email { get; set; }
         [Required(ErrorMessage = "Password is required")]

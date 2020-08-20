@@ -7,6 +7,18 @@
 <h2>Modifca Profilo di : <b>@Model.UserName</b></h2>
 
 
+  @if (ViewBag.success != null)
+    {
+<script type="text/javascript">
+    window.onload = function () {
+        $('#myModal').modal('show');
+    };
+</script>
+    }
+
+
+
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -96,9 +108,38 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "AdminControl", "AdminControl" ) 
+    @Html.ActionLink("Back to List", "AdminControl", "AdminControl")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-body">
+                @if (ViewBag.success == true)
+                {
+
+                    <h1> Avatar aggiornato</h1><br>
+
+                }
+                else if (ViewBag.success == false)
+                {
+                    <h1> Error</h1><br>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

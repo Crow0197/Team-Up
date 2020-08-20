@@ -11,13 +11,20 @@
 {
     @Html.AntiForgeryToken()
 
-  
 
 
-    if (ViewBag.success == false)
+
+    if (ViewBag.success != null)
     {
-        <h3> Errore Username o Email già presente</h3>
+        <script type="text/javascript">
+            window.onload = function () {
+                $('#myModal').modal('show');
+            };
+        </script>
     }
+
+
+
 
 
 
@@ -54,7 +61,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", @min="1900-01-02", @max = "2016-01-01" } })
                 @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -83,7 +90,7 @@
             </div>
         </div>
 
-        
+
         <div class="form-group">
             <label class="control-label col-md-2"> Compentece </label>
             <div class="col-md-10">
@@ -130,3 +137,31 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-body">
+                @if (ViewBag.success == true)
+                {
+
+                    <h1> Avatar aggiornato</h1><br>
+
+                }
+                else if (ViewBag.success == false)
+                {
+                    <h1> Error</h1><br>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

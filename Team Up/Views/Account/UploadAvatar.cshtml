@@ -26,16 +26,15 @@
             display: flex;
         }
 
-        .btnInput:hover {
-            color: lightblue;
-            height: 60px;
-            background-color: black;
-            font-size: 20px;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-
-        }
+            .btnInput:hover {
+                color: lightblue;
+                height: 60px;
+                background-color: black;
+                font-size: 20px;
+                justify-content: center;
+                align-items: center;
+                display: flex;
+            }
 
 
         .labelInput {
@@ -73,7 +72,7 @@
             if (ViewBag.NotLogin == true)
             {
 
-        
+
 
             }
             else
@@ -82,20 +81,20 @@
                 if (ViewBag.Message == true)
                 {
 
-                <script type="text/javascript">
-                    window.onload = function () {
-                        $('#myModal').modal('show');
-                    };
-                </script>
+                    <script type="text/javascript">
+                        window.onload = function () {
+                            $('#myModal').modal('show');
+                        };
+                    </script>
 
                 }
                 else if (ViewBag.Message == false)
                 {
-    <script type="text/javascript">
-        window.onload = function () {
-            $('#myModal').modal('show');
-        };
-    </script>
+                    <script type="text/javascript">
+                        window.onload = function () {
+                            $('#myModal').modal('show');
+                        };
+                    </script>
                 }
 
 
@@ -179,17 +178,17 @@
 
             <!-- Modal content-->
             <div class="modal-content">
-               
+
                 <div class="modal-body">
                     @if (ViewBag.Message == true)
                     {
 
-                    <h1> Avatar aggiornato</h1><br>
+                        <h1> Avatar aggiornato</h1><br>
 
                     }
                     else if (ViewBag.Message == false)
                     {
-                    <h1> Error</h1><br>
+                        <h1> Error</h1><br>
                     }
                 </div>
                 <div class="modal-footer">
@@ -200,7 +199,7 @@
         </div>
     </div>
 
-   
+
 
 
 

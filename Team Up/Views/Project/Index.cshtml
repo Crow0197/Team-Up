@@ -6,7 +6,60 @@
 }
 
 
-@Html.Hidden("myVar", 0);
+@Html.Hidden("myVar", 0)
+
+
+<div class="container" style=" margin-top: 5%;">
+
+
+ <form method="get">
+
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-sm-3">
+                <label>Progetto:</label>
+                <input type="text" class="form-control" placeholder="Nome Progetto" name="progetto" style="width:100%;" value="@ViewBag.Progetto">
+            </div>
+            <div class="col-sm-3">
+                <label>Parola Chiave:</label>
+                <input type="text" class="form-control" name="parolachiave" placeholder="Last name">
+            </div>
+            <div class="col-sm-3">
+                <label>Autore:</label>
+                <input type="text" class="form-control" name="autore" placeholder="Last name">
+            </div>
+            <div class="col-sm-3">
+                <label>Data Creazione:</label>
+                <input type="date" class="form-control" name="data" placeholder="Last name">
+            </div>
+        </div>
+
+        <div class="row">
+           <br />
+            <div class="col-sm-6">
+                <label>Competenze:</label>
+                <input type="text" class="form-control" placeholder="Last name">
+            </div>
+            <div class="col-sm-6">
+                <label>Categorie:</label>
+                <input type="date" class="form-control" placeholder="Last name">
+            </div>
+          
+        </div>
+        <br />
+        <div class="form-group" style="float:right;">
+            <div class="">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+   
+    </form>
+</div>
+
+
 
 
 
@@ -43,21 +96,30 @@
 
         @foreach (var item in Model.OrderByDescending(x => x.DtInsert))
         {
-                       
+
             <tr>
                 <td>
                     <div class="mediaNone">
-                        <b> @Html.DisplayFor(modelItem => item.Title)</b>
+
+                        <b style="color:black">
+                            @Html.ActionLink(item.Title, "Details", new { id = item.ProjectID }, new { @style = "color:black;    font-size: 20px;" })
+                            <br />
+                        </b>
+
 
                         @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ProjectID}) |
+
                         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
 
 
                     </div>
 
                     <div class="dettailResp">
-                        <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+                        <h2>
+                            <b style="color:black">
+                                @Html.ActionLink(item.Title, "Details", new { id = item.ProjectID }, new { @style = "color:black;" })
+                            </b>
+                        </h2>
                         @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                         @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) |
                         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })<br />
@@ -204,26 +266,26 @@
         var totalItems = (int)ViewBag.TotalItems;
     }
 
-<div style="text-align:center;">
-    <nav aria-label="Page navigation">
-        <ul class="pagination">        
+    <div style="text-align:center;">
+        <nav aria-label="Page navigation">
             <ul class="pagination">
-                @if (1 != pageIndex)
-                {
-                    <li class="page-item"><a class="page-link" href="?pageIndex=@(pageIndex-1)">Previous</a></li>
-                }
-                @for (int i = 1; i <= totalPages; i++)
-                {
-                    <li class="page-item @(i==pageIndex?"active":"")"><a class="page-link" href="?pageIndex=@i">@i</a></li>
-                }
+                <ul class="pagination">
+                    @if (1 != pageIndex)
+                    {
+                        <li class="page-item"><a class="page-link" href="?pageIndex=@(pageIndex-1)">Previous</a></li>
+                    }
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="page-item @(i==pageIndex?"active":"")"><a class="page-link" href="?pageIndex=@i">@i</a></li>
+                    }
 
-                @if (totalPages != pageIndex)
-                {
-                    <li class="page-item"><a class="page-link" href="?pageIndex=@(pageIndex+1)">Next</a></li>
-                }
+                    @if (totalPages != pageIndex)
+                    {
+                        <li class="page-item"><a class="page-link" href="?pageIndex=@(pageIndex+1)">Next</a></li>
+                    }
 
-            </ul>
-    </nav>
-</div>
+                </ul>
+        </nav>
+    </div>
 
 </div>

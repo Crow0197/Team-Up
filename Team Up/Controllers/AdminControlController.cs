@@ -110,10 +110,11 @@ namespace Team_Up.Controllers
             try
             {
                 am.EditAccount(collection, Compentecey);
+                ViewBag.success = true;
             }
             catch
             {
-
+                ViewBag.success = false;
             }
 
             return RedirectToAction("Edit", new { username = collection.UserName });

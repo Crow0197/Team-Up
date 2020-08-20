@@ -30,7 +30,7 @@ namespace Team_Up.DAL.EF.Repository
                        
 
 
-            if (GetOne(account.UserName) == null)
+            if (GetOne(account.UserName) == null && GetOneEmail(account.Email) == null)
             {
                 db.Accounts.Add(account);
                 db.SaveChanges();
@@ -130,6 +130,8 @@ namespace Team_Up.DAL.EF.Repository
                 if (account.Email != null)
                     dbAccount.Email = account.Email;
 
+                if (account.Password != null)
+                    dbAccount.Password = account.Password;
 
                 if (account.Competences != null) {                    
                     db.Database.ExecuteSqlCommand("Delete from [CompetenceAccounts] where [UserName] = '" + account.UserName + "'" );

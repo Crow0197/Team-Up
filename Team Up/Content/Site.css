@@ -173,3 +173,16 @@ textarea {
     border-radius: 28%;
     margin-bottom: 12px;
 }
+
+.navbar-brand {
+    color: white !important;
+    font-family: inherit;
+    font-variant: small-caps;
+    font-size: 25px;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+    font-family: inherit;
+    font-variant: small-caps;
+}

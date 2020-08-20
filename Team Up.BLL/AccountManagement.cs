@@ -16,7 +16,7 @@ namespace Team_Up.BLL
     {
         IRepositoryAccount accountRepository;
 
-        
+
 
         public AccountManagement()
         {
@@ -31,12 +31,12 @@ namespace Team_Up.BLL
             Encryption encryption = new Encryption();
             //var provaps = encryption.base64Encode("ciao");
             //provaps = encryption.base64Decode2(provaps);
-            mapping.MapObjects(newAccont,entityAccounts);
-            entityAccounts.Password = encryption.base64Encode(entityAccounts.Password); 
+            mapping.MapObjects(newAccont, entityAccounts);
+            entityAccounts.Password = encryption.base64Encode(entityAccounts.Password);
 
 
 
-           return  accountRepository.Create(entityAccounts, Compentece);
+            return accountRepository.Create(entityAccounts, Compentece);
         }
 
 
@@ -47,15 +47,16 @@ namespace Team_Up.BLL
 
             Account accountDB = accountRepository.GetOne(id);
 
-            if (accountDB != null) {
+            if (accountDB != null)
+            {
                 mapping.MapObjects(accountDB, account);
             }
-          
+
             return account;
         }
 
 
-        public bool LoginCertification(string userName,string password)
+        public bool LoginCertification(string userName, string password)
         {
 
             bool success = false;
@@ -80,11 +81,12 @@ namespace Team_Up.BLL
                 }
             }
 
-            else {
+            else
+            {
                 success = false;
             }
 
-            
+
             return success;
         }
 
@@ -92,18 +94,19 @@ namespace Team_Up.BLL
 
 
 
-        public void ChangeAvatar(string username, string fileName)       
+        public void ChangeAvatar(string username, string fileName)
         {
             Account account = new Account();
 
-            account = accountRepository.GetOne(username);        
+            account = accountRepository.GetOne(username);
             account.Avatar = fileName;
             accountRepository.Update(account);
         }
 
 
-        public AccountModel GetAccountForUsername(string username) {
-           
+        public AccountModel GetAccountForUsername(string username)
+        {
+
             AccountModel account = new AccountModel();
             Mapping mapping = new Mapping();
             Account accountDB = accountRepository.GetOne(username);
@@ -116,32 +119,25 @@ namespace Team_Up.BLL
 
         public bool PasswordRecovery(string url, string email)
         {
+            var account = accountRepository.GetOneEmail(email);
+            if (account != null)
+            {
+                url = "http://www.cross-team.it/Account/ChangePassword/?user=" + account.UserName;
+                MailMessage message = new MailMessage();
+                message.To.Add(email);
+                message.Subject = "Test Gmail da C#";
+                message.IsBodyHtml = true;
+                message.Body = "<a href=\"" + url + "\">Link</a>";
+                message.From = new MailAddress("nonreplaycrossteam@gmail.com", "Password Recovery CROSS-TEAM");
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("nonreplaycrossteam@gmail.com", "Seven123");
+                smtp.Send(message);
 
-
-            var UserName = accountRepository.GetOneEmail(email).UserName;
-
-
-            url = "http://www.cross-team.it/Account/ChangePassword/?user=" + UserName;
-           
-            MailMessage message = new MailMessage();
-            message.To.Add(email);
-            message.Subject = "Test Gmail da C#";
-            message.IsBodyHtml = true;
-            message.Body = "<a href=\""+url+"\">Link</a>";
-            message.From = new MailAddress("nonreplaycrossteam@gmail.com", "Password Recovery CROSS-TEAM");
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.EnableSsl = true;
-            smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential("nonreplaycrossteam@gmail.com", "Seven123");
-
-
-          
-
-            smtp.Send(message);
-
-
-
-            return true;
+                return true;
+            }
+            return false;
         }
 
 
@@ -161,12 +157,13 @@ namespace Team_Up.BLL
         }
 
 
-        public List<AccountModel> getAll() {
+        public List<AccountModel> getAll()
+        {
 
             List<AccountModel> accountModels = new List<AccountModel>();
             var listDB = accountRepository.GetAll();
-            Mapping mapping = new Mapping();       
-            
+            Mapping mapping = new Mapping();
+
 
 
             if (listDB != null)
@@ -177,7 +174,7 @@ namespace Team_Up.BLL
                     mapping.MapObjects(item, itemE);
                     accountModels.Add(itemE);
                 }
-               
+
             }
 
             return accountModels;
@@ -186,19 +183,20 @@ namespace Team_Up.BLL
 
         }
 
-        public bool EditAccount(AccountModel accountM, int[] Compentecey) {
+        public bool EditAccount(AccountModel accountM, int[] Compentecey)
+        {
 
             CompentenceManagement cm = new CompentenceManagement();
             Mapping mapping = new Mapping();
-            Account accountE = new Account();     
+            Account accountE = new Account();
             mapping.MapObjects(accountM, accountE);
-            IList<Competence> CompetenceyAccount = new List<Competence>();          
+            IList<Competence> CompetenceyAccount = new List<Competence>();
 
 
             foreach (var item in Compentecey)
             {
-                var itemC = cm.getOne(item);               
-                CompetenceyAccount.Add(itemC);                
+                var itemC = cm.getOne(item);
+                CompetenceyAccount.Add(itemC);
             }
 
             accountE.Competences = CompetenceyAccount;
@@ -212,7 +210,7 @@ namespace Team_Up.BLL
 
 
         public bool Delete(int id)
-        {           
+        {
             accountRepository.Delete(id);
             return true;
         }

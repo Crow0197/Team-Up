@@ -150,11 +150,11 @@ namespace Team_Up.Controllers
             try
             {                         
                 am.EditAccount(collection, Compentecey);
-                
+                ViewBag.success = true;
             }
             catch
             {
-               
+                ViewBag.success = false;
             }
 
             return RedirectToAction("Edit","Account", new { username= collection.UserName });
@@ -190,9 +190,10 @@ namespace Team_Up.Controllers
         public ActionResult UploadAvatar(string urlImg = "")
 
         {
-            if (cookiemanagement.GetCoockieAustetication() != "")
+            var user = cookiemanagement.GetCoockieAustetication();
+            if (user != "")
             {
-
+                ViewBag.Url = am.GetAccountForUsername(user).Avatar;
                 ViewBag.NotLogin = false;
             }
 
@@ -294,7 +295,17 @@ namespace Team_Up.Controllers
         // POST: Account/Create
         [HttpPost]
         public ActionResult PasswordRecovery(string email){
-            am.PasswordRecovery(Url.Action("ChangePassword", "Account"), email);
+
+            if (am.PasswordRecovery(Url.Action("ChangePassword", "Account"), email))
+            {
+
+                ViewBag.Error = false;
+
+
+            }
+            else ViewBag.Error = true;
+
+
             return View();
         }
 

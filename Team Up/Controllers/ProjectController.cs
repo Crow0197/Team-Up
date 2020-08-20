@@ -29,10 +29,23 @@ namespace Team_Up.Controllers
 
         // GET: Project
         [HttpGet]
-        public ActionResult Index(int? id, int? Competence,int? Category, int pageIndex = 1)
+        public ActionResult Index(int? id, int? Competence,int? Category, int pageIndex = 1, string progetto = "")
         {
 
-            List<ProjectModel> getList = new List<ProjectModel>();
+            if (progetto != ViewBag.Progetto ) {
+                ViewBag.Progetto = progetto;
+
+            }
+            else if (ViewBag.Progetto == null)
+            {
+                ViewBag.Progetto = "";
+            }
+                
+
+
+
+
+           List<ProjectModel> getList = new List<ProjectModel>();
 
             getList = pm.getAll();
 

@@ -18,7 +18,7 @@ namespace Team_Up.BLL
                 // Create cookie.
                 cookie = new HttpCookie("UserLogin");
                 cookie.Value = account;
-                cookie.Expires = DateTime.Now.AddMinutes(1d);
+                cookie.Expires = DateTime.Now.AddDays(1);
                 HttpContext.Current.Response.Cookies.Add(cookie);
             
         }
