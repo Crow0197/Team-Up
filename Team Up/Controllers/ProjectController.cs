@@ -315,23 +315,18 @@ namespace Team_Up.Controllers
         // GET: Project/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(pm.getOne(id)); ;
         }
 
         // POST: Project/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
+           
+                pm.Delete(id);
 
                 return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+           
         }
     }
 }

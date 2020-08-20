@@ -128,7 +128,17 @@
 <h1>Progetto </h1>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+
+    @{
+        HttpCookie cookie = HttpContext.Current.Request.Cookies.Get("UserLogin");
+        if (cookie != null && cookie.Value != "")
+        {
+            @Html.ActionLink("Create New", "Create");
+        }
+    }
+
+
+
 </p>
 <div class="table-responsive">
     <table class="table">
@@ -167,9 +177,14 @@
                         </b>
 
 
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
+                        @if (cookie != null && cookie.Value != "" && (cookie.Value == item.CreatorAccount || cookie.Value == "Admin"))
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) <b>|</b>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })
+                        }
 
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+
+
 
 
                     </div>
@@ -180,9 +195,17 @@
                                 @Html.ActionLink(item.Title, "Details", new { id = item.ProjectID }, new { @style = "color:black;" })
                             </b>
                         </h2>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })<br />
+
+
+                        @if (cookie != null && cookie.Value != "" && (cookie.Value == item.CreatorAccount || cookie.Value == "Admin") )
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) <b>|</b>
+                            @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) <b>|</b>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })<br />
+                        }
+
+
+
 
 
 
@@ -264,7 +287,7 @@
                     @Html.DisplayFor(modelItem => item.CreatorAccount)
                 </td>
                 <td class="mediaNone">
-                    <h4 style="text-align: right;" class="mediaNone">Competences:</h4>
+                    <h4 style="" class="mediaNone">Competences:</h4>
                     <div id="Competences" class="mediaNone">
 
 
@@ -285,7 +308,7 @@
 
                     </div>
                     <br />
-                    <h4 style="text-align: right;" class="mediaNone">Categories:</h4>
+                    <h4 style="" class="mediaNone">Categories:</h4>
                     <div id="Competences" class="mediaNone">
 
                         @{
@@ -371,7 +394,7 @@
 
     function fi() {
         document.getElementById("invio").click();
-       
+
     }
 
 

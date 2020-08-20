@@ -85,6 +85,15 @@ namespace Team_Up.BLL
         }
 
 
+
+        public bool Delete(int id) {
+
+            projectRepository.Delete(projectRepository.GetOne(id));
+            return true;
+        }
+
+
+
         public ProjectModel getOne(int id = 1)
         {
             Mapping mapping = new Mapping();

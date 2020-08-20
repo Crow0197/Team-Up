@@ -50,7 +50,13 @@ namespace Team_Up.DAL.EF.Repository
 
         public bool Delete(Project project)
         {
-            throw new NotImplementedException();
+           
+            var projectDelete = db1.Projects.First(x => x.ProjectID == project.ProjectID);    
+            db1.Database.ExecuteSqlCommand("Delete from [CategoryProjects] where [Project_ProjectID] = '" + projectDelete.ProjectID + "'");
+            db1.Database.ExecuteSqlCommand("Delete from [ProjectCompetences] where [Project_ProjectID] = '" + projectDelete.ProjectID + "'");
+            db1.Database.ExecuteSqlCommand("Delete from[Projects] where [ProjectID] = '" + projectDelete.ProjectID + "'");
+            db1.SaveChanges();
+            return true;
         }
 
         public List<Project> GetAll()
