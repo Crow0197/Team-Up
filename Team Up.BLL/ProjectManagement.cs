@@ -29,8 +29,7 @@ namespace Team_Up.BLL
             Project newProjectEntity = new Project();
             mapping.MapObjects(newProject, newProjectEntity);
             List<Competence> competences = new List<Competence>();
-
-           
+            newProjectEntity.Date = newProject.Date;
             return projectRepository.Create(newProjectEntity, newProject.CreatorAccount, idCompentece, idCategory);
         }
 

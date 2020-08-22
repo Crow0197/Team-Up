@@ -13,7 +13,7 @@ namespace Team_Up.Models
         public string Title { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
         [Required]
         public string Description { get; set; }
 

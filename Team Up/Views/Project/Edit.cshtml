@@ -26,9 +26,29 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+            @{
+                var dateClose = Model.Date.Value.ToString("yyyy-MM-dd").ToString();
+
+                if (dateClose != "0001-01-01")
+                {
+                    <input type="date" name="Date" class="form-control" min=@DateTime.Now.ToString("yyyy-MM-dd") value=@dateClose } />
+
+
+                }
+                else
+                {
+
+                    <input type="date" name="Date" class="form-control" min=@DateTime.Now.ToString("yyyy-MM-dd")  } />
+                
+                    }
+
+
+            }
+
             @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
         </div>
+
+
     </div>
 
     <div class="form-group">

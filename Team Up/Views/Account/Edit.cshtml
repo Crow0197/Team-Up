@@ -108,6 +108,10 @@
     @Html.ActionLink("Cambia Avatar", "UploadAvatar")
 </div>
 
+<div>   
+    @Html.ActionLink("Cambia Password", "ChangePassword", new { username = Model.UserName })
+</div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

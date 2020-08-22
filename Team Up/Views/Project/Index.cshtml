@@ -197,7 +197,7 @@
                         </h2>
 
 
-                        @if (cookie != null && cookie.Value != "" && (cookie.Value == item.CreatorAccount || cookie.Value == "Admin") )
+                        @if (cookie != null && cookie.Value != "" && (cookie.Value == item.CreatorAccount || cookie.Value == "Admin"))
                         {
                             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) <b>|</b>
                             @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) <b>|</b>
@@ -209,8 +209,16 @@
 
 
 
-                        <b> @Html.DisplayFor(modelItem => item.Date): </b> @Html.DisplayNameFor(model => model.Date)<br />
-                        <b> @Html.DisplayFor(modelItem => item.DtInsert): </b> @Html.DisplayNameFor(model => model.DtInsert)<br />
+
+                        @{
+                            if (item.Date > new DateTime(0001, 01, 01))
+                            {
+                                <b> @Html.DisplayNameFor(model => model.Date)  </b>
+                                @Html.DisplayFor(modelItem => item.Date)}
+                        }
+
+
+                        <b><br /> @Html.DisplayFor(modelItem => item.DtInsert): </b> @Html.DisplayNameFor(model => model.DtInsert)<br />
                         <b>CreatorAccount: </b> @Html.DisplayNameFor(model => model.CreatorAccount)<br />
 
                         <b>Description</b>
@@ -267,7 +275,14 @@
                     </div>
                 </td>
                 <td class="mediaNone">
-                    @Html.DisplayFor(modelItem => item.Date)
+                    
+                    
+                    @{
+                        if (item.Date > new DateTime(0001, 01, 01))
+                        {
+                            @Html.DisplayFor(modelItem => item.Date)}
+                    }
+
                 </td>
                 <td class="mediaNone">
                     @Html.DisplayFor(modelItem => item.DtInsert)

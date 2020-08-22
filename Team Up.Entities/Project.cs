@@ -16,7 +16,7 @@ namespace Team_Up.Entities
 
         public string Title { get; set; }
         [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
         public string Description { get; set; }               
 
         public Account AccountID { get; set; }

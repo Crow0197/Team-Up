@@ -192,6 +192,10 @@ namespace Team_Up.BLL
             mapping.MapObjects(accountM, accountE);
             IList<Competence> CompetenceyAccount = new List<Competence>();
 
+            Encryption encryption = new Encryption();
+            accountE.Password = encryption.base64Encode(accountM.Password);
+
+
 
             foreach (var item in Compentecey)
             {

@@ -53,7 +53,7 @@ namespace Team_Up.DAL.EF.Repository
 
             var projectDelete = db1.Projects.First(x => x.ProjectID == project.ProjectID);
             db1.Database.ExecuteSqlCommand("Delete from [CategoryProjects] where [Project_ProjectID] = '" + projectDelete.ProjectID + "'");
-            db1.Database.ExecuteSqlCommand("Delete from [ProjectCompetences] where [Project_ProjectID] = '" + projectDelete.ProjectID + "'");
+            db1.Database.ExecuteSqlCommand("Delete from [CompetenceProjects] where [ProjectID] = '" + projectDelete.ProjectID + "'");
             db1.Database.ExecuteSqlCommand("Delete from[Projects] where [ProjectID] = '" + projectDelete.ProjectID + "'");
             db1.SaveChanges();
             return true;
@@ -183,9 +183,9 @@ namespace Team_Up.DAL.EF.Repository
             if (project.Date != null)
                 projectOld.Date = project.Date;
             if (project.Description != null)
-                projectOld.Description = projectOld.Description;
+                projectOld.Description = project.Description;
             if (project.Title != null)
-                projectOld.Title = projectOld.Title;
+                projectOld.Title = project.Title;
 
 
             projectOld.Competences.Clear();
