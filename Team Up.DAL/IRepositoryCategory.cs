@@ -12,7 +12,7 @@ namespace Team_Up.DAL
 
         Category GetOne(int idSearch);
         void Update(Category category);
-        Boolean Delete(Category compecategorytence);
+        Boolean Delete(int categoryt);
         List<Category> GetAll();
         List<Category> getAllForProject(int id);
         bool Create(Category category);

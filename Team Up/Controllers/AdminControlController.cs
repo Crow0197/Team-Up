@@ -217,9 +217,27 @@ namespace Team_Up.Controllers
         [HttpPost]
         public ActionResult DeleteCategories(FormCollection collection)
         {
+           
+                cam.Delete(collection["CategoryID"].AsInt());
+                return RedirectToAction("AdminControl");
+           
+        }
+
+
+        // GET: Admin/Create
+        public ActionResult CreateCategories()
+        {
+            return View();
+        }
+
+        // POST: Admin/Create
+        [HttpPost]
+        public ActionResult CreateCategories(CategoryModel collection)
+        {
             try
             {
-                cam.Delete(collection["CategoryID"].AsInt());
+                // TODO: Add insert logic here
+                cam.Create(collection);
                 return RedirectToAction("AdminControl");
             }
             catch
@@ -227,6 +245,7 @@ namespace Team_Up.Controllers
                 return View();
             }
         }
+
 
 
 

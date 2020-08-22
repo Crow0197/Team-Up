@@ -5,6 +5,7 @@ using System.Web;
 using Team_Up.BLL;
 using Team_Up.DAL;
 using Team_Up.DAL.EF;
+using Team_Up.Entities;
 using Team_Up.Models;
 
 namespace Team_Up
@@ -53,7 +54,7 @@ namespace Team_Up
 
         public void Delete(int id) {
 
-            categoryRepository.Delete(categoryRepository.GetOne(id));
+            categoryRepository.Delete(id);
         }
 
 
@@ -77,6 +78,17 @@ namespace Team_Up
             return Models;
         }
 
+
+        public void Create(CategoryModel cm)
+        {
+
+            Mapping mapping = new Mapping();
+            Category category = new Category();
+            mapping.MapObjects(cm, category);
+            categoryRepository.Create(category);
+
+
+        }
 
     }
 }

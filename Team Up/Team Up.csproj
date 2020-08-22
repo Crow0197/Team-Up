@@ -190,6 +190,7 @@
     <Content Include="Views\AdminControl\DeleteCompetence.cshtml" />
     <Content Include="Views\AdminControl\CreateCompentece.cshtml" />
     <Content Include="Views\AdminControl\DeleteCategories.cshtml" />
+    <Content Include="Views\AdminControl\CreateCategories.cshtml" />
     <None Include="Views\Shared\_TextArea.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -11,12 +11,27 @@ namespace Team_Up.DAL.EF
     {
         public bool Create(Category category)
         {
-            throw new NotImplementedException();
+            TeamUpContext dbCategory = new TeamUpContext();
+            try
+            {
+                dbCategory.Categories.Add(category);
+                dbCategory.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
 
-        public bool Delete(Category compecategorytence)
+        public bool Delete(int category)
         {
-            throw new NotImplementedException();
+            TeamUpContext dbCategory = new TeamUpContext();
+            dbCategory.Database.ExecuteSqlCommand("delete from [Categories] where [CategoryID] =" + category);
+            dbCategory.Database.ExecuteSqlCommand("Delete from [CategoryProjects] where [Category_CategoryID] = " + category);
+            dbCategory.SaveChanges();
+            return true;
         }
 
         public List<Category> GetAll()

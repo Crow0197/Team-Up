@@ -1,11 +1,5 @@
 ﻿@model Team_Up.Models.CategoryModel
 
-@{
-    ViewBag.Title = "DeleteCategories";
-}
-
-<h2>DeleteCategories</h2>
-
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>CategoryModel</h4>
@@ -37,8 +31,11 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
+
+        <input type="text" value="@Model.CategoryID" name="CategoryID"/>
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
