@@ -185,6 +185,11 @@
     <Content Include="Views\AdminControl\Edit.cshtml" />
     <Content Include="Views\AdminControl\Delete.cshtml" />
     <Content Include="Views\Project\Delete.cshtml" />
+    <Content Include="Views\Project\Edit.cshtml" />
+    <Content Include="Views\Shared\_DetailsCompentece.cshtml" />
+    <Content Include="Views\AdminControl\DeleteCompetence.cshtml" />
+    <Content Include="Views\AdminControl\CreateCompentece.cshtml" />
+    <Content Include="Views\AdminControl\DeleteCategories.cshtml" />
     <None Include="Views\Shared\_TextArea.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -40,7 +40,15 @@ namespace Team_Up.DAL.EF
                             cs.ToTable("CompetenceAccounts");
                         });
 
-
+            modelBuilder.Entity<Project>()
+                        .HasMany<Competence>(s => s.Competences)
+                        .WithMany(c => c.Projects)
+                        .Map(cs =>
+                        {
+                            cs.MapLeftKey("ProjectID");
+                            cs.MapRightKey("CompetenceID");
+                            cs.ToTable("CompetenceProjects");
+                        });
 
             //modelBuilder.Entity<Account>()
             //            .HasMany<Project>(s => s.RegisteredProjects)

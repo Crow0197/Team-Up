@@ -12,7 +12,7 @@ namespace Team_Up.DAL
         Project GetOne(int idSearch);
 
         Project GetOne(string Username);
-        void Update(Project project);
+        bool Update(Project project, string account, int[] idCompentece, int[] idCategory);
         Boolean Delete(Project project);
         List<Project> GetAll();
         bool Create(Project project, string account, int[] competence, int[] category);

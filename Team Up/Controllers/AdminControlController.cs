@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using Team_Up.BLL;
 using Team_Up.Models;
 
@@ -12,6 +13,7 @@ namespace Team_Up.Controllers
     {
         AccountManagement am;
         CompentenceManagement cm;
+        CategoryManagement cam;
         Cookie cookiemanagement = new Cookie();   
 
 
@@ -19,6 +21,7 @@ namespace Team_Up.Controllers
         {
             this.am = new AccountManagement();
             this.cm = new CompentenceManagement();
+            this.cam = new CategoryManagement();
 
 
         }
@@ -28,6 +31,8 @@ namespace Team_Up.Controllers
             if (cookiemanagement.GetCoockieAustetication() == "Admin")
             {
                 ViewBag.Accounts = am.getAll();
+                ViewBag.Compences = cm.getAll();
+                ViewBag.Categories = cam.getAll();
                 return View();
             }
 
@@ -141,5 +146,89 @@ namespace Team_Up.Controllers
                 return View();
             }
         }
+
+
+        public ActionResult DetailsCompentece(int id)
+        {
+            return PartialView("_DetailsCompentece", cm.getAll());
+           
+        }
+
+
+        // GET: Admin/Delete/5
+        public ActionResult DeleteCompetence(int CompetenceID)
+        {
+            var utente = cm.getOneCompetenc(CompetenceID);
+            return View(utente);
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteCompetence(FormCollection collection)
+        {
+            try
+            {
+                cm.Delete(collection["CompetenceID"].AsInt());
+                return RedirectToAction("AdminControl");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+
+
+
+        // GET: Admin/Create
+        public ActionResult CreateCompentece()
+        {
+            return View();
+        }
+
+        // POST: Admin/Create
+        [HttpPost]
+        public ActionResult CreateCompentece(CompetenceModel collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                cm.Create(collection);
+                return RedirectToAction("AdminControl");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+        // GET: Admin/Delete/5
+        public ActionResult DeleteCategories(int CategoryID)
+        {
+            var cm = cam.getOne(CategoryID);
+            return View(cm);
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteCategories(FormCollection collection)
+        {
+            try
+            {
+                cam.Delete(collection["CategoryID"].AsInt());
+                return RedirectToAction("AdminControl");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
     }
 }

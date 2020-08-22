@@ -25,6 +25,13 @@ namespace Team_Up.DAL.EF
             return dbCategory.Categories.ToList();
         }
 
+        public List<Category> getAllForProject(int id)
+        {
+            TeamUpContext dbCategory = new TeamUpContext();
+            var competence = dbCategory.Categories.SqlQuery("SELECT cm.* FROM [CategoryProjects] pc INNER JOIN [Categories] cm on pc.[Category_CategoryID] = cm.[CategoryID]  where  [Project_ProjectID]= " + id).ToList();
+            return competence;
+        }
+
         public Category GetOne(int idSearch)
         {
             TeamUpContext dbCategory = new TeamUpContext();

@@ -34,6 +34,17 @@ namespace Team_Up.BLL
             return projectRepository.Create(newProjectEntity, newProject.CreatorAccount, idCompentece, idCategory);
         }
 
+
+
+        public bool Update(ProjectModel newProject, int[] idCompentece, int[] idCategory)
+        {
+            Mapping mapping = new Mapping();
+            Project newProjectEntity = new Project();
+            mapping.MapObjects(newProject, newProjectEntity);   
+            return projectRepository.Update(newProjectEntity, newProject.CreatorAccount, idCompentece, idCategory);
+        }
+
+
         public List<ProjectModel> getAll() {
 
 

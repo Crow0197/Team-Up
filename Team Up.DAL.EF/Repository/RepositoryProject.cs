@@ -13,18 +13,18 @@ namespace Team_Up.DAL.EF.Repository
         TeamUpContext db1 = new TeamUpContext();
 
 
-        public bool Create(Project project, string account,  int[] idCompentece, int[] idCategory)
+        public bool Create(Project project, string account, int[] idCompentece, int[] idCategory)
         {
-           
+
             project.AccountID = db1.Accounts.FirstOrDefault(c => c.UserName == account);
 
             List<Competence> listCompetences = new List<Competence>();
-          
-            if(idCompentece != null)
-            foreach (var item in idCompentece)
-            {
-                listCompetences.Add(db1.Competences.FirstOrDefault(c => c.CompetenceID == item));
-            }
+
+            if (idCompentece != null)
+                foreach (var item in idCompentece)
+                {
+                    listCompetences.Add(db1.Competences.FirstOrDefault(c => c.CompetenceID == item));
+                }
 
             project.Competences = listCompetences;
 
@@ -50,8 +50,8 @@ namespace Team_Up.DAL.EF.Repository
 
         public bool Delete(Project project)
         {
-           
-            var projectDelete = db1.Projects.First(x => x.ProjectID == project.ProjectID);    
+
+            var projectDelete = db1.Projects.First(x => x.ProjectID == project.ProjectID);
             db1.Database.ExecuteSqlCommand("Delete from [CategoryProjects] where [Project_ProjectID] = '" + projectDelete.ProjectID + "'");
             db1.Database.ExecuteSqlCommand("Delete from [ProjectCompetences] where [Project_ProjectID] = '" + projectDelete.ProjectID + "'");
             db1.Database.ExecuteSqlCommand("Delete from[Projects] where [ProjectID] = '" + projectDelete.ProjectID + "'");
@@ -88,14 +88,15 @@ namespace Team_Up.DAL.EF.Repository
         public Account GetAccount(int id)
         {
 
-           
+
 
             var account = db1.Accounts.SqlQuery("SELECT DISTINCT   account.* FROM  [Projects] [Projects]  inner join [Accounts] account  on account.UserName = [Projects].AccountID_UserName where  [ProjectID] =  " + id).ToList();
 
             Account getAccount = new Account();
 
-            if (account.Count > 0) {
-                getAccount= account.First();
+            if (account.Count > 0)
+            {
+                getAccount = account.First();
             }
 
             return getAccount;
@@ -103,8 +104,8 @@ namespace Team_Up.DAL.EF.Repository
 
 
         public Competence GetCompetence(int id)
-        {           
-            var competence = db1.Competences.SqlQuery("SELECT DISTINCT cm.*  FROM [ProjectCompetences] pc   INNER JOIN [Competences]  cm on pc.Competence_CompetenceID = cm.CompetenceID  where pc.Project_ProjectID = " + id).ToList();
+        {
+            var competence = db1.Competences.SqlQuery("SELECT DISTINCT cm.*  FROM [CompetenceProjects] pc INNER JOIN [Competences]  cm  on pc.[CompetenceID] = cm.CompetenceID   where pc.[ProjectID] =" + id).ToList();
             Competence getCompetence = new Competence();
             if (competence.Count > 0)
             {
@@ -133,7 +134,7 @@ namespace Team_Up.DAL.EF.Repository
         {
             Project project = new Project();
 
-            project = db1.Projects.FirstOrDefault(x=>x.ProjectID == idSearch);
+            project = db1.Projects.FirstOrDefault(x => x.ProjectID == idSearch);
 
             var getAccount = GetAccount(project.ProjectID);
             if (getAccount != null)
@@ -173,9 +174,48 @@ namespace Team_Up.DAL.EF.Repository
             throw new NotImplementedException();
         }
 
-        public void Update(Project project)
+        public bool Update(Project project, string account, int[] idCompentece, int[] idCategory)
         {
-            throw new NotImplementedException();
+
+            var projectOld = GetOne(project.ProjectID);
+
+
+            if (project.Date != null)
+                projectOld.Date = project.Date;
+            if (project.Description != null)
+                projectOld.Description = projectOld.Description;
+            if (project.Title != null)
+                projectOld.Title = projectOld.Title;
+
+
+            projectOld.Competences.Clear();
+            projectOld.Categories.Clear();
+
+            List<Competence> listCompetences = new List<Competence>();
+
+            if (idCompentece != null)
+                foreach (var item in idCompentece)
+                {
+                    listCompetences.Add(db1.Competences.FirstOrDefault(c => c.CompetenceID == item));
+                }
+
+            projectOld.Competences = listCompetences;
+
+
+            List<Category> listCategory = new List<Category>();
+
+            if (idCategory != null)
+                foreach (var item in idCategory)
+                {
+                    listCategory.Add(db1.Categories.FirstOrDefault(c => c.CategoryID == item));
+                }
+
+            projectOld.Categories = listCategory;
+
+
+            db1.SaveChanges();
+
+            return true;
         }
     }
 

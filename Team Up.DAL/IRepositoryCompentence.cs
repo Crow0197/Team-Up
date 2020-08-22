@@ -14,6 +14,7 @@ namespace Team_Up.DAL
         Boolean Delete(Competence competence);
         List<Competence> GetAll();
         List<Competence> getAllForAccount(string account);
+        List<Competence> getAllForProject(int id);        
         bool Create(Competence competence);
         void Save();
 

@@ -51,6 +51,32 @@ namespace Team_Up
         }
 
 
+        public void Delete(int id) {
+
+            categoryRepository.Delete(categoryRepository.GetOne(id));
+        }
+
+
+        public List<CategoryModel> getAllForProject(int id)
+        {
+
+            Mapping mapping = new Mapping();
+            List<CategoryModel> Models = new List<CategoryModel>();
+            var categoryDB = categoryRepository.getAllForProject(id);
+
+            if (categoryDB.Count != 0)
+            {
+                foreach (var item in categoryDB)
+                {
+                    CategoryModel ct = new CategoryModel();
+                    mapping.MapObjects(item, ct);
+                    Models.Add(ct);
+                }
+            }
+
+            return Models;
+        }
+
 
     }
 }

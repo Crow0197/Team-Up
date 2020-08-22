@@ -293,16 +293,68 @@ namespace Team_Up.Controllers
         // GET: Project/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ProjectModel project = new ProjectModel();
+
+
+            IList<CompetenceModel> allCompetence = new List<CompetenceModel>();
+            allCompetence = cm.getAll();
+
+            IList<CompetenceModel> userCompetence = new List<CompetenceModel>();
+            userCompetence = cm.getAllForProject(id);
+
+
+            foreach (var item in allCompetence)
+            {
+                if (userCompetence.Any(x => x.CompetenceID == item.CompetenceID))
+                {
+                    item.Selected = true;
+                }
+
+            }
+
+            ViewBag.ListCompetence = allCompetence;
+
+
+            IList<CategoryModel> allCategory = new List<CategoryModel>();
+            allCategory = categoryM.getAll();
+
+            IList<CategoryModel> userCategory = new List<CategoryModel>();
+            userCategory = categoryM.getAllForProject(id);
+
+
+            foreach (var item in allCategory)
+            {
+                if (userCategory.Any(x => x.CategoryID == item.CategoryID))
+                {
+                    item.Selected = true;
+                }
+
+            }
+
+            ViewBag.ListCategory = allCategory;
+
+
+
+            ViewBag.Task = tk.GetFromProject(id);
+            // project = pm.;
+            return View(pm.getOne(id));
         }
 
         // POST: Project/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, FormCollection collection, int[] Compentece, int[] Category)
         {
             try
             {
-                // TODO: Add update logic here
+                ProjectModel project = new ProjectModel();
+
+                project.Title = collection["Title"];
+                project.Date = collection["Date"].AsDateTime();
+                project.Description = collection["Description"];
+                project.ProjectID = collection["ProjectID"].AsInt();
+                project.DtInsert = DateTime.Now;
+                project.CreatorAccount = cookiemanagement.GetCoockieAustetication();
+                pm.Update(project, Compentece, Category);
 
                 return RedirectToAction("Index");
             }

@@ -14,7 +14,7 @@ namespace Team_Up.DAL
         void Update(Category category);
         Boolean Delete(Category compecategorytence);
         List<Category> GetAll();
-
+        List<Category> getAllForProject(int id);
         bool Create(Category category);
         void Save();
 

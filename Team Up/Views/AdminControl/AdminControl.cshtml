@@ -83,10 +83,69 @@
 
         </div>
         <div class="tab-pane" id="2a">
-            <h3>We use the class nav-pills instead of nav-tabs which automatically creates a background color for the tab</h3>
+            @Html.ActionLink("New", "CreateCompentece")
+            <table class="table">
+                <tr>
+                    <th>
+                        Typology
+                    </th>
+                    <th>
+                        Classe Css
+                    </th>
+
+                    <th></th>
+                </tr>
+
+                @foreach (var item in ViewBag.Compences)
+                {
+                    <tr>
+                        <td>
+                            @item.typology
+                        </td>
+                        <td>
+                            @item.Color
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Delete", "DeleteCompetence", new { CompetenceID = item.CompetenceID })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+
         </div>
         <div class="tab-pane" id="3a">
-            <h3>We applied clearfix to the tab-content to rid of the gap between the tab and the content</h3>
+            <table class="table">
+                <tr>
+                    <th>
+                        Typology
+                    </th>
+                    <th>
+                        Classe Css
+                    </th>
+
+                    <th></th>
+                </tr>
+
+                @foreach (var item in ViewBag.Categories)
+                {
+                    <tr>
+                        <td>
+                            @item.Typology
+                        </td>
+                        <td>
+                            @item.Color
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Delete", "DeleteCategories", new { CategoryID = item.CategoryID })
+                        </td>
+                    </tr>
+                }
+
+            </table>
         </div>
       
     </div>

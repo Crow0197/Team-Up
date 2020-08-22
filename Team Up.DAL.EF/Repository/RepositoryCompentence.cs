@@ -14,12 +14,26 @@ namespace Team_Up.DAL.EF
 
         public bool Create(Competence competence)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                dbCompentence.Competences.Add(competence);
+                dbCompentence.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+           
         }
 
         public bool Delete(Competence competence)
         {
-            throw new NotImplementedException();
+            dbCompentence.Competences.Remove(competence);
+            dbCompentence.SaveChanges();
+            return true;
         }
 
         public List<Competence> GetAll()
@@ -37,6 +51,11 @@ namespace Team_Up.DAL.EF
 
         }
 
+        public List<Competence> getAllForProject(int id)
+        {
+            var competence = dbCompentence.Competences.SqlQuery("SELECT cm.* FROM [CompetenceProjects] pc INNER JOIN[Competences] cm on pc.[CompetenceID] = cm.CompetenceID    where [ProjectID] =" + id).ToList();
+            return competence;
+        }
 
         public Competence GetOne(int idSearch)
         {
