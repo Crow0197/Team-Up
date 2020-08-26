@@ -16,7 +16,14 @@ namespace Team_Up.DAL
         Boolean Delete(Project project);
         List<Project> GetAll();
         bool Create(Project project, string account, int[] competence, int[] category);
+        int SignedUp(Project project, Account account);
+
+        bool AcceptRegistration(int id, bool reply);
+
+        bool isRegistered(int idP, string  User);
+        
         void Save();
+
 
     }
 

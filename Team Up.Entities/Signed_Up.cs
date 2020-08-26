@@ -12,14 +12,11 @@ namespace Team_Up.Entities
     {
 
         [Key, Column(Order = 0)]
-        public int AccountID { get; set; }
-        [Key, Column(Order = 1)]
-        public int ProjectID { get; set; }
-            
-           
-
-        public virtual Account Account { get; set; }
-        public virtual Project Project { get; set; }
+        public int Id { get; set; }
+        public virtual string Account { get; set; }
+        public virtual int Project { get; set; }
+        public bool IsRegistered { get; set; }
+        public bool RequestConfirmed { get; set; }
 
         //public virtual ICollection<RoleOnTheProject> SignedUp { get; set; }
 

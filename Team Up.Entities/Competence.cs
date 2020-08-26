@@ -18,11 +18,8 @@ namespace Team_Up.Entities
 
         public string Color { get; set; }
         public virtual ICollection<Account> Accounts { get; set; }
-
-
         public virtual ICollection<Project> Projects { get; set; }
-
-
+       
 
         public Competence()
         {

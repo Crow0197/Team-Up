@@ -217,6 +217,56 @@ namespace Team_Up.DAL.EF.Repository
 
             return true;
         }
+
+        public int SignedUp(Project project, Account account)
+        {
+
+            Signed_Up signed = new Signed_Up();
+            signed.Account = account.UserName;
+            signed.Project = project.ProjectID;
+            signed.IsRegistered = true;
+            signed.RequestConfirmed = false;
+            db1.Inscriptions.Add(signed);
+            db1.SaveChanges();
+
+            return signed.Id;
+
+        }
+
+
+
+        public bool AcceptRegistration(int id, bool reply)
+        {
+
+            Signed_Up signed = new Signed_Up();
+            signed = db1.Inscriptions.FirstOrDefault(x => x.Id == id);
+            signed.IsRegistered = true;
+            signed.RequestConfirmed = true;
+            db1.SaveChanges();
+
+            return true;
+
+        }
+
+        public bool isRegistered(int idP, string User)
+        {
+
+            Signed_Up signed = new Signed_Up();
+            signed = db1.Inscriptions.FirstOrDefault(x => x.Project == idP && x.Account == User);
+
+            if (signed != null && signed.RequestConfirmed == true)
+            {
+                return true;
+
+            }
+            else {
+                return false;
+
+            }
+
+
+
+        }
     }
 
 }

@@ -44,6 +44,7 @@
 <br />
 
 <a href="~/Task/Create?projectId=@Model.ProjectID" style="margin: 2px; float:right;" class="btn btn-info"> New Task</a>
+@Html.ActionLink("Iscriviti", "SignedUpProject", new { projectID = Model.ProjectID  }, new { @class = "btn btn-info" }) 
 
 <br />
 
@@ -78,7 +79,9 @@
     {
         <tr>
             <td style=" vertical-align: middle;">
-                @item.Name
+                @item.Name<br />
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
             <td style=" vertical-align: middle;">
 
@@ -104,7 +107,7 @@
 
                 @item.DateInsert
             </td>
-            <td style=" vertical-align: middle;">                
+            <td style=" vertical-align: middle;">
                 @item.DateClose
             </td>
 
@@ -112,9 +115,13 @@
 
             <td style=" vertical-align: middle;">
 
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                <a href="~/Task/Details/@item.TaskID">Details</a> |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @if (ViewBag.isRegistered == true)
+                {
+                <a href="~/Task/Details/@item.TaskID">Collabora</a>
+                }
+
+
+                
             </td>
         </tr>
     }

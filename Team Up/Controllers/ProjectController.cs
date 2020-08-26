@@ -17,6 +17,7 @@ namespace Team_Up.Controllers
         CompentenceManagement cm;
         CategoryManagement categoryM;
         TaskManagement tk;
+        AccountManagement am;
 
 
         public ProjectController(){
@@ -24,6 +25,7 @@ namespace Team_Up.Controllers
             this.cm = new CompentenceManagement();
             this.categoryM = new CategoryManagement();
             this.tk = new TaskManagement();
+            this.am = new AccountManagement();
         }
 
 
@@ -217,9 +219,8 @@ namespace Team_Up.Controllers
         public ActionResult Details(int id)
         {
 
-
             ProjectModel project = new ProjectModel();
-
+            ViewBag.isRegistered = pm.isRegistered(id, cookiemanagement.GetCoockieAustetication());
             ViewBag.Task = tk.GetFromProject(id);
            // project = pm.;
             return View(pm.getOne(id));
@@ -364,6 +365,30 @@ namespace Team_Up.Controllers
             }
         }
 
+
+        // GET: Project/Edit/5
+        public ActionResult SignedUpProject(int projectID)
+        {
+            AccountModel creator = new AccountModel();
+            creator = am.GetAccountForUsername(pm.getOne(projectID).CreatorAccount);
+
+            AccountModel user = new AccountModel();
+            user = am.GetAccountForUsername(cookiemanagement.GetCoockieAustetication());
+
+            pm.SignedUp(projectID, creator, user);
+            return RedirectToAction("Index");
+
+        }
+
+
+        public ActionResult AcceptRegistration(int idSignedUp, bool accepted)
+        {
+            pm.AcceptRegistration(idSignedUp, accepted);
+            return RedirectToAction("Index");
+
+        }
+
+
         // GET: Project/Delete/5
         public ActionResult Delete(int id)
         {
@@ -380,5 +405,8 @@ namespace Team_Up.Controllers
                 return RedirectToAction("Index");
            
         }
+
+
+
     }
 }

@@ -7,13 +7,15 @@ using Team_Up.DAL;
 using Team_Up.DAL.EF.Repository;
 using Team_Up.Entities;
 using Team_Up.Models;
+using System.Net.Mail;
+using System.Net;
 
 namespace Team_Up.BLL
 {
     public class ProjectManagement
     {
-        IRepositoryProject projectRepository;      
-       
+        IRepositoryProject projectRepository;
+
 
 
         public ProjectManagement()
@@ -39,12 +41,13 @@ namespace Team_Up.BLL
         {
             Mapping mapping = new Mapping();
             Project newProjectEntity = new Project();
-            mapping.MapObjects(newProject, newProjectEntity);   
+            mapping.MapObjects(newProject, newProjectEntity);
             return projectRepository.Update(newProjectEntity, newProject.CreatorAccount, idCompentece, idCategory);
         }
 
 
-        public List<ProjectModel> getAll() {
+        public List<ProjectModel> getAll()
+        {
 
 
             Mapping mapping = new Mapping();
@@ -87,16 +90,17 @@ namespace Team_Up.BLL
 
                 }
 
-           }
+            }
 
 
             return projectModels;
-           
+
         }
 
 
 
-        public bool Delete(int id) {
+        public bool Delete(int id)
+        {
 
             projectRepository.Delete(projectRepository.GetOne(id));
             return true;
@@ -134,6 +138,63 @@ namespace Team_Up.BLL
             }
             getProjectModel.Categories = categoryModelsAdd;
             return getProjectModel;
+        }
+
+
+        public bool SignedUp(int id, AccountModel creator, AccountModel user)
+        {
+
+            Project project = new Project();
+            Mapping mapping = new Mapping();
+
+            project = projectRepository.GetOne(id);
+
+
+            Account userDb = new Account();
+            mapping.MapObjects(user, userDb);
+            var idSigneUp = projectRepository.SignedUp(project, userDb);
+
+
+
+            string url = "http://www.cross-team.it/Project/AcceptRegistration/?idSignedUp=" + idSigneUp + "&accepted=";
+            MailMessage message = new MailMessage();
+            message.To.Add(creator.Email);
+            message.Subject = "Iscrizione Progetto " + project.Title;
+            message.IsBodyHtml = true;
+
+            message.Body = "L'utente " + user.UserName + " Vuole iscriversi al tuo progetto... OK ?<br> <a href=\"" + url + "true" + "\">Si</a> ! <a href=\"" + url + "false" + "\">No</a>";
+            message.From = new MailAddress("nonreplaycrossteam@gmail.com", "Iscrizione" + project.Title.ToUpper());
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.EnableSsl = true;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential("nonreplaycrossteam@gmail.com", "Seven123");
+            smtp.Send(message);
+
+
+
+
+
+            return true;
+
+        }
+
+        public void AcceptRegistration(int id, bool reply)
+        {
+
+            projectRepository.AcceptRegistration(id, reply);
+
+
+
+        }
+
+
+        public bool isRegistered(int idP, string User)
+        {
+
+            return projectRepository.isRegistered(idP, User);
+
+
+
         }
 
 
