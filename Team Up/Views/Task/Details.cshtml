@@ -80,6 +80,34 @@
 </div>
 
 
+
+<div class="col-sm-4" style=" width:160px;">
+    <form action="../FileUpload" method="post" enctype="multipart/form-data" id="formUpload">
+        <input type="file" name="file" id="file" style="display:none;" />
+        <label for="file" class="btnInput">
+            <i class="material-icons">
+                add_photo_alternate
+            </i>
+            Upload
+        </label>
+        <input type="text" name="idTask" id="idTask" style="display:none;" value="@Model.TaskID" />
+    </form>
+</div>
+
+<script>
+
+    $("#file").change(function () {
+        document.getElementById("formUpload").submit();
+
+    });
+
+
+
+</script>
+
+
+
+
 <hr />
 <h3 style="text-align:right"> Risposte</h3>
 <hr />
@@ -108,7 +136,7 @@
             </div>
 
         </div>
-            }
+    }
 
 
 }

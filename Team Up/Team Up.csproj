@@ -191,6 +191,7 @@
     <Content Include="Views\AdminControl\CreateCompentece.cshtml" />
     <Content Include="Views\AdminControl\DeleteCategories.cshtml" />
     <Content Include="Views\AdminControl\CreateCategories.cshtml" />
+    <Content Include="Views\Account\ViewAccount.cshtml" />
     <None Include="Views\Shared\_TextArea.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -222,6 +223,7 @@
     <Content Include="Views\Shared\_Task.cshtml" />
     <Content Include="Views\Task\Details.cshtml" />
     <Content Include="Views\Task\CreateReplyModel.cshtml" />
+    <Content Include="Views\Task\FileUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

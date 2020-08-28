@@ -55,6 +55,33 @@ namespace Team_Up.Controllers
             }
         }
 
+
+        public ActionResult CreatFile( int TaskId, string text)
+        {
+            try
+            {
+
+                ReplyModel reply = new ReplyModel();
+                var user = cookiemanagement.GetCoockieAustetication();
+                reply.UserName = user;
+
+                string textReply  = "<b>"+ user + "</b> Ha caricato : <br>" + "<a target='_blank' href=\"" + text + "\">File</a>";
+                reply.Message = textReply;
+
+                reply.TaskID = TaskId;
+                reply.DateInsert = DateTime.Now;
+                replM.Create(reply);
+                return RedirectToAction("Details", "Task", new { id = reply.TaskID });
+
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
         // GET: Replys/Edit/5
         public ActionResult Edit(int id)
         {

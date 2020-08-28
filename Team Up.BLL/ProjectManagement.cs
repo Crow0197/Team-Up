@@ -193,10 +193,13 @@ namespace Team_Up.BLL
 
             return projectRepository.isRegistered(idP, User);
 
-
-
         }
 
+
+        public IList<String> registeredUsers(int idP)
+        {
+            return projectRepository.registeredUsers(idP);
+        }
 
 
     }

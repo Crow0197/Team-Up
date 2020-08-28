@@ -15,6 +15,8 @@ namespace Team_Up.Models
         [DataType(DataType.Date)]
         public DateTime? Date { get; set; }
         [Required]
+
+        [DataType(DataType.Text)]
         public string Description { get; set; }
 
         public string CreatorAccount { get; set; }

@@ -25,6 +25,7 @@ namespace Team_Up.DAL
         void Save();
 
 
+        IList<String> registeredUsers(int idP);
     }
 
 

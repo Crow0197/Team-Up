@@ -221,7 +221,13 @@ namespace Team_Up.Controllers
 
             ProjectModel project = new ProjectModel();
             ViewBag.isRegistered = pm.isRegistered(id, cookiemanagement.GetCoockieAustetication());
-            ViewBag.Task = tk.GetFromProject(id);
+            var task = tk.GetFromProject(id);
+            ViewBag.Task = task;
+            ViewBag.TaskO = task.Where(x => x.isClosed == false).ToList();
+            ViewBag.TaskC = task.Where(x => x.isClosed == true).ToList();
+
+            ViewBag.User = pm.registeredUsers(id);
+
            // project = pm.;
             return View(pm.getOne(id));
         }
@@ -335,8 +341,12 @@ namespace Team_Up.Controllers
             ViewBag.ListCategory = allCategory;
 
 
+            var task = tk.GetFromProject(id);
+            ViewBag.Task = task;
+            ViewBag.TaskO = task.Where(x => x.isClosed == false);
+            ViewBag.TaskC = task.Where(x => x.isClosed == true);
+            ViewBag.User = pm.registeredUsers(id);
 
-            ViewBag.Task = tk.GetFromProject(id);
             // project = pm.;
             return View(pm.getOne(id));
         }
@@ -357,7 +367,7 @@ namespace Team_Up.Controllers
                 project.CreatorAccount = cookiemanagement.GetCoockieAustetication();
                 pm.Update(project, Compentece, Category);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = project.ProjectID });
             }
             catch
             {

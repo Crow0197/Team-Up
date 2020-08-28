@@ -264,9 +264,26 @@ namespace Team_Up.DAL.EF.Repository
 
             }
 
-
-
         }
+
+        public IList<String> registeredUsers(int idP) { 
+        
+            List<String> listUser = new List<String>();
+            List<Signed_Up> signed = new List<Signed_Up>();
+            signed = db1.Inscriptions.Where(x => x.Project == idP).ToList();
+
+            foreach (var item in signed)
+            {
+                listUser.Add(item.Account);
+            }
+
+
+            return listUser;
+        
+        }
+
+
+
     }
 
 }

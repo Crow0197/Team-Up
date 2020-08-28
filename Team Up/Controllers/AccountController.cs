@@ -59,6 +59,16 @@ namespace Team_Up.Controllers
 
 
 
+        public ActionResult ViewAccount(string Username)
+        {
+            ViewBag.Compentence =cm.getAllForAccount(Username);
+            return View(am.GetAccountForUsername(Username));
+
+        }
+
+
+
+
         // GET: Account/Create
         public ActionResult Create()
         {

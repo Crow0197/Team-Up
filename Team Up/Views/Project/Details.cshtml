@@ -6,34 +6,38 @@
 
 <br />
 
+
+
+
+
 <div class="divDetail">
 
 
     <div class="row">
-        <div class="col-sm-7">
-            <p style="font-size: 40px;"> @Html.DisplayFor(model => model.Title)</p>
-            <b class="bDetail">@Html.DisplayNameFor(model => model.Date):</b>  @Html.DisplayFor(model => model.Date)
-            <b class="bDetail">@Html.DisplayNameFor(model => model.CreatorAccount):</b>  @Html.DisplayFor(model => model.CreatorAccount)<b>&nbsp|&nbsp</b>
-            <br /><b class="bDetail">Data Creazione:</b>  @Html.DisplayFor(model => model.DtInsert)<b>&nbsp|&nbsp</b>
-            <b>Data Fine:</b>  @Html.DisplayFor(model => model.Date)
-            <br /><b class="bDetail">@Html.DisplayNameFor(model => model.Date):</b>  @Html.DisplayFor(model => model.Date)
-            <br /><b class="bDetail">Extra INFO:</b>  -----------
-            <br /><b class="bDetail">Extra INFO:</b>  -----------
-            <br /><b class="bDetail">Extra INFO:</b>  -----------
-        </div>
         <div class="col-sm-5">
+            <p style="font-size: 40px;"> @Html.DisplayFor(model => model.Title)</p>
+            <b>Team Leader:</b>  @Html.DisplayFor(model => model.CreatorAccount)<b>&nbsp|&nbsp</b>
+
+
+
+            <br /><b>Start:</b>  @Html.DisplayFor(model => model.DtInsert)<b>&nbsp|&nbsp</b>
+            <b>Chiusura Prevista:</b>  @Html.DisplayFor(model => model.Date)
+            <br />
+            <br /><b>Giorni Extra Di Lavaorazione:</b> @DateTime.Now.Subtract((DateTime)Model.Date).Days
+            <br />  <a data-toggle="modal" data-target="#myModal" style="color:black;"><b>Lista Partecipanti</b> (@ViewBag.User.Count)  </a>
+
+            <br />  @Html.DisplayFor(model => model.Description)
         </div>
-        <img src="~/Uploads/ESEMPIO.png" style="    height: 250px;" />
+        <div class="col-sm-7">
+            <canvas id="myChart"></canvas>
+        </div>
+
 
     </div>
 
 
 
-    <div class="row">
-        <div class="col-sm-12">
-            @Html.DisplayFor(model => model.Description)
-        </div>
-    </div>
+
 </div>
 
 <div>
@@ -44,7 +48,14 @@
 <br />
 
 <a href="~/Task/Create?projectId=@Model.ProjectID" style="margin: 2px; float:right;" class="btn btn-info"> New Task</a>
-@Html.ActionLink("Iscriviti", "SignedUpProject", new { projectID = Model.ProjectID  }, new { @class = "btn btn-info" }) 
+@Html.ActionLink("Edit", "Edit", new { id = Model.ProjectID }, new { @class = "btn btn-info" })
+
+
+@if (ViewBag.isRegistered != true)
+{
+    @Html.ActionLink("Iscriviti", "SignedUpProject", new { projectID = Model.ProjectID }, new { @class = "btn btn-info" })
+
+}
 
 <br />
 
@@ -117,11 +128,11 @@
 
                 @if (ViewBag.isRegistered == true)
                 {
-                <a href="~/Task/Details/@item.TaskID">Collabora</a>
+                    <a href="~/Task/Details/@item.TaskID">Collabora</a>
                 }
 
 
-                
+
             </td>
         </tr>
     }
@@ -129,9 +140,114 @@
 </table>
 
 
+<div>
+    @{
 
+        var taskT = ViewBag.Task.Count;
+        var taskC = ViewBag.TaskC.Count;
+        var taskO = ViewBag.TaskO.Count;
+
+
+
+
+    }
+    <div style="display:none;">
+        <input id="taskT" value="@taskT" />
+        <input id="taskC" value="@taskC" />
+        <input id="taskO" value="@taskO" />
+    </div>
+
+</div>
 
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+<script>
+    var ctx = document.getElementById("myChart");
+
+    var taskO = $("#taskO").val();;
+    var taskC = $("#taskC").val();;
+
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Task Chiusi', 'Task Aperti'],
+            datasets: [{
+                label: '# of Tomatoes',
+                data: [taskC, taskO],
+                backgroundColor: [
+                    'rgb(0, 207, 0)',
+                    'rgba(54, 162, 235)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            //cutoutPercentage: 40,
+            responsive: true,
+            legend: {
+                position: 'bottom',
+                labels: {
+                    fontColor: "Black",
+                    boxWidth: 20,
+                    padding: 8
+                }
+
+            }
+        }
+    });
+
+
+</script>
+
+
+<div class="container">
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Lista Partecipanti</h4>
+                </div>
+                <div class="modal-body">
+
+                    <ul class="list-group">
+
+
+
+
+                        @foreach (string item in @ViewBag.User)
+                        {
+
+
+                            <li class="list-group-item">@item    <b style="float: right;"> @Html.ActionLink("Go To Account", "ViewAccount", "Account", new { @Username = @item }, new { @class = "" })</b></li>
+
+
+
+
+
+                        }
+
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
