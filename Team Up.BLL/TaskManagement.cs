@@ -100,7 +100,33 @@ namespace Team_Up.BLL
             return taskList;
         }
 
+        public bool CloseOrOpen(int Id, bool CloseOrOpen) {
 
+            taskRepository.CloseOrOpen(Id,CloseOrOpen);
+            return true;
+        }
+
+
+        public bool Edit(TaskModel tkM) {
+
+            Mapping mapping = new Mapping();
+
+            TaskP taskE = new TaskP();
+            mapping.MapObjects(tkM, taskE);
+            taskRepository.Update(taskE);
+
+
+            return true;
+        }
+
+
+        public bool Delete(int id)
+        {
+
+            taskRepository.Delete(id);
+            return true;
+
+        }
 
 
     }

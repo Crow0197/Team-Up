@@ -32,6 +32,6 @@ namespace Team_Up.Entities
 
         [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime DtInsert { get; set; }
-
+        public bool isOpen { get; set; }
     }
 }

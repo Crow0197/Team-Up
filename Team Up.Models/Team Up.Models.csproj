@@ -94,6 +94,7 @@
     <Compile Include="CategoryModel.cs" />
     <Compile Include="CompetenceModel.cs" />
     <Compile Include="ReplyModel.cs" />
+    <Compile Include="Signed_Up_Model.cs" />
     <Compile Include="UtilyToolWeb.cs" />
     <Compile Include="ProjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -32,6 +32,7 @@ namespace Team_Up.Models
 
         public int ProjectID { get; set; }
 
+        public bool isOpen { get; set; }
 
         public string getCompetencesTostring() { 
        

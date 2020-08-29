@@ -74,24 +74,22 @@ namespace Team_Up.Controllers
         }
 
         // GET: Task/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
+        public ActionResult Edit(int id)        {
+            
+            return View(tk.GetOne(id));
         }
 
         // POST: Task/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(TaskModel collection)
         {
             try
             {
                 // TODO: Add update logic here
 
+                tk.Edit(collection);
 
-
-
-
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = collection.TaskID });
             }
             catch
             {
@@ -102,18 +100,19 @@ namespace Team_Up.Controllers
         // GET: Task/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(tk.GetOne(id));
         }
 
         // POST: Task/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete( TaskModel collection)
         {
             try
-            {
-                // TODO: Add delete logic here
+            {                // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
+                var idP = collection.Project;
+                tk.Delete(collection.TaskID);
+                return RedirectToAction("Details", "Project", new { id = idP });
             }
             catch
             {
@@ -158,6 +157,26 @@ namespace Team_Up.Controllers
 
 
         }
+
+
+        public ActionResult CloseOrOpen(int id, bool isClose)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+
+                tk.CloseOrOpen(id, isClose);
+
+                return RedirectToAction("Details", new { id = id });
+            }
+            catch
+            {
+                return RedirectToAction("Details",  new { id = id });
+            }
+        }
+
+
+       
     }
 
 }

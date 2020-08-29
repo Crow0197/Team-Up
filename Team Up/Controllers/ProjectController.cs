@@ -221,14 +221,24 @@ namespace Team_Up.Controllers
 
             ProjectModel project = new ProjectModel();
             ViewBag.isRegistered = pm.isRegistered(id, cookiemanagement.GetCoockieAustetication());
+            ViewBag.isRequest = pm.isRequest(id, cookiemanagement.GetCoockieAustetication());
+
+
             var task = tk.GetFromProject(id);
             ViewBag.Task = task;
             ViewBag.TaskO = task.Where(x => x.isClosed == false).ToList();
             ViewBag.TaskC = task.Where(x => x.isClosed == true).ToList();
 
-            ViewBag.User = pm.registeredUsers(id);
 
-           // project = pm.;
+            var UtentiRegistratiECofermati = pm.registeredUsers(id);
+            ViewBag.UserCofirmed = UtentiRegistratiECofermati.Where(x=>x.RequestConfirmed == true).ToList();
+
+            ViewBag.NotCofirmed = UtentiRegistratiECofermati.Where(x => x.RequestConfirmed == false).ToList();
+
+
+
+
+            // project = pm.;
             return View(pm.getOne(id));
         }
 
@@ -386,15 +396,16 @@ namespace Team_Up.Controllers
             user = am.GetAccountForUsername(cookiemanagement.GetCoockieAustetication());
 
             pm.SignedUp(projectID, creator, user);
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Details", new { id = projectID });
 
         }
 
 
-        public ActionResult AcceptRegistration(int idSignedUp, bool accepted)
+        public ActionResult AcceptRegistration(int idSignedUp, bool accepted, int? idP)
         {
             pm.AcceptRegistration(idSignedUp, accepted);
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", new { id = idP });
 
         }
 
@@ -416,6 +427,13 @@ namespace Team_Up.Controllers
            
         }
 
+
+
+        public ActionResult CloseProject(int id, bool isClosede)
+        {
+            pm.CloseAndOpen(id, isClosede);   
+            return RedirectToAction("Details", new { id = id });
+        }
 
 
     }

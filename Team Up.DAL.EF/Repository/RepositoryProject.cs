@@ -39,8 +39,7 @@ namespace Team_Up.DAL.EF.Repository
                 }
 
             project.Categories = listCategory;
-
-
+            project.isOpen = true;
 
             db1.Projects.Add(project);
             db1.SaveChanges();
@@ -241,7 +240,7 @@ namespace Team_Up.DAL.EF.Repository
             Signed_Up signed = new Signed_Up();
             signed = db1.Inscriptions.FirstOrDefault(x => x.Id == id);
             signed.IsRegistered = true;
-            signed.RequestConfirmed = true;
+            signed.RequestConfirmed = reply;
             db1.SaveChanges();
 
             return true;
@@ -254,7 +253,7 @@ namespace Team_Up.DAL.EF.Repository
             Signed_Up signed = new Signed_Up();
             signed = db1.Inscriptions.FirstOrDefault(x => x.Project == idP && x.Account == User);
 
-            if (signed != null && signed.RequestConfirmed == true)
+            if (signed != null && signed.IsRegistered == true)
             {
                 return true;
 
@@ -265,24 +264,55 @@ namespace Team_Up.DAL.EF.Repository
             }
 
         }
+          public bool isRequest(int idP, string User)
+        {
 
-        public IList<String> registeredUsers(int idP) { 
-        
-            List<String> listUser = new List<String>();
-            List<Signed_Up> signed = new List<Signed_Up>();
-            signed = db1.Inscriptions.Where(x => x.Project == idP).ToList();
+            Signed_Up signed = new Signed_Up();
+            signed = db1.Inscriptions.FirstOrDefault(x => x.Project == idP && x.Account == User);
 
-            foreach (var item in signed)
+            if (signed != null && signed.RequestConfirmed == true)
             {
-                listUser.Add(item.Account);
+                return true;
+
+            }
+            else
+            {
+                return false;
+
             }
 
 
-            return listUser;
-        
         }
 
 
+
+        public IList<Signed_Up> registeredUsers(int idP) {        
+            
+            List<Signed_Up> signed = new List<Signed_Up>();
+            signed = db1.Inscriptions.Where(x => x.Project == idP).ToList();     
+            return signed;
+        
+        }
+
+        public bool CloseAndOpen(int idP, bool CloseOpen)
+        {
+
+            Project project = new Project();
+            project = db1.Projects.FirstOrDefault(x => x.ProjectID == idP);
+
+
+            if (project != null)
+            {
+                project.isOpen = CloseOpen;
+                db1.SaveChanges();
+                return true;
+            }
+            else {
+                return false;
+            }
+        
+        
+        }
 
     }
 

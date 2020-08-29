@@ -193,14 +193,41 @@ namespace Team_Up.BLL
 
             return projectRepository.isRegistered(idP, User);
 
+
+
         }
 
 
-        public IList<String> registeredUsers(int idP)
+        public bool isRequest(int idP, string User)
         {
-            return projectRepository.registeredUsers(idP);
+            return projectRepository.isRequest(idP, User);
         }
 
+        public IList<Signed_Up_Model> registeredUsers(int idP)
+        {
+            Mapping mapping = new Mapping();
+            IList<Signed_Up_Model> signed_Up_Models = new List<Signed_Up_Model>();
+
+            foreach (var item in projectRepository.registeredUsers(idP))
+            {
+                Signed_Up_Model itemAdd = new Signed_Up_Model();
+
+                mapping.MapObjects(item, itemAdd);
+                signed_Up_Models.Add(itemAdd);
+
+            }
+           
+            return signed_Up_Models;
+        }
+
+
+        public bool CloseAndOpen(int idP, bool CloseOpen) {
+
+            projectRepository.CloseAndOpen(idP,CloseOpen);
+
+            return true;
+        
+        }
 
     }
 }

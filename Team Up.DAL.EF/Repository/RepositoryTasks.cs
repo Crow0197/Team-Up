@@ -17,9 +17,26 @@ namespace Team_Up.DAL.EF.Repository
             return true;
         }
 
-        public bool Delete(TaskP task)
+        public bool Delete(int  Id)
         {
-            throw new NotImplementedException();
+            TeamUpContext dbTask = new TeamUpContext();            
+            var task = dbTask.Tasks.FirstOrDefault(x => x.TaskID == Id);
+
+            if (task != null)
+            {
+                dbTask.Tasks.Remove(task);
+                dbTask.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+
+          
+
         }
 
         public List<TaskP> GetAll()
@@ -47,7 +64,40 @@ namespace Team_Up.DAL.EF.Repository
 
         public void Update(TaskP task)
         {
-            throw new NotImplementedException();
+            TeamUpContext dbTask = new TeamUpContext();
+            var taskDB = dbTask.Tasks.FirstOrDefault(x => x.TaskID == task.TaskID);
+
+            taskDB.Name = task.Name;
+            taskDB.DateClose = task.DateClose;
+            taskDB.Description = task.Description;
+            dbTask.SaveChanges();
+
+
         }
+
+        public bool CloseOrOpen(int Id, bool CloseOrOpen) {
+
+            TeamUpContext dbTask = new TeamUpContext();
+            TaskP task = new TaskP();
+            task = dbTask.Tasks.FirstOrDefault(x => x.TaskID == Id);
+
+
+            if (task != null)
+            {
+                task.isClosed = CloseOrOpen;
+                dbTask.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+
+        
+
+        }
+
     }
 }

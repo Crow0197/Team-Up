@@ -2,11 +2,24 @@
 
 @{
     ViewBag.Title = "Details";
+
+    HttpCookie cookie = HttpContext.Current.Request.Cookies.Get("UserLogin");
+
+    var userCookie = "";
+
+    if (cookie != null)
+    {
+        userCookie = cookie.Value;
+    }
+
+
+
 }
 
 <br />
 
 
+<b></b>
 
 
 
@@ -16,6 +29,9 @@
     <div class="row">
         <div class="col-sm-5">
             <p style="font-size: 40px;"> @Html.DisplayFor(model => model.Title)</p>
+
+
+
             <b>Team Leader:</b>  @Html.DisplayFor(model => model.CreatorAccount)<b>&nbsp|&nbsp</b>
 
 
@@ -23,14 +39,58 @@
             <br /><b>Start:</b>  @Html.DisplayFor(model => model.DtInsert)<b>&nbsp|&nbsp</b>
             <b>Chiusura Prevista:</b>  @Html.DisplayFor(model => model.Date)
             <br />
-            <br /><b>Giorni Extra Di Lavaorazione:</b> @DateTime.Now.Subtract((DateTime)Model.Date).Days
-            <br />  <a data-toggle="modal" data-target="#myModal" style="color:black;"><b>Lista Partecipanti</b> (@ViewBag.User.Count)  </a>
+
+            @{
+
+                var ExtraDay = DateTime.Now.Subtract((DateTime)Model.Date).Days;
+
+                if (ExtraDay < 0)
+                {
+                    ExtraDay = 0;
+
+                }
+            }
+
+
+            <br /><b>Giorni Extra Di Lavaorazione:</b> @ExtraDay
+
+
+
+
+
+
+            <br />  <a data-toggle="modal" data-target="#myModal" style="color:black;"><b>Lista Partecipanti</b> (@ViewBag.UserCofirmed.Count)  </a>
 
             <br />  @Html.DisplayFor(model => model.Description)
         </div>
         <div class="col-sm-7">
+            <div style=" float: right; ">
+
+                @{
+                    if (userCookie == Model.CreatorAccount)
+                    {
+
+
+
+                        if (Model.isOpen)
+                        { <input type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-on="Aperto" data-off="Chiuso" id="isClosed">
+                        }
+                        else
+                        {
+                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-on="Aperto" data-off="Chiuso" id="isClosed">
+
+                        }
+
+                    }
+
+                }
+
+            </div>
+            <br />
             <canvas id="myChart"></canvas>
         </div>
+
+
 
 
     </div>
@@ -47,13 +107,49 @@
 
 <br />
 
-<a href="~/Task/Create?projectId=@Model.ProjectID" style="margin: 2px; float:right;" class="btn btn-info"> New Task</a>
-@Html.ActionLink("Edit", "Edit", new { id = Model.ProjectID }, new { @class = "btn btn-info" })
+@{
 
 
-@if (ViewBag.isRegistered != true)
+
+
+
+
+    if (Model.isOpen == true)
+    {
+        if (userCookie == Model.CreatorAccount)
+        {
+
+            <a href="~/Task/Create?projectId=@Model.ProjectID" style="margin: 2px; float:right;" class="btn btn-info"> New Task</a>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectID }, new { @class = "btn btn-info" })
+
+
+        }
+
+        if (ViewBag.isRegistered != true && ViewBag.isRequest != true && userCookie != Model.CreatorAccount)
+        {
+            <b>-</b>
+            @Html.ActionLink("Iscriviti", "SignedUpProject", new { projectID = Model.ProjectID }, new { @class = "btn btn-info" })
+
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+@if (ViewBag.isRequest == false && ViewBag.isRegistered == true)
 {
-    @Html.ActionLink("Iscriviti", "SignedUpProject", new { projectID = Model.ProjectID }, new { @class = "btn btn-info" })
+    <b>
+        La tua Richiesta è in fase di accettazione<br />
+
+    </b>
 
 }
 
@@ -91,8 +187,14 @@
         <tr>
             <td style=" vertical-align: middle;">
                 @item.Name<br />
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+
+
+                @if (userCookie == Model.CreatorAccount)
+                {
+
+                    <a href="~/Task/Edit/@item.TaskID">Edit</a> <b>|</b>
+                    <a href="~/Task/Delete/@item.TaskID">Delete</a>
+                }
             </td>
             <td style=" vertical-align: middle;">
 
@@ -101,7 +203,7 @@
             <td style=" vertical-align: middle;">
 
 
-                @if (@item.isClosed)
+                @if (!@item.isClosed)
                 {
                     <i class="material-icons" style="color: #037d45;font-size: 30px;">done_outline </i>
                 }
@@ -126,8 +228,10 @@
 
             <td style=" vertical-align: middle;">
 
-                @if (ViewBag.isRegistered == true)
+                @if (ViewBag.isRequest == true && ViewBag.isRegistered == true || Model.CreatorAccount == userCookie)
                 {
+
+
                     <a href="~/Task/Details/@item.TaskID">Collabora</a>
                 }
 
@@ -183,8 +287,8 @@
                     'rgba(54, 162, 235)'
                 ],
                 borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)'
+                    'rgb(0, 207, 0)',
+                    'rgb(0, 207, 0)'
                 ],
                 borderWidth: 1
             }]
@@ -228,17 +332,47 @@
 
 
 
-                        @foreach (string item in @ViewBag.User)
+                        @foreach (var item in @ViewBag.UserCofirmed)
                         {
 
+                            if (item.RequestConfirmed != false)
+                            {
+                                <li class="list-group-item">@item.Account    <b style="float: right;"> @Html.ActionLink("Go To Account", "ViewAccount", "Account", new { @Username = @item.Account }, new { @class = "" })</b></li>
 
-                            <li class="list-group-item">@item    <b style="float: right;"> @Html.ActionLink("Go To Account", "ViewAccount", "Account", new { @Username = @item }, new { @class = "" })</b></li>
 
+                            }
+
+
+                        }
+
+
+                        @{
+
+                            if (userCookie == Model.CreatorAccount)
+                            {
+                                if (@ViewBag.NotCofirmed.Count > 0)
+                                {
+
+                                    <h4 class="modal-title">Da Confermare</h4>
+
+
+                                }
+                                foreach (var item in @ViewBag.NotCofirmed)
+                                {
+
+
+                                    <li class="list-group-item">@item.Account    <b style="float: right;">  @Html.ActionLink("Rifiuta", "AcceptRegistration", "Project", new { @idSignedUp = @item.Id, @accepted = false, @idP = Model.ProjectID }, new { @class = "" }) -  @Html.ActionLink("Accetta", "AcceptRegistration", "Project", new { @idSignedUp = @item.Id, @accepted = true, @idP = Model.ProjectID }, new { @class = "" }) - @Html.ActionLink("Go To Account", "ViewAccount", "Account", new { @Username = @item.Account, @idP = Model.ProjectID }, new { @class = "" })</b></li>
+
+
+                                }
+
+                            }
 
 
 
 
                         }
+
 
                     </ul>
                 </div>
@@ -251,3 +385,31 @@
     </div>
 
 </div>
+
+
+<script>
+
+
+
+    $("#isClosed").change(function () {
+
+        console.log('Toggle: ' + $(this).prop('checked'));
+
+
+        if ($(this).prop('checked') == false) {
+            var url = "@Url.Action("CloseProject", "Project",new { id = Model.ProjectID, isClosede = false})";
+            location.replace(url);
+
+        }
+        else {
+             var url = "@Url.Action("CloseProject", "Project",new { id = Model.ProjectID, isClosede = true})";
+            location.replace(url);
+
+        }
+
+
+
+
+    });
+
+</script>

@@ -21,11 +21,12 @@ namespace Team_Up.DAL
         bool AcceptRegistration(int id, bool reply);
 
         bool isRegistered(int idP, string  User);
+        bool isRequest(int idP, string  User);
         
         void Save();
 
-
-        IList<String> registeredUsers(int idP);
+        bool CloseAndOpen(int idP, bool CloseOpen);
+        IList<Signed_Up> registeredUsers(int idP);
     }
 
 
