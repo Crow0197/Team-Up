@@ -15,8 +15,9 @@ namespace Team_Up.Controllers
     public class AccountController : Controller
     {
         AccountManagement am;
+        ProjectManagement pm;
         CompentenceManagement cm;
-       
+
 
 
         Cookie cookiemanagement = new Cookie();
@@ -25,7 +26,8 @@ namespace Team_Up.Controllers
         {
             this.am = new AccountManagement();
             this.cm = new CompentenceManagement();
-          
+            this.pm = new ProjectManagement();
+
         }
 
         // GET: Account
@@ -43,14 +45,18 @@ namespace Team_Up.Controllers
 
 
             var loginUser = cookiemanagement.GetCoockieAustetication();
-            
-            if (loginUser == "") {
+
+            if (loginUser == "")
+            {
 
                 return RedirectToAction("Login");
             }
 
-        else return View(am.GetAccountForUsername(cookiemanagement.GetCoockieAustetication()));
-
+            else
+            {
+                ViewBag.Compentence = cm.getAllForAccount(loginUser);
+                return View(am.GetAccountForUsername(cookiemanagement.GetCoockieAustetication()));
+            }
 
 
 
@@ -61,7 +67,7 @@ namespace Team_Up.Controllers
 
         public ActionResult ViewAccount(string Username)
         {
-            ViewBag.Compentence =cm.getAllForAccount(Username);
+            ViewBag.Compentence = cm.getAllForAccount(Username);
             return View(am.GetAccountForUsername(Username));
 
         }
@@ -74,10 +80,10 @@ namespace Team_Up.Controllers
         {
             IList<CompetenceModel> listCompetence = new List<CompetenceModel>();
             listCompetence = cm.getAll();
-          
+
 
             ViewBag.ListCompetence = listCompetence;
-          
+
 
 
             return View();
@@ -88,28 +94,28 @@ namespace Team_Up.Controllers
         public ActionResult Create(AccountModel newAccount, int[] Compentecey)
         {
 
-            ViewBag.NotLogin = true;       
-            ViewBag.success = true;        
-            
-                // TODO: Add insert logic here
+            ViewBag.NotLogin = true;
+            ViewBag.success = true;
 
-                var success = am.Registration(newAccount, Compentecey);
+            // TODO: Add insert logic here
 
-                if (success)
-                {
-                    cookiemanagement.CoockieCrationOfAustetication(newAccount.UserName);
-                    return RedirectToAction("UploadAvatar");
-                }
+            var success = am.Registration(newAccount, Compentecey);
 
-                else
-                {
-                    ViewBag.success = false;
-                    IList<CompetenceModel> listCompetence = new List<CompetenceModel>();
-                    listCompetence = cm.getAll();
-                    ViewBag.ListCompetence = listCompetence;
-                    return View(newAccount);
-                }           
-            
+            if (success)
+            {
+                cookiemanagement.CoockieCrationOfAustetication(newAccount.UserName);
+                return RedirectToAction("UploadAvatar");
+            }
+
+            else
+            {
+                ViewBag.success = false;
+                IList<CompetenceModel> listCompetence = new List<CompetenceModel>();
+                listCompetence = cm.getAll();
+                ViewBag.ListCompetence = listCompetence;
+                return View(newAccount);
+            }
+
         }
 
         // GET: Account/Edit/5
@@ -123,11 +129,12 @@ namespace Team_Up.Controllers
 
             IList<CompetenceModel> userCompetence = new List<CompetenceModel>();
             userCompetence = cm.getAllForAccount(usernLogin);
-                    
+
 
             foreach (var item in allCompetence)
             {
-                if (userCompetence.Any(x => x.CompetenceID == item.CompetenceID)) {
+                if (userCompetence.Any(x => x.CompetenceID == item.CompetenceID))
+                {
                     item.Selected = true;
                 }
 
@@ -150,7 +157,7 @@ namespace Team_Up.Controllers
 
             return View(utente);
 
-       
+
         }
 
         // POST: Account/Edit/5
@@ -158,7 +165,7 @@ namespace Team_Up.Controllers
         public ActionResult Edit(AccountModel collection, int[] Compentecey)
         {
             try
-            {                         
+            {
                 am.EditAccount(collection, Compentecey);
                 ViewBag.success = true;
             }
@@ -167,7 +174,7 @@ namespace Team_Up.Controllers
                 ViewBag.success = false;
             }
 
-            return RedirectToAction("Edit","Account", new { username= collection.UserName });
+            return RedirectToAction("Edit", "Account", new { username = collection.UserName });
 
 
         }
@@ -296,15 +303,17 @@ namespace Team_Up.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult PasswordRecovery() {          
-            
+        public ActionResult PasswordRecovery()
+        {
+
             return View();
         }
 
 
         // POST: Account/Create
         [HttpPost]
-        public ActionResult PasswordRecovery(string email){
+        public ActionResult PasswordRecovery(string email)
+        {
 
             if (am.PasswordRecovery(Url.Action("ChangePassword", "Account"), email))
             {
@@ -319,7 +328,7 @@ namespace Team_Up.Controllers
             return View();
         }
 
-        
+
         public ActionResult ChangePassword(string user)
         {
             ViewBag.User = user;
@@ -327,7 +336,7 @@ namespace Team_Up.Controllers
         }
 
 
-    
+
         [HttpPost]
         public ActionResult ChangePassword(FormCollection collection)
         {
@@ -337,10 +346,28 @@ namespace Team_Up.Controllers
 
             return View();
 
-                
+
         }
 
+        public ActionResult ProjectForAccount()
+        {
 
+            var loginUser = cookiemanagement.GetCoockieAustetication();
+
+
+
+            List<ProjectModel> projectModels = new List<ProjectModel>();
+
+
+
+            ViewBag.MyProject = pm.getAll().Where(x => x.CreatorAccount == loginUser).ToList();
+            ViewBag.SignedUpProject = pm.getSignedUpProject(loginUser);
+
+
+
+            return View();
+
+        }
 
     }
 }

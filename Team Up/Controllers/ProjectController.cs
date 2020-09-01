@@ -402,10 +402,12 @@ namespace Team_Up.Controllers
         }
 
 
-        public ActionResult AcceptRegistration(int idSignedUp, bool accepted, int? idP)
+        public ActionResult AcceptRegistration(int idSignedUp, bool accepted)
         {
-            pm.AcceptRegistration(idSignedUp, accepted);
-            return RedirectToAction("Details", new { id = idP });
+           var idP = pm.AcceptRegistration(idSignedUp, accepted);
+
+
+            return RedirectToAction("Details", new { id = idP});
 
         }
 
@@ -435,6 +437,8 @@ namespace Team_Up.Controllers
             return RedirectToAction("Details", new { id = id });
         }
 
+
+       
 
     }
 }

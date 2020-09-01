@@ -50,10 +50,41 @@
 
                         <tr>
 
-                            <td class="tdMyaAvatar">@Html.DisplayNameFor(model => model.TypeAccount)</td>
-                            <td> @Html.DisplayFor(model => model.TypeAccount)</td>
+                            <td class="tdMyaAvatar"></td>
+                            <td>
+                                @Html.ActionLink("Progetti", "ProjectForAccount")
+                            </td>
 
                         </tr>
+
+                        <tr>
+                            <td>
+
+                                <h4><b>Competences:</b></h4>
+                                <div id="CompetencesMobile" class="mediaNone">
+
+
+
+                                    @{
+
+
+                                        foreach (var itemCompetences in ViewBag.Compentence)
+                                        {
+
+
+                                            <a style="margin: 2px;" class="btn btn-@itemCompetences.Color"> @itemCompetences.typology.ToUpper()</a>
+                                        }
+
+
+
+                                    }
+
+                                </div>
+
+
+                            </td>
+                        </tr>
+
 
                     </tbody>
                 </table>

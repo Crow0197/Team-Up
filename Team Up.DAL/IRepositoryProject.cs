@@ -18,7 +18,7 @@ namespace Team_Up.DAL
         bool Create(Project project, string account, int[] competence, int[] category);
         int SignedUp(Project project, Account account);
 
-        bool AcceptRegistration(int id, bool reply);
+        Signed_Up AcceptRegistration(int id, bool reply);
 
         bool isRegistered(int idP, string  User);
         bool isRequest(int idP, string  User);
@@ -27,6 +27,8 @@ namespace Team_Up.DAL
 
         bool CloseAndOpen(int idP, bool CloseOpen);
         IList<Signed_Up> registeredUsers(int idP);
+
+        IList<Project> getSignedUpProject(string user);
     }
 
 

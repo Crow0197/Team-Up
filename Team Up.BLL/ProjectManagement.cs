@@ -15,13 +15,14 @@ namespace Team_Up.BLL
     public class ProjectManagement
     {
         IRepositoryProject projectRepository;
-
+        IRepositoryAccount accoutM;
 
 
         public ProjectManagement()
         {
 
             projectRepository = new RepositoryProject();
+            accoutM = new RepositoryAccount();
         }
 
 
@@ -178,11 +179,34 @@ namespace Team_Up.BLL
 
         }
 
-        public void AcceptRegistration(int id, bool reply)
+        public int AcceptRegistration(int id, bool reply)
         {
 
-            projectRepository.AcceptRegistration(id, reply);
+            var signer= projectRepository.AcceptRegistration(id, reply);
+            var account =accoutM.GetOne(signer.Account);
 
+            var title = projectRepository.GetOne(signer.Project).Title;
+
+            MailMessage message = new MailMessage();
+            message.To.Add(account.Email);
+            message.Subject = "Iscrizione Progetto " + title;
+            message.IsBodyHtml = true;
+
+            message.Body = "La tua richiesta di iscrizione al progetto " + title + " è stata: ";
+
+            if (reply) { message.Body += "Accetta"; }
+            else message.Body += "Rifiutata";
+
+
+            message.From = new MailAddress("nonreplaycrossteam@gmail.com", "Iscrizione: " + title);
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.EnableSsl = true;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential("nonreplaycrossteam@gmail.com", "Seven123");
+            smtp.Send(message);
+
+
+            return signer.Project;
 
 
         }
@@ -228,6 +252,27 @@ namespace Team_Up.BLL
             return true;
         
         }
+
+
+        public IList<ProjectModel> getSignedUpProject(string user)
+        {
+            Mapping mapping = new Mapping();
+            IList<ProjectModel> projects = new List<ProjectModel>();
+
+            foreach (var item in projectRepository.getSignedUpProject(user))
+            {
+                ProjectModel itemAdd = new ProjectModel();
+
+                mapping.MapObjects(item, itemAdd);
+                projects.Add(itemAdd);
+
+            }
+
+            return projects;
+        }
+
+
+
 
     }
 }

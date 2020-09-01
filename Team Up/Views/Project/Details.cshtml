@@ -21,6 +21,21 @@
 
 <b></b>
 
+@{
+
+    if (ViewBag.Message == true)
+    {
+
+        <script type="text/javascript">
+            window.onload = function () {
+                $('#myModal').modal('show');
+            };
+        </script>
+
+    }
+
+
+}
 
 
 <div class="divDetail">
@@ -127,7 +142,7 @@
 
         if (ViewBag.isRegistered != true && ViewBag.isRequest != true && userCookie != Model.CreatorAccount)
         {
-            <b>-</b>
+            <b>&nbsp</b>
             @Html.ActionLink("Iscriviti", "SignedUpProject", new { projectID = Model.ProjectID }, new { @class = "btn btn-info" })
 
         }
@@ -413,3 +428,31 @@
     });
 
 </script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-body">
+                @if (ViewBag.Message == true)
+                {
+
+                    <h1>Iscrizione Completa</h1><br>
+
+                }
+                else if (ViewBag.Message == false)
+                {
+                    <h1> Error</h1><br>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

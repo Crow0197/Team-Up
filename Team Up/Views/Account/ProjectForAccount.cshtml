@@ -1,0 +1,45 @@
+﻿
+
+@{
+    ViewBag.Title = "ProjectForAccount";
+}
+
+
+
+<div>
+   
+    <hr />
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>I miei Progetti</h1>
+            <div class="list-group">
+                @{
+                    foreach (var item in ViewBag.MyProject)
+                    {
+                        string title = item.Title;
+                        @Html.ActionLink(title, "Details", "Project", new { id = item.ProjectID }, new { @class = "list-group-item list-group-item-action" })
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <h1>Iscrizioni</h1>
+            <div class="list-group">
+                @{
+                    foreach (var item in ViewBag.SignedUpProject)
+                    {
+                        string title = item.Title;
+                        @Html.ActionLink(title, "Details", "Project", new { id = item.ProjectID }, new { @class = "list-group-item list-group-item-action" })
+
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+

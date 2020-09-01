@@ -234,16 +234,17 @@ namespace Team_Up.DAL.EF.Repository
 
 
 
-        public bool AcceptRegistration(int id, bool reply)
+        public Signed_Up AcceptRegistration(int id, bool reply)
         {
 
+            
             Signed_Up signed = new Signed_Up();
             signed = db1.Inscriptions.FirstOrDefault(x => x.Id == id);
             signed.IsRegistered = true;
             signed.RequestConfirmed = reply;
             db1.SaveChanges();
 
-            return true;
+            return signed;
 
         }
 
@@ -258,13 +259,14 @@ namespace Team_Up.DAL.EF.Repository
                 return true;
 
             }
-            else {
+            else
+            {
                 return false;
 
             }
 
         }
-          public bool isRequest(int idP, string User)
+        public bool isRequest(int idP, string User)
         {
 
             Signed_Up signed = new Signed_Up();
@@ -286,12 +288,13 @@ namespace Team_Up.DAL.EF.Repository
 
 
 
-        public IList<Signed_Up> registeredUsers(int idP) {        
-            
+        public IList<Signed_Up> registeredUsers(int idP)
+        {
+
             List<Signed_Up> signed = new List<Signed_Up>();
-            signed = db1.Inscriptions.Where(x => x.Project == idP).ToList();     
+            signed = db1.Inscriptions.Where(x => x.Project == idP).ToList();
             return signed;
-        
+
         }
 
         public bool CloseAndOpen(int idP, bool CloseOpen)
@@ -307,11 +310,18 @@ namespace Team_Up.DAL.EF.Repository
                 db1.SaveChanges();
                 return true;
             }
-            else {
+            else
+            {
                 return false;
             }
-        
-        
+
+
+        }
+
+
+        public IList<Project> getSignedUpProject(string user)
+        {
+            return db1.Projects.SqlQuery(" SELECT pr.*  FROM [dbo].[Signed_Up] su inner join [Projects] pr on pr.[ProjectID] = su.Project where su.account ='" + user + "'").ToList();
         }
 
     }

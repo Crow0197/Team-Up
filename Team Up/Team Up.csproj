@@ -192,6 +192,7 @@
     <Content Include="Views\AdminControl\DeleteCategories.cshtml" />
     <Content Include="Views\AdminControl\CreateCategories.cshtml" />
     <Content Include="Views\Account\ViewAccount.cshtml" />
+    <Content Include="Views\Account\ProjectForAccount.cshtml" />
     <None Include="Views\Shared\_TextArea.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
