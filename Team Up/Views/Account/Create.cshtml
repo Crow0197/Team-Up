@@ -105,6 +105,9 @@
 
 
                 </select><br />
+               
+                <div class = "text-danger" id="errorCompetence">    </div>
+
                 <b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
 
             </div>
@@ -119,7 +122,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" id="send"/>
             </div>
         </div>
     </div>
@@ -165,3 +168,21 @@
 
     </div>
 </div>
+
+<script>
+    $("#send").click(function () {
+
+        
+
+        if ($("#Compentecey option:selected").length == 0 ) {
+
+            $("#errorCompetence").html("Inserisci almeno un valore");
+           
+        }
+        else 
+            $("#errorCompetence").html("");
+
+    });
+
+
+</script>

@@ -96,21 +96,33 @@ namespace Team_Up
         }
 
 
-        public Competence getOne(int id)
+        public Competence getOneEntity(int id)
         {
             return compenteRepository.GetOne(id);
         }
 
-
-        public CompetenceModel getOneCompetenc(int id)
+        public CompetenceModel getOne(int id)
         {
             Mapping mapping = new Mapping();
-            CompetenceModel competence = new CompetenceModel();
-            mapping.MapObjects(getOne(id), competence);
-            return competence;
+            CompetenceModel newCompetenceModel = new CompetenceModel();
+            var cm = compenteRepository.GetOne(id);
+            if (cm != null)
+                mapping.MapObjects(cm, newCompetenceModel);
+            return newCompetenceModel;
         }
 
 
+        public CompetenceModel getOne(string name)
+        {
+            Mapping mapping = new Mapping();
+            CompetenceModel newCompetenceModel = new CompetenceModel();
+            var cm = compenteRepository.GetOne(name);
+            if (cm != null)
+                mapping.MapObjects(cm, newCompetenceModel);
+            return newCompetenceModel;
+        }
+
+       
         public void Delete(int id)
         {
             compenteRepository.Delete(compenteRepository.GetOne(id));
@@ -118,12 +130,13 @@ namespace Team_Up
 
 
 
-        public void Create(CompetenceModel cm) {
+        public void Create(CompetenceModel cm)
+        {
 
             Mapping mapping = new Mapping();
-            Competence competence = new Competence();            
+            Competence competence = new Competence();
             mapping.MapObjects(cm, competence);
-            compenteRepository.Create(competence);            
+            compenteRepository.Create(competence);
 
 
         }

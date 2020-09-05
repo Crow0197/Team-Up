@@ -331,6 +331,7 @@ namespace Team_Up.Controllers
 
         public ActionResult ChangePassword(string user)
         {
+            if (user == null) { user = cookiemanagement.GetCoockieAustetication(); }
             ViewBag.User = user;
             return View();
         }

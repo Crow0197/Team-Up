@@ -14,7 +14,7 @@ namespace Team_Up.Controllers
         AccountManagement am;
         CompentenceManagement cm;
         CategoryManagement cam;
-        Cookie cookiemanagement = new Cookie();   
+        Cookie cookiemanagement = new Cookie();
 
 
         public AdminControlController()
@@ -26,17 +26,18 @@ namespace Team_Up.Controllers
 
         }
         // GET: Admin
-        public ActionResult AdminControl()
+        public ActionResult AdminControl(int tab=1)
         {
             if (cookiemanagement.GetCoockieAustetication() == "Admin")
             {
                 ViewBag.Accounts = am.getAll();
                 ViewBag.Compences = cm.getAll();
                 ViewBag.Categories = cam.getAll();
+                ViewBag.Tab = tab;
                 return View();
             }
 
-            return RedirectToAction("Login","Account");
+            return RedirectToAction("Login", "Account");
 
         }
 
@@ -138,8 +139,8 @@ namespace Team_Up.Controllers
         {
             try
             {
-                  am.Delete(id);   
-                return RedirectToAction("AdminControl");
+                am.Delete(id);
+                return RedirectToAction("AdminControl", new { tab = 1});
             }
             catch
             {
@@ -151,15 +152,15 @@ namespace Team_Up.Controllers
         public ActionResult DetailsCompentece(int id)
         {
             return PartialView("_DetailsCompentece", cm.getAll());
-           
+
         }
 
 
         // GET: Admin/Delete/5
         public ActionResult DeleteCompetence(int CompetenceID)
         {
-            var utente = cm.getOneCompetenc(CompetenceID);
-            return View(utente);
+            CompetenceModel cmD = cm.getOne(CompetenceID);
+            return View(cmD);
         }
 
 
@@ -169,7 +170,7 @@ namespace Team_Up.Controllers
             try
             {
                 cm.Delete(collection["CompetenceID"].AsInt());
-                return RedirectToAction("AdminControl");
+                return RedirectToAction("AdminControl", new { tab = 2 });
             }
             catch
             {
@@ -195,8 +196,26 @@ namespace Team_Up.Controllers
             try
             {
                 // TODO: Add insert logic here
-                cm.Create(collection);
-                return RedirectToAction("AdminControl");
+                string newCompetenceModel = collection.typology.ToUpper();
+                var isNull = cm.getOne(newCompetenceModel).CompetenceID;
+
+                if (isNull == 0)
+                {
+                    cm.Create(collection);
+
+                    return RedirectToAction("AdminControl", new { tab = 2 });
+
+                }
+                else
+                {
+
+                    ViewBag.Duplicate = true;
+                    return View();
+                }
+
+
+
+
             }
             catch
             {
@@ -217,10 +236,10 @@ namespace Team_Up.Controllers
         [HttpPost]
         public ActionResult DeleteCategories(FormCollection collection)
         {
-           
-                cam.Delete(collection["CategoryID"].AsInt());
-                return RedirectToAction("AdminControl");
-           
+
+            cam.Delete(collection["CategoryID"].AsInt());
+            return RedirectToAction("AdminControl", new { tab = 3 });
+
         }
 
 
@@ -237,8 +256,24 @@ namespace Team_Up.Controllers
             try
             {
                 // TODO: Add insert logic here
-                cam.Create(collection);
-                return RedirectToAction("AdminControl");
+
+                string newCategoriesModel = collection.Typology.ToUpper();
+                var isNull = cam.getOne(newCategoriesModel).CategoryID;
+
+                if (isNull == 0)
+                {
+                    cam.Create(collection);
+                    return RedirectToAction("AdminControl", new { tab = 3 });
+
+                }
+                else {
+
+                    ViewBag.Duplicate = true;
+                    return View();
+                
+                }
+
+
             }
             catch
             {

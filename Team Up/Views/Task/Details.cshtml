@@ -24,10 +24,13 @@
 <div>
 
     <hr />
-    <h1> @Html.DisplayFor(model => model.Name)</h1> @Html.ActionLink("Edit", "Edit", new {  id = Model.TaskID }) |
-    <a href="~/Project/Details/@Model.Project">Back to List</a>
+    <h1> @Html.DisplayFor(model => model.Name)</h1>
 
-    <div style="float:right">
+    <div class="col-sm-1" style="width: 55px;}">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.TaskID }, new { @class = "btn btn-warning" })
+    </div>
+
+    <div class="col-sm-1">
 
         @{
             if (userCookie == Model.AccountCreator)
@@ -52,7 +55,7 @@
         }
     </div>
     <br />
-
+    <div class="row"></div><br />
 
     <dl class="dl-horizontal">
 
@@ -98,123 +101,123 @@
 
 
 
-    <hr />
-    <h3 style="text-align:right"> Risposte</h3>
-    <hr />
+<hr />
+<h3 style="text-align:right"> Risposte</h3>
+<hr />
 
 
-    @if (ViewBag.isLogin != "" && Model.isClosed != false)
-    {
+@if (ViewBag.isLogin != "" && Model.isClosed != false)
+{
 
-        <div class="col-sm-4" style=" width:160px;">
-            <form action="../FileUpload" method="post" enctype="multipart/form-data" id="formUpload">
-                <input type="file" name="file" id="file" style="display:none;" />
-                <label for="file" class="btnInput">
-                    <i class="material-icons">
-                        add_photo_alternate
-                    </i>
-                    Upload
-                </label>
-                <input type="text" name="idTask" id="idTask" style="display:none;" value="@Model.TaskID" />
-            </form>
-        </div>
-
-        <script>
-
-            $("#file").change(function () {
-                document.getElementById("formUpload").submit();
-
-            });
-
-
-
-        </script>
-        <br />
-        <br />
-
-
-        using (Html.BeginForm("Create", "Replys", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="form-horizontal">
-
-                @Html.Partial("_TextArea")
-
-
-
-                <input name="Project" value="@Model.Project" style="display: none;" />
-                <input name="TaskID" value="@Model.TaskID" style="display: none;" />
-
-                <div class="form-group" style=" padding-left: 5%;">
-                    <textarea class="form-control" name="Message" rows="3" style=" display:none;" id="Message"></textarea>
-                    <input type="submit" value="Invia" class="btn btn-default" style="float: right;margin: 1%;" id="create" />
-                </div>
-
-            </div>
-        }
-
-
-    }
-
-
-
-
-
-
-
-    @foreach (var item in ViewBag.Reply)
-    {
-
-
-        <div class="row">
-            <div class="col-sm-2 profile">
-                <b>@item.UserName  </b>
-                <div>
-                    <img src="~/Uploads/@item.AccountDetails.Avatar" class="profileAvatar" />
-
-
-                </div>
-
-                <div style="">
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </div>
-            </div>
-
-
-            <div class="col-sm-8">
-                <div class="row" style=" font-size: 10px;"><b>Inviato il </b>@item.DateInsert</div>
-                <div class="row message">@Html.Raw(HttpUtility.HtmlDecode(item.Message))</div>
-
-
-            </div>
-
-
-        </div>
-
-        <hr style=" border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
-
-    }
-
+    <div class="col-sm-4" style=" width:160px;">
+        <form action="../FileUpload" method="post" enctype="multipart/form-data" id="formUpload">
+            <input type="file" name="file" id="file" style="display:none;" />
+            <label for="file" class="btnInput">
+                <i class="material-icons">
+                    add_photo_alternate
+                </i>
+                Upload
+            </label>
+            <input type="text" name="idTask" id="idTask" style="display:none;" value="@Model.TaskID" />
+        </form>
+    </div>
 
     <script>
 
-
-
-        document.getElementById("editor").addEventListener("focusout", function () {
-
-            document.getElementById("Message").value = document.getElementById("editor").innerHTML;
+        $("#file").change(function () {
+            document.getElementById("formUpload").submit();
 
         });
 
+
+
     </script>
+    <br />
+    <br />
+
+
+    using (Html.BeginForm("Create", "Replys", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.Partial("_TextArea")
+
+
+
+            <input name="Project" value="@Model.Project" style="display: none;" />
+            <input name="TaskID" value="@Model.TaskID" style="display: none;" />
+
+            <div class="form-group" style=" padding-left: 5%;">
+                <textarea class="form-control" name="Message" rows="3" style=" display:none;" id="Message"></textarea>
+                <input type="submit" value="Invia" class="btn btn-default" style="float: right;margin: 1%;" id="create" />
+            </div>
+
+        </div>
+    }
+
+
+}
 
 
 
 
-    <script>
+
+
+
+@foreach (var item in ViewBag.Reply)
+{
+
+
+    <div class="row">
+        <div class="col-sm-2 profile">
+            <b>@item.UserName  </b>
+            <div>
+                <img src="~/Uploads/@item.AccountDetails.Avatar" class="profileAvatar" />
+
+
+            </div>
+
+            <div style="">
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </div>
+        </div>
+
+
+        <div class="col-sm-8">
+            <div class="row" style=" font-size: 10px;"><b>Inviato il </b>@item.DateInsert</div>
+            <div class="row message">@Html.Raw(HttpUtility.HtmlDecode(item.Message))</div>
+
+
+        </div>
+
+
+    </div>
+
+    <hr style=" border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+
+}
+
+
+<script>
+
+
+
+    document.getElementById("editor").addEventListener("focusout", function () {
+
+        document.getElementById("Message").value = document.getElementById("editor").innerHTML;
+
+    });
+
+</script>
+
+
+
+
+<script>
 
 
 
@@ -239,4 +242,4 @@
 
     });
 
-    </script>
+</script>

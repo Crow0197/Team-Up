@@ -52,6 +52,20 @@ namespace Team_Up
         }
 
 
+        public CategoryModel getOne(string name)
+        {
+            CategoryModel categoryReturn = new CategoryModel();
+            var returnDB = categoryRepository.GetOne(name);
+            if (returnDB != null)
+            {
+                Mapping mapping = new Mapping();
+                mapping.MapObjects(returnDB, categoryReturn);
+            }
+
+            return categoryReturn;
+        }
+
+
         public void Delete(int id) {
 
             categoryRepository.Delete(id);

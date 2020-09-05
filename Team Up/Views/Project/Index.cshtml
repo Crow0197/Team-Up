@@ -142,7 +142,7 @@
 </p>
 <div class="table-responsive">
     <table class="table">
-        <tr>
+        <tr style="background:black; color:white;">
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -167,8 +167,19 @@
         @foreach (var item in Model.OrderByDescending(x => x.DtInsert))
         {
 
-            <tr>
-                <td>
+            var color = "";
+            if (!@item.isOpen)
+            {
+                color = "#00a70d29;";
+            }
+            else
+            {
+                color = "#75151529;";
+            }
+
+
+            <tr style="background:@color">
+                <td style="vertical-align: middle;"> 
                     <div class="mediaNone">
 
                         <b style="color:black">
@@ -199,7 +210,7 @@
 
                         @if (cookie != null && cookie.Value != "" && (cookie.Value == item.CreatorAccount || cookie.Value == "Admin"))
                         {
-                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) <b>|</b>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) <b>|</b>
                             @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) <b>|</b>
                             @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })<br />
                         }
@@ -274,7 +285,7 @@
 
                     </div>
                 </td>
-                <td class="mediaNone">
+                <td class="mediaNone" style="vertical-align: middle;">
                     
                     
                     @{
@@ -284,10 +295,10 @@
                     }
 
                 </td>
-                <td class="mediaNone">
+                <td class="mediaNone" style="vertical-align: middle;">
                     @Html.DisplayFor(modelItem => item.DtInsert)
                 </td>
-                <td class="mediaNone">
+                <td class="mediaNone" style="vertical-align: middle;">
 
                     @{
                         if (item.Description.Length > 350)
@@ -298,10 +309,10 @@
 
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
-                <td class="mediaNone">
+                <td class="mediaNone" style="vertical-align: middle;">
                     @Html.DisplayFor(modelItem => item.CreatorAccount)
                 </td>
-                <td class="mediaNone">
+                <td class="mediaNone" style="vertical-align: middle;">
                     <h4 style="" class="mediaNone">Competences:</h4>
                     <div id="Competences" class="mediaNone">
 

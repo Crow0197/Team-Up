@@ -11,6 +11,7 @@ namespace Team_Up.DAL
     {
 
         Category GetOne(int idSearch);
+        Category GetOne(string NameSearch);
         void Update(Category category);
         Boolean Delete(int categoryt);
         List<Category> GetAll();

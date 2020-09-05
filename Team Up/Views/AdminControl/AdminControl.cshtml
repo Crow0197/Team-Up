@@ -6,6 +6,18 @@
 
 
 
+@{
+    if (ViewBag.Duplicate == null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                $('[href="#'+ @ViewBag.Tab +'a"]').tab('show');
+            };
+        </script>
+    }
+
+}
+
 
 <h2>Control Panel</h2>
 
@@ -21,21 +33,21 @@
         <li>
             <a href="#3a" data-toggle="tab">Categories</a>
         </li>
-     
+
     </ul><br />
 
     <div class="tab-content clearfix">
-        <div class="tab-pane active" id="1a">           
+        <div class="tab-pane active" id="1a">
             <table class="table">
                 <tr>
                     <th>
-                        Name
+                        Nome
                     </th>
                     <th>
-                        Surname
+                        Cognome
                     </th>
                     <th>
-                        DateOfBirth
+                        Data Di nascità
                     </th>
                     <th>
                         Email
@@ -73,7 +85,7 @@
                         </td>
 
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { username = item.UserName }) |                      
+                            @Html.ActionLink("Edit", "Edit", new { username = item.UserName }) |
                             @Html.ActionLink("Delete", "Delete", new { username = item.UserName })
                         </td>
                     </tr>
@@ -148,7 +160,7 @@
 
             </table>
         </div>
-      
+
     </div>
 </div>
 

@@ -203,7 +203,7 @@ namespace Team_Up.BLL
 
             foreach (var item in Compentecey)
             {
-                var itemC = cm.getOne(item);
+                var itemC = cm.getOneEntity(item);
                 CompetenceyAccount.Add(itemC);
             }
 

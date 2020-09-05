@@ -45,6 +45,12 @@
         <div class="col-sm-5">
             <p style="font-size: 40px;"> @Html.DisplayFor(model => model.Title)</p>
 
+            @if (userCookie == Model.CreatorAccount)
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectID }, new { @class = "btn btn-warning" })
+               <b></b> @Html.ActionLink("Delete", "Delete", new { id = Model.ProjectID }, new { @class = "btn btn-danger" })<br />
+            <br />}
+
 
 
             <b>Team Leader:</b>  @Html.DisplayFor(model => model.CreatorAccount)<b>&nbsp|&nbsp</b>
@@ -52,22 +58,31 @@
 
 
             <br /><b>Start:</b>  @Html.DisplayFor(model => model.DtInsert)<b>&nbsp|&nbsp</b>
-            <b>Chiusura Prevista:</b>  @Html.DisplayFor(model => model.Date)
-            <br />
 
             @{
+                var dateClose = Model.Date.Value.ToString("yyyy-MM-dd").ToString();
 
-                var ExtraDay = DateTime.Now.Subtract((DateTime)Model.Date).Days;
-
-                if (ExtraDay < 0)
+                if (dateClose != "0001-01-01")
                 {
-                    ExtraDay = 0;
 
+                    <b>Chiusura Prevista:</b> @Html.DisplayFor(model => model.Date)
+                    <br />
+
+                    var ExtraDay = DateTime.Now.Subtract((DateTime)Model.Date).Days;
+                    if (ExtraDay < 0)
+                    {
+                        ExtraDay = 0;
+
+                    }
+
+                    <br /><b>Giorni Extra Di Lavaorazione:</b> @ExtraDay
                 }
             }
 
 
-            <br /><b>Giorni Extra Di Lavaorazione:</b> @ExtraDay
+
+
+
 
 
 
@@ -140,11 +155,15 @@
 
         }
 
-        if (ViewBag.isRegistered != true && ViewBag.isRequest != true && userCookie != Model.CreatorAccount)
-        {
-            <b>&nbsp</b>
-            @Html.ActionLink("Iscriviti", "SignedUpProject", new { projectID = Model.ProjectID }, new { @class = "btn btn-info" })
 
+        if (userCookie != "")
+        {
+            if (ViewBag.isRegistered != true && ViewBag.isRequest != true && userCookie != Model.CreatorAccount)
+            {
+                <b>&nbsp</b>
+                @Html.ActionLink("Iscriviti", "SignedUpProject", new { projectID = Model.ProjectID }, new { @class = "btn btn-info" })
+
+            }
         }
 
     }
@@ -176,46 +195,110 @@
     <thead style="background:black; color:white;">
         <tr>
 
-            <th>
-                Name
+            <th class="mediaNone">
+                <b class="mediaNone"> Name</b>
             </th>
-            <th>
+            <th  class="mediaNone">
                 Description
             </th>
-            <th>
+            <th  class="mediaNone">
                 Stato
             </th>
-            <th>
+            <th  class="mediaNone">
                 DateInsert
             </th>
-            <th>
+            <th  class="mediaNone">
                 DateClose
             </th>
 
 
-            <th></th>
+            <th  class="mediaNone"></th>
         </tr>
     </thead>
 
     @foreach (var item in ViewBag.Task)
     {
-        <tr>
+
+        var color = "";
+        if (!@item.isClosed)
+        {
+            color = "#00a70d29;";
+        }
+        else
+        {
+            color = "#75151529;";
+        }
+
+        <tr style="background: @color;">
             <td style=" vertical-align: middle;">
-                @item.Name<br />
+               
+                    <h2 class="mediaNone"> @item.Name</h2>
+                    <h2 class="dettailResp" style="">
+                        @item.Name @if (!@item.isClosed)
+                        {
+                            <i class="material-icons" style="color: #037d45;font-size: 30px;">done_outline </i>
+                        }
+                        else
+                        {
+
+                            <i class="material-icons" style="color: #c01f1f; font-size: 35px;">
+                                trending_up
+                            </i>
+                        }
+                    </h2>
+                                   
+
+               
+                    <div class="dettailResp">
+                        <b>Data Apertura</b> :   @item.DateInsert.ToString("dd/MM/yyyy")<br />
+                        <b>Data Chiusura</b> :   @item.DateInsert.ToString("dd/MM/yyyy")
+                        <div style="background: #ececec69; border-radius: 5px; padding: 5px;">@item.Description</div>
+                        <br />
+                        <div style="text-align:right;">
+
+                            @if (ViewBag.isRequest == true && ViewBag.isRegistered == true || Model.CreatorAccount == userCookie)
+                            {
+                                if (!@item.isClosed)
+                                {
+                                    <a href="~/Task/Details/@item.TaskID" class="btn btn-success">Visualizza Task</a>
+                                }
+                                else
+                                {
+                                    <a href="~/Task/Details/@item.TaskID" class="btn btn-primary">Collabora</a>
+                                }
 
 
-                @if (userCookie == Model.CreatorAccount)
-                {
+                            }
 
-                    <a href="~/Task/Edit/@item.TaskID">Edit</a> <b>|</b>
-                    <a href="~/Task/Delete/@item.TaskID">Delete</a>
-                }
+                            @if (userCookie == Model.CreatorAccount)
+                            {
+
+                                <a href="~/Task/Edit/@item.TaskID" class="btn btn-warning">Edit</a>
+                                <a href="~/Task/Delete/@item.TaskID" class="btn btn-danger">Delete</a>
+                            }
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+               
+
+
+                <br />
+
+
+               
             </td>
-            <td style=" vertical-align: middle;">
+            <td style=" vertical-align: middle;"  class="mediaNone">
 
                 @item.Description
             </td>
-            <td style=" vertical-align: middle;">
+            <td style=" vertical-align: middle;"  class="mediaNone">
 
 
                 @if (!@item.isClosed)
@@ -231,25 +314,40 @@
                 }
 
             </td>
-            <td style=" vertical-align: middle;">
+            <td style=" vertical-align: middle;" class="mediaNone">
 
                 @item.DateInsert
             </td>
-            <td style=" vertical-align: middle;">
+            <td style=" vertical-align: middle;"  class="mediaNone">
                 @item.DateClose
             </td>
 
 
 
-            <td style=" vertical-align: middle;">
+            <td style=" vertical-align: middle;" class="mediaNone">
 
                 @if (ViewBag.isRequest == true && ViewBag.isRegistered == true || Model.CreatorAccount == userCookie)
                 {
+                    if (!@item.isClosed)
+                    {
+                        <a href="~/Task/Details/@item.TaskID" class="btn btn-success">Visualizza Task</a>
+                    }
+                    else
+                    {
+                        <a href="~/Task/Details/@item.TaskID" class="btn btn-primary">Collabora</a>
+                    }
 
 
-                    <a href="~/Task/Details/@item.TaskID">Collabora</a>
                 }
 
+                @if (userCookie == Model.CreatorAccount)
+                {
+
+                    <a href="~/Task/Edit/@item.TaskID" class="btn btn-warning">Edit</a>
+                    <a href="~/Task/Delete/@item.TaskID" class="btn btn-danger">Delete</a>
+                }
+
+               
 
 
             </td>
@@ -278,10 +376,7 @@
 
 </div>
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
 
 
 <script>
@@ -302,10 +397,10 @@
                     'rgba(54, 162, 235)'
                 ],
                 borderColor: [
-                    'rgb(0, 207, 0)',
-                    'rgb(0, 207, 0)'
+                    '#33333370',
+                    '#33333370'
                 ],
-                borderWidth: 1
+                borderWidth: 0
             }]
         },
         options: {
@@ -409,9 +504,20 @@
     $("#isClosed").change(function () {
 
         console.log('Toggle: ' + $(this).prop('checked'));
-
-
+        var r = "";
         if ($(this).prop('checked') == false) {
+            r = confirm("Continuando l'operazione, tutte le attività verranno chiuse");
+        }
+        else 
+            r = confirm("il proseguimento dell'operazione comporta l' apertura  di tutti le attività!"); 
+        
+
+
+
+        if (r == true) {
+
+
+             if ($(this).prop('checked') == false) {
             var url = "@Url.Action("CloseProject", "Project",new { id = Model.ProjectID, isClosede = false})";
             location.replace(url);
 
@@ -421,6 +527,12 @@
             location.replace(url);
 
         }
+        } else {
+            location.reload();
+        }
+
+
+
 
 
 

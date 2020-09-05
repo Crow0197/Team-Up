@@ -30,6 +30,8 @@ namespace Team_Up.Entities
        public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<TaskP> Tasks { get; set; }
 
+        public virtual ICollection<Signed_Up> SignedUp { get; set; }
+
         [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime DtInsert { get; set; }
         public bool isOpen { get; set; }

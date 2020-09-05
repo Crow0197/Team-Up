@@ -53,6 +53,13 @@ namespace Team_Up.DAL.EF
             return dbCategory.Categories.FirstOrDefault(x=> x.CategoryID == idSearch) ;
         }
 
+        public Category GetOne(string Search)
+        {
+            TeamUpContext dbCategory = new TeamUpContext();
+            return dbCategory.Categories.FirstOrDefault(x => x.Typology.ToUpper() == Search);
+        }
+
+
         public void Save()
         {
             throw new NotImplementedException();

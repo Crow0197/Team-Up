@@ -9,7 +9,8 @@ namespace Team_Up.DAL
 {
       public interface IRepositoryCompentence
     {
-        Competence GetOne(int idSearch);        
+        Competence GetOne(int idSearch);
+        Competence GetOne(string Search);
         void Update(Competence competence);
         Boolean Delete(Competence competence);
         List<Competence> GetAll();

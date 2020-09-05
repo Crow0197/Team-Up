@@ -7,101 +7,105 @@
 <h2>Create</h2>
 
 @{
-                ViewBag.NotLogin = false;
-                if (ViewBag.NotLogin == true)
-                { <h1>Prego fare il login</h1>}
+    ViewBag.NotLogin = false;
+    if (ViewBag.NotLogin == true)
+    { <h1>Prego fare il login</h1>}
 
-                else
-                {
-                    using (Html.BeginForm())
-                    {
-                        @Html.AntiForgeryToken()
+    else
+    {
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-                        <h4>ProjectModel</h4>
-
-
-
-
-
-                        <div class="form-horizontal">
-
-
-
-
-                            <hr />
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" , @min =DateTime.Now.ToString("yyyy-MM-dd")} })
-                                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2"> Compentece </label>
-                                <div class="col-md-10">
-                                    <select id="Compentece" required name="Compentece" multiple style="width: 100%;">
-
-                                        @foreach (var item in ViewBag.ListCompetence)
-                                        {
-                                            <option value="@item.CompetenceID">@item.typology</option>
-
-                                        }
-
-
-                                    </select>
-                                    <br /><b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
-
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2"> Compentece </label>
-                                <div class="col-md-10">
-                                    <select required id="Category" name="Category" multiple style="width: 100%;">
-
-                                        @foreach (var item in ViewBag.ListCategory)
-                                        {
-                                            <option value="@item.CategoryID">@item.Typology</option>
-
-                                        }
-
-
-                                    </select>
-                                    <br /><b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
-
-                                </div>
-                            </div>
+            <h4>ProjectModel</h4>
 
 
 
 
 
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Create" class="btn btn-default" />
-                                </div>
-                            </div>
-                        </div>
+            <div class="form-horizontal">
+
+
+
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @min = DateTime.Now.ToString("yyyy-MM-dd") } })
+                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Competenze </label>
+                    <div class="col-md-10">
+                        <select id="Compentece" required name="Compentece" multiple style="width: 100%;">
+
+                            @foreach (var item in ViewBag.ListCompetence)
+                            {
+                                <option value="@item.CompetenceID">@item.typology</option>
+
+                            }
+
+
+                        </select><br />
+                        <div class="text-danger" id="errorCompetence">    </div>
+
+                        <br /><b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Categorie </label>
+                    <div class="col-md-10">
+                        <select required id="Category" name="Category" multiple style="width: 100%;">
+
+                            @foreach (var item in ViewBag.ListCategory)
+                            {
+                                <option value="@item.CategoryID">@item.Typology</option>
+
+                            }
+
+
+                        </select>
+                        <div class="text-danger" id="errorCategory">    </div>
+
+                        <br /><b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
+
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" id="send" />
+                    </div>
+                </div>
+            </div>
         }
 
     }
@@ -119,3 +123,35 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+<script>
+    $("#send").click(function () {
+
+
+
+        if ($("#Compentece option:selected").length == 0) {
+
+            $("#errorCompetence").html("Inserisci almeno un valore");
+
+        }
+        else
+            $("#errorCompetence").html("");
+
+
+        if ($("#Category option:selected").length == 0) {
+
+            $("#errorCategory").html("Inserisci almeno un valore");
+
+        }
+        else
+            $("#errorCategory").html("");
+
+
+
+
+
+    });
+
+
+</script>

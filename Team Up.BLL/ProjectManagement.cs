@@ -16,6 +16,7 @@ namespace Team_Up.BLL
     {
         IRepositoryProject projectRepository;
         IRepositoryAccount accoutM;
+        TaskManagement taskManagement;
 
 
         public ProjectManagement()
@@ -23,6 +24,7 @@ namespace Team_Up.BLL
 
             projectRepository = new RepositoryProject();
             accoutM = new RepositoryAccount();
+            taskManagement = new TaskManagement();
         }
 
 
@@ -248,6 +250,13 @@ namespace Team_Up.BLL
         public bool CloseAndOpen(int idP, bool CloseOpen) {
 
             projectRepository.CloseAndOpen(idP,CloseOpen);
+
+            var taskList = taskManagement.GetFromProject(idP);
+
+            foreach (var item in taskList)
+            {
+                taskManagement.CloseOrOpen(item.TaskID, CloseOpen);
+            }
 
             return true;
         

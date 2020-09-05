@@ -7,10 +7,22 @@
 <h2>CreateCompentece</h2>
 
 
-@using (Html.BeginForm()) 
+@{
+    if (ViewBag.Duplicate != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                $('#myModal').modal('show');
+            };
+        </script>
+    }
+
+}
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>CompetenceModel</h4>
         <hr />
@@ -22,7 +34,7 @@
                 @Html.ValidationMessageFor(model => model.typology, "", new { @class = "text-danger" })
             </div>
         </div>
-               
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.Color, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -47,3 +59,32 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-body">
+                @if (ViewBag.Duplicate != true)
+                {
+
+                    <h1> </h1><br>
+
+                }
+                else if (ViewBag.Duplicate != false)
+                {
+            <h1> Competenza già presente!</h1><br>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

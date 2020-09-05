@@ -62,6 +62,11 @@ namespace Team_Up.DAL.EF
             return dbCompentence.Competences.FirstOrDefault(x=> x.CompetenceID == idSearch);
         }
 
+        public Competence GetOne(string Search)
+        {
+            return dbCompentence.Competences.FirstOrDefault(x => x.typology.ToUpper() == Search);
+        }
+
         public void Save()
         {
             throw new NotImplementedException();
