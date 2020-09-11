@@ -36,7 +36,7 @@ namespace Team_Up.BLL
             if (cookie != null)
             {               
                 returnUsername = cookie.Value;                
-            }
+             }
 
 
             return returnUsername;

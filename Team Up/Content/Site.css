@@ -1,4 +1,108 @@
-﻿body {
+﻿@font-face {
+    font-family: 'leanerthin';
+    src: url('leaner-thin-100-webfont.woff2') format('woff2'), url('leaner-thin-100-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.staffP {
+ 
+}
+
+
+footer {
+    color: white;
+    width: 100%;
+    background: #0c0a0a;
+    text-align: center;
+    padding: 1%;
+    position: absolute;
+    bottom:0px;
+}
+
+
+
+
+
+
+
+.staffPanel img {
+    width: 68%;
+}
+
+
+
+.staffPanel img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+
+
+.staffPanel b {
+    font-size: 25px;
+    font-family: 'leanerthin';
+}
+
+
+.Staff {
+    background: rgb(18 74 130 / 77%);
+    text-align: center;
+    color: white;
+    padding-top: 2%;
+    padding-bottom: 4%;
+    padding: 4%;
+}
+
+
+    .Staff h1 {
+        font-family: 'leanerthin';
+    }
+
+.btnHome {
+    border-radius: 3px;
+    color: rgb(51,74,92);
+    padding: 7px;
+    background: white;
+    font-size: 16px;
+    font-family: auto;
+    font-weight: 800;
+    font-family: leanerthin;
+}
+
+    .btnHome:hover {
+        border-radius: 3px;
+        color: rgb(51,74,92);
+        padding: 7px;
+        background: white;
+        font-size: 16px;
+        font-family: auto;
+        font-weight: 800;
+        font-family: leanerthin;
+    }
+
+.jumbroton {
+    text-align: center;
+   
+    background: rgba(52,73,94,0.8);
+    color: white;
+    padding: 5%;
+    padding-top: 2%;
+}
+
+
+.About {
+    text-align: center;
+    color: black;
+    padding-top: 2%;
+    padding-bottom: 2%;
+background:white;
+}
+
+
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -35,7 +139,6 @@ textarea {
 
 
 .tdMyaAvatar {
-    
     font-weight: bold;
     font-family: monospace;
 }
@@ -66,8 +169,8 @@ textarea {
 
 
 
-.dettailResp{
-    display:none;
+.dettailResp {
+    display: none;
 }
 
 
@@ -81,14 +184,11 @@ textarea {
     }
 
     #Competences {
-       
         display: none;
-      
     }
 
 
     #CompetencesMobile {
-        
         display: flex;
         flex-flow: row-reverse wrap;
     }
@@ -104,7 +204,6 @@ textarea {
             display: flex;
             margin: 2px;
         }
-
 }
 
 
@@ -196,6 +295,3 @@ textarea {
     font-size: 16px;
     font-family: monospace;
 }
-
-
-
