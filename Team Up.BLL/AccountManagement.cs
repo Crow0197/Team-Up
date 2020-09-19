@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using Team_Up.DAL;
+using Team_Up.DAL.EF;
 using Team_Up.DAL.EF.Repository;
 using Team_Up.Entities;
 using Team_Up.Models;
@@ -15,6 +16,7 @@ namespace Team_Up.BLL
     public class AccountManagement
     {
         IRepositoryAccount accountRepository;
+        IRepositoryConfig configSystenm;
 
 
 
@@ -22,6 +24,7 @@ namespace Team_Up.BLL
         {
 
             accountRepository = new RepositoryAccount();
+            configSystenm = new RepositoryConfig();
         }
 
         public bool Registration(AccountModel newAccont, int[] Compentece)
@@ -119,6 +122,11 @@ namespace Team_Up.BLL
 
         public bool PasswordRecovery(string url, string email)
         {
+
+            var systemEmail = configSystenm.GetOne("EmailSystem");
+            var systemEmailPass = configSystenm.GetOne("PassEmail");
+
+
             var account = accountRepository.GetOneEmail(email);
             if (account != null)
             {
@@ -128,11 +136,11 @@ namespace Team_Up.BLL
                 message.Subject = "Test Gmail da C#";
                 message.IsBodyHtml = true;
                 message.Body = "<a href=\"" + url + "\">Link</a>";
-                message.From = new MailAddress("nonreplaycrossteam@gmail.com", "Password Recovery CROSS-TEAM");
+                message.From = new MailAddress(systemEmail, "Password Recovery CROSS-TEAM");
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential("nonreplaycrossteam@gmail.com", "Seven123");
+                smtp.Credentials = new NetworkCredential(systemEmail, systemEmailPass);
                 smtp.Send(message);
 
                 return true;

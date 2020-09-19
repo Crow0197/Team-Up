@@ -13,11 +13,13 @@
         <div class="row">
             <div class="col-sm-6" style=" text-align: center;">
                 <img src="~/Uploads/@Html.DisplayFor(model => model.Avatar)" class="avatarClass" /><br />
-                @Html.ActionLink("Cambia Avatar", "UploadAvatar", "Account")           
+                <br />
+                @Html.ActionLink("Cambia Avatar", "UploadAvatar", "Account", new { /* id = Model.PrimaryKey */ }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Modifica Profilo", "Edit", new { /* id = Model.PrimaryKey */ }, new { @class = "btn btn-primary" })
             </div>
       
             <div class="col-sm-6">
-                <h1>Account:   @Html.DisplayFor(model => model.UserName)</h1>
+                <h1> @Html.DisplayFor(model => model.UserName) </h1>
                 <table class="table table-striped">
 
                     <tbody>
@@ -60,7 +62,7 @@
                         <tr>
                             <td>
 
-                                <h4><b>Competences:</b></h4>
+                                <h4><strong>Le mie competenze:</strong></h4>
                                 <div id="CompetencesMobile" class="mediaNone">
 
 
@@ -101,7 +103,7 @@
 
 
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@*<p>
+    @Html.ActionLink("Modifica Profilo", "Edit", new { /* id = Model.PrimaryKey */ }, new { @class = "btn btn-primary" }) 
+    
+</p>*@

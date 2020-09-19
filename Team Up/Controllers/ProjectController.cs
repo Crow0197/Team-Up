@@ -286,8 +286,7 @@ namespace Team_Up.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
-                              
+                // TODO: Add insert logic here                            
 
                 ProjectModel project = new ProjectModel();
 

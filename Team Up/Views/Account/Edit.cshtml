@@ -89,7 +89,7 @@
 
 
                 </select>
-                <br /><b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
+                <br /><strong style="color:red;"><u>Nota</u></strong>- Tieni premuto il tast <strong>CTRl</strong> per selezionare più di una comptenza
             </div>
         </div>
 
@@ -98,19 +98,21 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Avanti" class="btn btn-default" />
+                <input type="submit" value="Salva" class="btn btn-default" />
+                @Html.ActionLink("Cambia Avatar", "UploadAvatar", new { }, new { @class = "btn btn-primary" })
+
+                @Html.ActionLink("Cambia Password", "ChangePassword", new { username = Model.UserName }, new { @class = "btn btn-info" })
+
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Cambia Avatar", "UploadAvatar")
-</div>
-
-<div>   
-    @Html.ActionLink("Cambia Password", "ChangePassword", new { username = Model.UserName })
-</div>
+@*<div>
+    @Html.ActionLink("Cambia Avatar", "UploadAvatar", new { }, new { @class = "btn btn-primary" })
+  
+    @Html.ActionLink("Cambia Password", "ChangePassword", new { username = Model.UserName }, new { @class = "btn btn-info" })
+</div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -129,7 +131,7 @@
                 @if (ViewBag.success == true)
                 {
 
-                    <h1> Avatar aggiornato</h1><br>
+                    <h1> Profilo Modificato</h1><br>
 
                 }
                 else if (ViewBag.success == false)

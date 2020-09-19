@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Creazione Nuovo Progetto</h2>
 
 @{
     ViewBag.NotLogin = false;
@@ -17,7 +17,7 @@
         {
             @Html.AntiForgeryToken()
 
-            <h4>ProjectModel</h4>
+          
 
 
 
@@ -70,7 +70,7 @@
                         </select><br />
                         <div class="text-danger" id="errorCompetence">    </div>
 
-                        <br /><b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
+                        <br /><strong style="color:red;"><u>Nota</u></strong>- Tieni premuto il tast <strong>CTRl</strong> per selezionare più di una comptenza
 
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                         </select>
                         <div class="text-danger" id="errorCategory">    </div>
 
-                        <br /><b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
+                        <br /><strong style="color:red;"><u>Nota</u></strong>- Tieni premuto il tast <strong>CTRl</strong> per selezionare più di una comptenza
 
                     </div>
                 </div>
@@ -102,7 +102,8 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" id="send" />
+                        <input type="submit" value="Create" class="btn btn-default" id="send" style="display:none;" />
+                        <input type="button" value="Create" class="btn btn-default" id="validazione" />
                     </div>
                 </div>
             </div>
@@ -126,13 +127,13 @@
 
 
 <script>
-    $("#send").click(function () {
+    $("#validazione").click(function () {
 
 
 
-        if ($("#Compentece option:selected").length == 0) {
+        if ($("#Compentece option:selected").length < 2) {
 
-            $("#errorCompetence").html("Inserisci almeno un valore");
+            $("#errorCompetence").html("Inserisci almeno 2 competenze");
 
         }
         else
@@ -148,10 +149,18 @@
             $("#errorCategory").html("");
 
 
+        if ($("#Compentece option:selected").length >= 2) {
 
+        $("#send").click();
+
+        }
+
+
+       
 
 
     });
 
 
 </script>
+

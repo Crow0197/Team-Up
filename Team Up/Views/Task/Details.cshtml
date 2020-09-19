@@ -72,7 +72,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateClose)
+
+            @if (Model.DateClose != null)
+            {@Html.DisplayFor(model => model.DateClose)}
+            else { <strong>Non prevista</strong>}
+
+
+
+
         </dd>
 
         <dt>
@@ -172,7 +179,7 @@
 
     <div class="row">
         <div class="col-sm-2 profile">
-            <b>@item.UserName  </b>
+            <strong>@item.UserName  </strong>
             <div>
                 <img src="~/Uploads/@item.AccountDetails.Avatar" class="profileAvatar" />
 
@@ -180,15 +187,15 @@
             </div>
 
             <div style="">
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
             </div>
         </div>
 
 
-        <div class="col-sm-8">
-            <div class="row" style=" font-size: 10px;"><b>Inviato il </b>@item.DateInsert</div>
+        <div class="col-sm-8" style=" margin-left: 5%;">
+            <div class="row" style=" font-size: 10px;"><strong>Inviato il </strong>@item.DateInsert</div>
             <div class="row message">@Html.Raw(HttpUtility.HtmlDecode(item.Message))</div>
 
 

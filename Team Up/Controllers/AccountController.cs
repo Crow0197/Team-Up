@@ -119,7 +119,7 @@ namespace Team_Up.Controllers
         }
 
         // GET: Account/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, string success = "")
         {
             var usernLogin = cookiemanagement.GetCoockieAustetication();
             var utente = am.GetAccountForUsername(usernLogin);
@@ -154,6 +154,13 @@ namespace Team_Up.Controllers
                 ViewBag.NotLogin = true;
             }
 
+            if (success == "true")
+            {
+                ViewBag.success = true;
+            }
+            else if (success == "false") {
+                ViewBag.success = false;
+            }
 
             return View(utente);
 
@@ -168,13 +175,15 @@ namespace Team_Up.Controllers
             {
                 am.EditAccount(collection, Compentecey);
                 ViewBag.success = true;
+                return RedirectToAction("Edit", "Account", new { username = collection.UserName, success = "true" });
             }
             catch
             {
                 ViewBag.success = false;
+                return RedirectToAction("Edit", "Account", new { username = collection.UserName, success = "false" });
             }
 
-            return RedirectToAction("Edit", "Account", new { username = collection.UserName });
+
 
 
         }
@@ -264,6 +273,10 @@ namespace Team_Up.Controllers
 
         public ActionResult Login()
         {
+            if (cookiemanagement.GetCoockieAustetication() != "")
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             return View();
         }

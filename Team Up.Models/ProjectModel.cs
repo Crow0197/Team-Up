@@ -10,15 +10,19 @@ namespace Team_Up.Models
     public class ProjectModel
     {
         [Required]
+        [Display(Name = "Titolo")]
         public string Title { get; set; }
 
+        [Display(Name = "Data di Apertura")]
         [DataType(DataType.Date)]
         public DateTime? Date { get; set; }
         [Required]
 
         [DataType(DataType.Text)]
+        [Display(Name = "Descrizione")]
         public string Description { get; set; }
 
+        [Display(Name = "Creato Da")]
         public string CreatorAccount { get; set; }
 
         public List<CompetenceModel> Competences { get;set;}
@@ -28,10 +32,11 @@ namespace Team_Up.Models
         public List<TaskModel> Tasks { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Creato il: ")]
         public DateTime DtInsert { get; set; }
 
         public int ProjectID { get; set; }
-
+        [Display(Name = "Aperto")]
         public bool isOpen { get; set; }
 
         public string getCompetencesTostring() { 

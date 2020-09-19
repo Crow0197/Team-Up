@@ -9,6 +9,7 @@ using Team_Up.Entities;
 using Team_Up.Models;
 using System.Net.Mail;
 using System.Net;
+using Team_Up.DAL.EF;
 
 namespace Team_Up.BLL
 {
@@ -16,6 +17,7 @@ namespace Team_Up.BLL
     {
         IRepositoryProject projectRepository;
         IRepositoryAccount accoutM;
+        IRepositoryConfig configSystenm;
         TaskManagement taskManagement;
 
 
@@ -25,6 +27,7 @@ namespace Team_Up.BLL
             projectRepository = new RepositoryProject();
             accoutM = new RepositoryAccount();
             taskManagement = new TaskManagement();
+            configSystenm = new RepositoryConfig();
         }
 
 
@@ -158,6 +161,10 @@ namespace Team_Up.BLL
             var idSigneUp = projectRepository.SignedUp(project, userDb);
 
 
+            var systemEmail = configSystenm.GetOne("EmailSystem");
+            var systemEmailPass = configSystenm.GetOne("PassEmail");
+
+
 
             string url = "http://www.cross-team.it/Project/AcceptRegistration/?idSignedUp=" + idSigneUp + "&accepted=";
             MailMessage message = new MailMessage();
@@ -166,11 +173,11 @@ namespace Team_Up.BLL
             message.IsBodyHtml = true;
 
             message.Body = "L'utente " + user.UserName + " Vuole iscriversi al tuo progetto... OK ?<br> <a href=\"" + url + "true" + "\">Si</a> ! <a href=\"" + url + "false" + "\">No</a>";
-            message.From = new MailAddress("nonreplaycrossteam@gmail.com", "Iscrizione" + project.Title.ToUpper());
+            message.From = new MailAddress(systemEmail, "Iscrizione" + project.Title.ToUpper());
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.EnableSsl = true;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential("nonreplaycrossteam@gmail.com", "Seven123");
+            smtp.Credentials = new NetworkCredential(systemEmail, systemEmailPass);
             smtp.Send(message);
 
 
@@ -199,12 +206,14 @@ namespace Team_Up.BLL
             if (reply) { message.Body += "Accetta"; }
             else message.Body += "Rifiutata";
 
+            var systemEmail = configSystenm.GetOne("EmailSystem");
+            var systemEmailPass = configSystenm.GetOne("PassEmail");
 
             message.From = new MailAddress("nonreplaycrossteam@gmail.com", "Iscrizione: " + title);
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.EnableSsl = true;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential("nonreplaycrossteam@gmail.com", "Seven123");
+            smtp.Credentials = new NetworkCredential(systemEmail, systemEmailPass);
             smtp.Send(message);
 
 

@@ -76,7 +76,7 @@
 
 
                     </select><br />
-                    <b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
+                    <b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <strong>CTRl</strong> per selezionare più di una comptenza
 
                 </div>
                 <div class="col-sm-6">
@@ -102,7 +102,7 @@
 
 
                     </select><br />
-                    <b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <b>CTRl</b> per selezionare più di una comptenza
+                    <b style="color:red;"><u>Nota</u></b>- Tieni premuto il tast <strong>CTRl</strong> per selezionare più di una comptenza
 
                 </div>
 
@@ -125,7 +125,7 @@
 
 
 
-<h1>Progetto </h1>
+<h1>Lista Progetti </h1>
 
 <p>
 
@@ -133,7 +133,7 @@
         HttpCookie cookie = HttpContext.Current.Request.Cookies.Get("UserLogin");
         if (cookie != null && cookie.Value != "")
         {
-            @Html.ActionLink("Create New", "Create");
+            @Html.ActionLink("Crea un Nuovo Progetto", "Create", new { }, new { @class = "btn btn-primary" });
         }
     }
 
@@ -179,7 +179,7 @@
 
 
             <tr style="background:@color">
-                <td style="vertical-align: middle;"> 
+                <td style="vertical-align: middle;">
                     <div class="mediaNone">
 
                         <b style="color:black">
@@ -190,8 +190,8 @@
 
                         @if (cookie != null && cookie.Value != "" && (cookie.Value == item.CreatorAccount || cookie.Value == "Admin"))
                         {
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) <b>|</b>
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })
+                            @Html.ActionLink("Modifica", "Edit", new { id = item.ProjectID }) <strong>|</strong>
+                            @Html.ActionLink("Elimina", "Delete", new { id = item.ProjectID })
                         }
 
 
@@ -210,29 +210,20 @@
 
                         @if (cookie != null && cookie.Value != "" && (cookie.Value == item.CreatorAccount || cookie.Value == "Admin"))
                         {
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) <b>|</b>
-                            @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) <b>|</b>
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })<br />
+                            @Html.ActionLink("Modifica", "Edit", new { id = item.ProjectID }) <strong>|</strong>
+                            @Html.ActionLink("Dettagli", "Details", new { id = item.ProjectID }) <strong>|</strong>
+                            @Html.ActionLink("Elimina", "Delete", new { id = item.ProjectID })<br />
                         }
 
 
 
+                        <strong><br /> @Html.DisplayNameFor(model => model.DtInsert)</strong>
+                        @Html.DisplayFor(modelItem => item.DtInsert):<br />
 
 
+                        <strong>@Html.DisplayNameFor(model => model.CreatorAccount) </strong>: @Html.DisplayFor(modelItem => item.CreatorAccount)  <br />
 
-
-                        @{
-                            if (item.Date > new DateTime(0001, 01, 01))
-                            {
-                                <b> @Html.DisplayNameFor(model => model.Date)  </b>
-                                @Html.DisplayFor(modelItem => item.Date)}
-                        }
-
-
-                        <b><br /> @Html.DisplayFor(modelItem => item.DtInsert): </b> @Html.DisplayNameFor(model => model.DtInsert)<br />
-                        <b>CreatorAccount: </b> @Html.DisplayNameFor(model => model.CreatorAccount)<br />
-
-                        <b>Description</b>
+                        <strong>Descrizione</strong>
                         @{
                             if (item.Description.Length > 350)
                             {
@@ -242,7 +233,7 @@
 
                         <p style="max-width: 98%;  padding: 12px; overflow-wrap: break-word; word-wrap: break-word; hyphens: auto; white-space: break-spaces; overflow: auto;">@item.Description</p>
 
-                        <h3>Competences:</h3>
+                        <h3>Competenze :</h3>
                         <div id="CompetencesMobile" class="mediaNone">
 
 
@@ -263,7 +254,7 @@
 
                         </div>
 
-                        <h3>Categories:</h3>
+                        <h3>Categorie:</h3>
                         <div id="CompetencesMobile" class="mediaNone">
 
 
@@ -286,8 +277,8 @@
                     </div>
                 </td>
                 <td class="mediaNone" style="vertical-align: middle;">
-                    
-                    
+
+
                     @{
                         if (item.Date > new DateTime(0001, 01, 01))
                         {
@@ -313,7 +304,7 @@
                     @Html.DisplayFor(modelItem => item.CreatorAccount)
                 </td>
                 <td class="mediaNone" style="vertical-align: middle;">
-                    <h4 style="" class="mediaNone">Competences:</h4>
+                    <h4 style="" class="mediaNone">Competenze:</h4>
                     <div id="Competences" class="mediaNone">
 
 
@@ -334,7 +325,7 @@
 
                     </div>
                     <br />
-                    <h4 style="" class="mediaNone">Categories:</h4>
+                    <h4 style="" class="mediaNone">Categorie:</h4>
                     <div id="Competences" class="mediaNone">
 
                         @{

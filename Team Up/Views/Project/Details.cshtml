@@ -19,7 +19,7 @@
 <br />
 
 
-<b></b>
+<strong></strong>
 
 @{
 
@@ -48,16 +48,16 @@
             @if (userCookie == Model.CreatorAccount)
             {
                 @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectID }, new { @class = "btn btn-warning" })
-               <b></b> @Html.ActionLink("Delete", "Delete", new { id = Model.ProjectID }, new { @class = "btn btn-danger" })<br />
+               <strong></strong> @Html.ActionLink("Delete", "Delete", new { id = Model.ProjectID }, new { @class = "btn btn-danger" })<br />
             <br />}
 
 
 
-            <b>Team Leader:</b>  @Html.DisplayFor(model => model.CreatorAccount)<b>&nbsp|&nbsp</b>
+            <strong>Team Leader:</strong>  @Html.DisplayFor(model => model.CreatorAccount)<strongb>&nbsp|&nbsp</strongb>
 
 
 
-            <br /><b>Start:</b>  @Html.DisplayFor(model => model.DtInsert)<b>&nbsp|&nbsp</b>
+            <br /><strong>Start:</strong>  @Html.DisplayFor(model => model.DtInsert)<strong>&nbsp|&nbsp</strong>
 
             @{
                 var dateClose = Model.Date.Value.ToString("yyyy-MM-dd").ToString();
@@ -65,7 +65,7 @@
                 if (dateClose != "0001-01-01")
                 {
 
-                    <b>Chiusura Prevista:</b> @Html.DisplayFor(model => model.Date)
+                    <strong>Chiusura Prevista:</strong> @Html.DisplayFor(model => model.Date)
                     <br />
 
                     var ExtraDay = DateTime.Now.Subtract((DateTime)Model.Date).Days;
@@ -75,7 +75,7 @@
 
                     }
 
-                    <br /><b>Giorni Extra Di Lavaorazione:</b> @ExtraDay
+                    <br /><strong>Giorni Extra Di Lavaorazione:</strong> @ExtraDay
                 }
             }
 
@@ -89,7 +89,7 @@
 
 
 
-            <br />  <a data-toggle="modal" data-target="#myModal" style="color:black;"><b>Lista Partecipanti</b> (@ViewBag.UserCofirmed.Count)  </a>
+            <br />  <a data-toggle="modal" data-target="#myModal" style="color:black;"><strong>Lista Partecipanti</strong> (@ViewBag.UserCofirmed.Count)  </a>
 
             <br />  @Html.DisplayFor(model => model.Description)
         </div>
@@ -160,7 +160,7 @@
         {
             if (ViewBag.isRegistered != true && ViewBag.isRequest != true && userCookie != Model.CreatorAccount)
             {
-                <b>&nbsp</b>
+                <strong>&nbsp</strong>
                 @Html.ActionLink("Iscriviti", "SignedUpProject", new { projectID = Model.ProjectID }, new { @class = "btn btn-info" })
 
             }
@@ -180,10 +180,10 @@
 
 @if (ViewBag.isRequest == false && ViewBag.isRegistered == true)
 {
-    <b>
+    <strong>
         La tua Richiesta è in fase di accettazione<br />
 
-    </b>
+    </strong>
 
 }
 
@@ -250,8 +250,8 @@
 
                
                     <div class="dettailResp">
-                        <b>Data Apertura</b> :   @item.DateInsert.ToString("dd/MM/yyyy")<br />
-                        <b>Data Chiusura</b> :   @item.DateInsert.ToString("dd/MM/yyyy")
+                        <strong>Data Apertura</strong> :   @item.DateInsert.ToString("dd/MM/yyyy")<br />
+                        <strong>Data Chiusura</strong> :   @item.DateInsert.ToString("dd/MM/yyyy")
                         <div style="background: #ececec69; border-radius: 5px; padding: 5px;">@item.Description</div>
                         <br />
                         <div style="text-align:right;">

@@ -56,20 +56,32 @@
 
             <div class="col-md-10">
                 @{
-                    var dateClose = Model.DateClose.Value.ToString("yyyy-MM-dd").ToString();
 
-                    if (dateClose != "0001-01-01")
+                    if (Model.DateClose != null)
                     {
-                        <input type="date" name="DateClose" class="form-control" min=@DateTime.Now.ToString("yyyy-MM-dd") value=@dateClose } />
 
 
+
+
+
+                        var dateClose = Model.DateClose.Value.ToString("yyyy-MM-dd").ToString();
+
+                        if (dateClose != "0001-01-01")
+                        {
+                            <input type="date" name="DateClose" class="form-control" min=@DateTime.Now.ToString("yyyy-MM-dd") value=@dateClose } />
+
+
+                        }
+                        else
+                        {
+
+                            <input type="date" name="DateClose" class="form-control" min=@DateTime.Now.ToString("yyyy-MM-dd") } />
+
+                        }
                     }
+
                     else
-                    {
-
-                        <input type="date" name="DateClose" class="form-control" min=@DateTime.Now.ToString("yyyy-MM-dd") } />
-
-                    }
+                    { <input type="date" name="DateClose" class="form-control" min=@DateTime.Now.ToString("yyyy-MM-dd") } /> }
 
 
                 }
