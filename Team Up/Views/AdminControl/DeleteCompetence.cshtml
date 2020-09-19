@@ -1,8 +1,9 @@
 ﻿@model Team_Up.Models.CompetenceModel
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Sicura di voler eliminare  <strong>@Model.typology</strong>? </h3>
+
 <div>
-    <h4>CompetenceModel</h4>
+  
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -38,8 +39,7 @@
 
     <input type="text" value="@Model.CompetenceID" name="CompetenceID" style="display:none;" />
 
-    <input type="submit" value="Delete" class="btn btn-default" /> |
-    @Html.ActionLink("Back to List", "Index")
+    <input type="submit" value="Delete" class="btn btn-default" /> 
 </div>
     }
 </div>

@@ -79,7 +79,7 @@ namespace Team_Up.DAL.EF.Repository
                 TeamUpContext db = new TeamUpContext();
                 var accountDelete = db.Accounts.First(x => x.AccountID == id);
                 db.Accounts.Remove(accountDelete);
-                db.Database.ExecuteSqlCommand("Delete from [Accounts] where [UserName] = '" + accountDelete.UserName + "'");
+                db.Database.ExecuteSqlCommand("ALTER TABLE [Projects] NOCHECK CONSTRAINT ALL Delete from [Accounts] where [UserName] = '" + accountDelete.UserName + "'");
                 db.SaveChanges();
                 return true;
             }

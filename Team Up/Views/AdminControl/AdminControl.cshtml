@@ -19,7 +19,9 @@
 }
 
 
-<h2>Control Panel</h2>
+<h2>
+    Pannello di controllo
+</h2>
 
 
 <div id="exTab1" class="container">
@@ -28,10 +30,10 @@
             <a href="#1a" data-toggle="tab">Account</a>
         </li>
         <li>
-            <a href="#2a" data-toggle="tab">Compentence</a>
+            <a href="#2a" data-toggle="tab">Competenze </a>
         </li>
         <li>
-            <a href="#3a" data-toggle="tab">Categories</a>
+            <a href="#3a" data-toggle="tab">Categorie</a>
         </li>
 
     </ul><br />
@@ -85,8 +87,8 @@
                         </td>
 
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { username = item.UserName }) |
-                            @Html.ActionLink("Delete", "Delete", new { username = item.UserName })
+                            @Html.ActionLink("Modifica", "Edit", new { username = item.UserName }) |
+                            @Html.ActionLink("Elimina", "Delete", new { username = item.UserName })
                         </td>
                     </tr>
                 }
@@ -99,7 +101,7 @@
             <table class="table">
                 <tr>
                     <th>
-                        Typology
+                        Nome
                     </th>
                     <th>
                         Classe Css
@@ -119,7 +121,7 @@
                         </td>
 
                         <td>
-                            @Html.ActionLink("Delete", "DeleteCompetence", new { CompetenceID = item.CompetenceID })
+                            @Html.ActionLink("Elimina", "DeleteCompetence", new { CompetenceID = item.CompetenceID })
                         </td>
                     </tr>
                 }
@@ -133,7 +135,7 @@
             <table class="table">
                 <tr>
                     <th>
-                        Typology
+                        Nome
                     </th>
                     <th>
                         Classe Css
@@ -153,7 +155,7 @@
                         </td>
 
                         <td>
-                            @Html.ActionLink("Delete", "DeleteCategories", new { CategoryID = item.CategoryID })
+                            @Html.ActionLink("Elimina", "DeleteCategories", new { CategoryID = item.CategoryID })
                         </td>
                     </tr>
                 }

@@ -203,7 +203,7 @@ namespace Team_Up.BLL
 
             message.Body = "La tua richiesta di iscrizione al progetto " + title + " è stata: ";
 
-            if (reply) { message.Body += "Accetta"; }
+            if (reply) { message.Body += "Confermata"; }
             else message.Body += "Rifiutata";
 
             var systemEmail = configSystenm.GetOne("EmailSystem");

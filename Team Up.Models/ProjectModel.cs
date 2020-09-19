@@ -13,7 +13,7 @@ namespace Team_Up.Models
         [Display(Name = "Titolo")]
         public string Title { get; set; }
 
-        [Display(Name = "Data di Apertura")]
+        [Display(Name = "Previsione Termine")]
         [DataType(DataType.Date)]
         public DateTime? Date { get; set; }
         [Required]

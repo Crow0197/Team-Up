@@ -181,7 +181,7 @@
 @if (ViewBag.isRequest == false && ViewBag.isRegistered == true)
 {
     <strong>
-        La tua Richiesta è in fase di accettazione<br />
+        La tua Richiesta è in fase di conferma<br />
 
     </strong>
 
@@ -471,7 +471,7 @@
                                 {
 
 
-                                    <li class="list-group-item">@item.Account    <b style="float: right;">  @Html.ActionLink("Rifiuta", "AcceptRegistration", "Project", new { @idSignedUp = @item.Id, @accepted = false, @idP = Model.ProjectID }, new { @class = "" }) -  @Html.ActionLink("Accetta", "AcceptRegistration", "Project", new { @idSignedUp = @item.Id, @accepted = true, @idP = Model.ProjectID }, new { @class = "" }) - @Html.ActionLink("Go To Account", "ViewAccount", "Account", new { @Username = @item.Account, @idP = Model.ProjectID }, new { @class = "" })</b></li>
+                                    <li class="list-group-item">@item.Account    <b style="float: right;">  @Html.ActionLink("Rifiuta", "AcceptRegistration", "Project", new { @idSignedUp = @item.Id, @accepted = false, @idP = Model.ProjectID }, new { @class = "" }) -  @Html.ActionLink("Conferma", "AcceptRegistration", "Project", new { @idSignedUp = @item.Id, @accepted = true, @idP = Model.ProjectID }, new { @class = "" }) - @Html.ActionLink("Go To Account", "ViewAccount", "Account", new { @Username = @item.Account, @idP = Model.ProjectID }, new { @class = "" })</b></li>
 
 
                                 }
