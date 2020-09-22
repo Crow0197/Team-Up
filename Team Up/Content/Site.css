@@ -6,7 +6,6 @@
 }
 
 .staffP {
- 
 }
 
 
@@ -17,7 +16,7 @@ footer {
     text-align: center;
     padding: 1%;
     position: absolute;
-    bottom:0px;
+    bottom: 0px;
 }
 
 
@@ -84,7 +83,6 @@ footer {
 
 .jumbroton {
     text-align: center;
-   
     background: rgba(52,73,94,0.8);
     color: white;
     padding: 5%;
@@ -97,7 +95,7 @@ footer {
     color: black;
     padding-top: 2%;
     padding-bottom: 2%;
-background:white;
+    background: white;
 }
 
 

@@ -37,7 +37,7 @@ namespace Team_Up.BLL
             mapping.MapObjects(newAccont, entityAccounts);
             entityAccounts.Password = encryption.base64Encode(entityAccounts.Password);
 
-
+            entityAccounts.isClose = false;
 
             return accountRepository.Create(entityAccounts, Compentece);
         }

@@ -9,7 +9,7 @@ namespace Team_Up.DAL.EF.Repository
 {
     public class RepositoryAccount : IRepositoryAccount
     {
-              
+
 
 
 
@@ -27,14 +27,14 @@ namespace Team_Up.DAL.EF.Repository
                 }
 
             account.Competences = listCompetences;
-                       
+
 
 
             if (GetOne(account.UserName) == null && GetOneEmail(account.Email) == null)
             {
                 db.Accounts.Add(account);
                 db.SaveChanges();
-                
+
                 return true;
             }
             else
@@ -48,7 +48,7 @@ namespace Team_Up.DAL.EF.Repository
         {
             TeamUpContext db = new TeamUpContext();
             Account account = new Account();
-            account = db.Accounts.FirstOrDefault(a => a.AccountID == id);
+            account = db.Accounts.FirstOrDefault(a => a.AccountID == id && a.isClose != true);
             return account;
         }
 
@@ -56,7 +56,7 @@ namespace Team_Up.DAL.EF.Repository
         {
             TeamUpContext db = new TeamUpContext();
             Account account = new Account();
-            account = db.Accounts.FirstOrDefault(a => a.UserName == username);
+            account = db.Accounts.FirstOrDefault(a => a.UserName == username && a.isClose != true);
             return account;
         }
 
@@ -78,8 +78,9 @@ namespace Team_Up.DAL.EF.Repository
             {
                 TeamUpContext db = new TeamUpContext();
                 var accountDelete = db.Accounts.First(x => x.AccountID == id);
-                db.Accounts.Remove(accountDelete);
-                db.Database.ExecuteSqlCommand("ALTER TABLE [Projects] NOCHECK CONSTRAINT ALL Delete from [Accounts] where [UserName] = '" + accountDelete.UserName + "'");
+                // db.Accounts.Remove(accountDelete);
+                // db.Database.ExecuteSqlCommand("Delete from [CompetenceAccounts] where [UserName] = '" + accountDelete.UserName + "'");
+                accountDelete.isClose = true;
                 db.SaveChanges();
                 return true;
             }
@@ -88,12 +89,12 @@ namespace Team_Up.DAL.EF.Repository
 
                 return false;
             }
-            
+
         }
         public List<Account> GetAll()
         {
             TeamUpContext db = new TeamUpContext();
-            return db.Accounts.ToList();
+            return db.Accounts.Where(x => x.isClose != true).ToList();
         }
 
         public void Save()
@@ -112,10 +113,10 @@ namespace Team_Up.DAL.EF.Repository
                 var dbAccount = db.Accounts.First(a => a.UserName == account.UserName);
 
 
-                if(account.Avatar != null)                
-                dbAccount.Avatar = account.Avatar;
+                if (account.Avatar != null)
+                    dbAccount.Avatar = account.Avatar;
 
-                if (account.DateOfBirth != null)
+                if (account.DateOfBirth > new DateTime(1900, 01, 01))
                     dbAccount.DateOfBirth = account.DateOfBirth;
 
                 if (account.UserName != null)
@@ -133,21 +134,22 @@ namespace Team_Up.DAL.EF.Repository
                 if (account.Password != null)
                     dbAccount.Password = account.Password;
 
-                if (account.Competences != null) {                    
-                    db.Database.ExecuteSqlCommand("Delete from [CompetenceAccounts] where [UserName] = '" + account.UserName + "'" );
+                if (account.Competences != null)
+                {
+                    db.Database.ExecuteSqlCommand("Delete from [CompetenceAccounts] where [UserName] = '" + account.UserName + "'");
 
 
                     List<Competence> listCompetences = new List<Competence>();
-                    
-                        foreach (var item in account.Competences)
-                        {
-                            listCompetences.Add(db.Competences.FirstOrDefault(c => c.CompetenceID == item.CompetenceID));
-                        }
-                        
+
+                    foreach (var item in account.Competences)
+                    {
+                        listCompetences.Add(db.Competences.FirstOrDefault(c => c.CompetenceID == item.CompetenceID));
+                    }
+
                     dbAccount.Competences = listCompetences;
 
                 }
-                    
+
 
                 db.SaveChanges();
 
@@ -158,7 +160,7 @@ namespace Team_Up.DAL.EF.Repository
                 return false;
             }
 
-            
+
 
         }
 

@@ -30,8 +30,8 @@ namespace Team_Up.Entities
         public virtual ICollection<Signed_Up> SignedUp { get; set; }
         public virtual ICollection<TaskP> Tasks { get; set; }
         public virtual ICollection<Reply> Replies { get; set; }
-        public string Avatar { get; set; }       
-
+        public string Avatar { get; set; }
+        public bool isClose { get; set; }
 
     }
 }
